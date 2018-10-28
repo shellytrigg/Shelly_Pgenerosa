@@ -1,0 +1,105 @@
+---
+title: "10Kreads_Geoduck"
+author: "Shelly Trigg"
+date: "10/24/2018"
+output: rmarkdown::github_document
+---
+
+```{r setup, include = FALSE }
+library(methylKit)
+library(ggplot2)
+library(RColorBrewer)
+```
+
+Mapping Efficiency
+```{r}
+mapEff <- data.frame(read.table("/Volumes/web/metacarcinus/Pgenerosa/20181011/EPI_mapping_dedup_summary_clean.txt", nrows = 52))
+mapEff$V1 <- as.numeric(substr(as.character(unlist(mapEff$V1)),1,4))
+colnames(mapEff)[1] <- "mapping_efficiency"
+ggplot(mapEff, aes(mapping_efficiency)) + geom_histogram(color = "darkblue", fill = "lightblue") + xlab("mapping efficiency (%)") + ylab("number of samples")
+```
+All samples have > 50% mapping efficiency, which is pretty good. 
+
+Create file list for reading in Bismark alignments (deduplicated sorted bam files)
+```{r}
+file.list=c(dir("/Volumes/web/metacarcinus/Pgenerosa/20181011/dedup_sorted_bams/",pattern = "_dedup.sorted.bam"))
+file.list <- paste("/Volumes/web/metacarcinus/Pgenerosa/20181011/dedup_sorted_bams/", file.list, sep = "")
+file.list <- as.list(file.list)
+```
+
+Read in treatment info for these samples
+```{r}
+treatment <- read.csv("~/Documents/GitHub/Shelly_Pgenerosa/data/Treatment_info.csv", header = TRUE)
+#subset dataframe to exclude lines with no info in them
+treatment <- treatment[1:52,]
+
+#create a list of lists (the format that methylkit expects) for sample ids
+li <- list()
+for (i in 1:length(treatment$sampleno))
+  li[[i]] = as.character(treatment$sampleno[i])
+
+#order treatment data frame by treatment to be able to add replicate numbers to each sample
+treatment <- treatment[order(treatment$treatment),]
+#create replicate numbers (1-4) for each treatment (13)
+treatment$replicate <- rep(1:4,13)
+```
+
+Read methylation calls from Bismark alignments  
+```{r}
+myobj <- processBismarkAln(location = file.list, sample.id = li, 
+                          assembly = "v3", read.context="CpG", mincov=3, treatment = treatment$treatment)
+```
+
+calculate region coverage  
+```{r}
+tiles <- tileMethylCounts(myobj,win.size=1000,step.size=1000)
+```
+
+find regions covered by all samples 
+```{r}
+mmeth <- unite(tiles, min.per.group = 1L)
+```
+This finds regions that are covered by two or more samples I believe, because the covereage has NAs for some samples. 
+```{r}
+#chromosome regions that are covered by all samples
+d_noNAs <-getData(mmeth)[complete.cases(getData(mmeth)),]
+nrow(d_noNAs)
+```
+There are only 11 regions that have coverage from all samples
+
+make a data frame with unqiue chromosome positions, sample number, and coverage to plots coverage for each sample
+```{r}
+#subset mmeth data for genome locations and sample coverage of each location
+d <- getData(mmeth)[,c(1:2,grep("coverage", colnames(getData(mmeth))))]
+#make genome region names easier to read; remove all characters downstream '__'
+d$chr <- sub("__.*","",d$chr)
+#remove 'PGA_scaffold' from genome region names, leaving only the scaffold number
+d$chr <- sub("PGA_scaffold","",d$chr)
+#add position info to the genome region names and convert to numeric for continuous plotting 
+d$chr <- as.numeric(paste(d$chr,d$start, sep ="."))
+#load tidyr library to reshape data for plotting; can't load this in the beginning because it interfers with methylkit
+library(tidyr)
+#reshape data from wide to long for plotting
+d <- gather(d, order, coverage, 3:ncol(d))
+#remove 'coverage' from order column so only numbers remain
+d$order <- sub("coverage","",d$order)
+#merge treatment info with coverage data for plotting
+d <- merge(d, treatment[,5:9])
+#replace NAs with zeros
+d[is.na(d)] <- 0
+```
+
+```{r, echo = FALSE}
+uniqTreat <- data.frame(unique(d$treatment))
+for(i in 1:nrow(uniqTreat)){
+  print(ggplot(d[which(d$treatment == uniqTreat[i,1]),], aes(chr, coverage, color = factor(replicate))) + geom_area(aes(fill = factor(replicate), alpha = 0.25)) + facet_wrap(~treatment, scales = "free") +xlab("genome region") + ylab("coverage (reads)") + theme_bw() + ggtitle("stacked coverage across genome regions"))
+}
+
+#Plot chromosome regions where data is missing
+
+colourCount = length(unique(d$treatment))
+getPalette = colorRampPalette(brewer.pal(12, "Paired"))
+
+ggplot(d[which(d$coverage == 0),], aes(chr, fill = treatment)) + geom_histogram() + scale_fill_manual(values = getPalette(colourCount)) + theme_bw() + facet_wrap(~TimePoint) + xlab("genome region") + ylab("number of samples") + ggtitle("samples missing data from genome regions")
+```
+
