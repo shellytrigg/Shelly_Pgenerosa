@@ -4,6 +4,7 @@ Shelly Trigg
 10/24/2018
 
 Mapping Efficiency
+------------------
 
 ``` r
 mapEff <- data.frame(read.table("/Volumes/web/metacarcinus/Pgenerosa/20181011/EPI_mapping_dedup_summary_clean.txt", nrows = 52))
@@ -14,7 +15,67 @@ ggplot(mapEff, aes(mapping_efficiency)) + geom_histogram(color = "darkblue", fil
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-1-1.png) All samples have \> 50% mapping efficiency, which is pretty good.
+![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-1-1.png)
+
+### All samples have \> 50% mapping efficiency, which is pretty good.
+
+            | sample no. | mapping efficiency (%) | duplicate reads | duplicated reads (%) |
+            |------------|------------------------|-----------------|----------------------|
+            | 103        | 65.9                   | 98              | 1.49                 |
+            | 104        | 65.5                   | 81              | 1.24                 |
+            | 111        | 64.4                   | 68              | 1.06                 |
+            | 113        | 65.8                   | 131             | 2                    |
+            | 119        | 64.0                   | 83              | 1.3                  |
+            | 120        | 65.1                   | 73              | 1.13                 |
+            | 127        | 65.8                   | 77              | 1.17                 |
+            | 128        | 65.6                   | 89              | 1.36                 |
+            | 135        | 63.3                   | 104             | 1.65                 |
+            | 136        | 62.3                   | 97              | 1.56                 |
+            | 143        | 63.1                   | 53              | 0.84                 |
+            | 145        | 64.1                   | 93              | 1.45                 |
+            | 151        | 60.2                   | 28              | 0.47                 |
+            | 152        | 57.6                   | 41              | 0.72                 |
+            | 153        | 61.3                   | 66              | 1.08                 |
+            | 154        | 56.8                   | 33              | 0.59                 |
+            | 159        | 62.4                   | 78              | 1.26                 |
+            | 160        | 56.6                   | 80              | 1.42                 |
+            | 161        | 52.9                   | 42              | 0.8                  |
+            | 162        | 54.7                   | 55              | 1.01                 |
+            | 167        | 63.5                   | 34              | 0.54                 |
+            | 168        | 60.8                   | 58              | 0.96                 |
+            | 169        | 59.1                   | 40              | 0.68                 |
+            | 170        | 55.4                   | 69              | 1.25                 |
+            | 175        | 62.5                   | 58              | 0.93                 |
+            | 176        | 56.4                   | 59              | 1.05                 |
+            | 181        | 60.9                   | 78              | 1.29                 |
+            | 182        | 62.2                   | 110             | 1.78                 |
+            | 184        | 61.7                   | 72              | 1.18                 |
+            | 185        | 61.5                   | 73              | 1.2                  |
+            | 187        | 64.0                   | 64              | 1.01                 |
+            | 188        | 56.7                   | 53              | 0.94                 |
+            | 193        | 57.6                   | 51              | 0.89                 |
+            | 194        | 63.0                   | 34              | 0.54                 |
+            | 199        | 58.4                   | 25              | 0.43                 |
+            | 200        | 59.6                   | 38              | 0.64                 |
+            | 205        | 55.6                   | 52              | 0.94                 |
+            | 206        | 60.9                   | 33              | 0.54                 |
+            | 208        | 56.6                   | 83              | 1.47                 |
+            | 209        | 61.5                   | 47              | 0.77                 |
+            | 214        | 58.6                   | 61              | 1.05                 |
+            | 215        | 60.6                   | 43              | 0.71                 |
+            | 220        | 62.1                   | 66              | 1.07                 |
+            | 221        | 60.5                   | 38              | 0.63                 |
+            | 226        | 63.5                   | 70              | 1.11                 |
+            | 227        | 63.1                   | 38              | 0.6                  |
+            | 229        | 61.2                   | 40              | 0.66                 |
+            | 230        | 55.1                   | 46              | 0.84                 |
+            | 41         | 59.2                   | 31              | 0.53                 |
+            | 42         | 61.8                   | 22              | 0.36                 |
+            | 43         | 62.1                   | 15              | 0.24                 |
+            | 44         | 61.6                   | 17              | 0.28                 |
+
+Assessing coverage and percent methylation with methylkit
+---------------------------------------------------------
 
 Create file list for reading in Bismark alignments (deduplicated sorted bam files)
 
@@ -627,13 +688,11 @@ calculate region coverage
 tiles <- tileMethylCounts(myobj,win.size=1000,step.size=1000)
 ```
 
-find regions covered by all samples
+find regions covered by all samples (This finds regions that are covered by two or more samples I believe, because the covereage has NAs for some samples.)
 
 ``` r
 mmeth <- unite(tiles, min.per.group = 1L)
 ```
-
-This finds regions that are covered by two or more samples I believe, because the covereage has NAs for some samples.
 
 ``` r
 #chromosome regions that are covered by all samples
@@ -643,9 +702,9 @@ nrow(d_noNAs)
 
     ## [1] 11
 
-There are only 11 regions that have coverage from all samples
+### There are only 11 regions that have coverage from all samples
 
-make a data frame with unqiue chromosome positions, sample number, and coverage to plots coverage for each sample
+Make a data frame with unqiue chromosome positions, sample number, and coverage to plots coverage for each sample
 
 ``` r
 #subset mmeth data for genome locations and sample coverage of each location
@@ -688,4 +747,29 @@ d[is.na(d)] <- 0
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-9-14.png)
+![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-9-14.png) plot % methylation per region facetted by treatment and sample
+
+``` r
+#make data frame with all meth info (source code: https://github.com/al2na/methylKit/blob/master/R/methylDBFunctions.R)
+all_tiles <- data.frame()
+for (i in 1:length(tiles)){
+  temp <- getData(tiles[[i]])[,c(1,2,5,6)]
+  temp$chr <- sub("__.*","",temp$chr)
+  temp$chr <- sub("PGA_scaffold","",temp$chr)
+  temp$chr <- paste(temp$chr,temp$start, sep =".")
+  temp$order <- i
+  temp$percentMeth <- 100*temp$numCs/temp$coverage
+  all_tiles <- rbind(all_tiles, temp)
+}
+all_tiles <- merge(all_tiles, treatment, by = "order")
+```
+
+![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-11-1.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-11-2.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-11-3.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-11-4.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-11-5.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-11-6.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-11-7.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-11-8.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-11-9.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-11-10.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-11-11.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-11-12.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-11-13.png)
+
+individual plots of % methylation per region
+
+![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-1.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-2.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-3.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-4.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-5.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-6.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-7.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-8.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-9.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-10.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-11.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-12.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-13.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-14.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-15.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-16.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-17.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-18.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-19.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-20.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-21.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-22.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-23.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-24.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-25.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-26.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-27.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-28.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-29.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-30.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-31.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-32.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-33.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-34.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-35.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-36.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-37.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-38.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-39.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-40.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-41.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-42.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-43.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-44.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-45.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-46.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-47.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-48.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-49.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-50.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-51.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-12-52.png)
+
+individual plots of read coverage per region
+
+![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-1.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-2.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-3.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-4.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-5.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-6.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-7.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-8.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-9.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-10.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-11.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-12.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-13.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-14.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-15.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-16.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-17.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-18.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-19.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-20.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-21.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-22.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-23.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-24.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-25.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-26.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-27.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-28.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-29.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-30.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-31.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-32.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-33.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-34.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-35.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-36.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-37.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-38.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-39.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-40.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-41.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-42.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-43.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-44.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-45.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-46.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-47.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-48.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-49.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-50.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-51.png)![](GeoduckSubsetAlignmentTest_files/figure-markdown_github/unnamed-chunk-13-52.png)

@@ -11,15 +11,74 @@ library(ggplot2)
 library(RColorBrewer)
 ```
 
-Mapping Efficiency
+## Mapping Efficiency
 ```{r}
 mapEff <- data.frame(read.table("/Volumes/web/metacarcinus/Pgenerosa/20181011/EPI_mapping_dedup_summary_clean.txt", nrows = 52))
 mapEff$V1 <- as.numeric(substr(as.character(unlist(mapEff$V1)),1,4))
 colnames(mapEff)[1] <- "mapping_efficiency"
 ggplot(mapEff, aes(mapping_efficiency)) + geom_histogram(color = "darkblue", fill = "lightblue") + xlab("mapping efficiency (%)") + ylab("number of samples")
-```
-All samples have > 50% mapping efficiency, which is pretty good. 
+```  
 
+###All samples have > 50% mapping efficiency, which is pretty good. 
+
+
+			| sample no. | mapping efficiency (%) | duplicate reads | duplicated reads (%) |
+			|------------|------------------------|-----------------|----------------------|
+			| 103        | 65.9                   | 98              | 1.49                 |
+			| 104        | 65.5                   | 81              | 1.24                 |
+			| 111        | 64.4                   | 68              | 1.06                 |
+			| 113        | 65.8                   | 131             | 2                    |
+			| 119        | 64.0                   | 83              | 1.3                  |
+			| 120        | 65.1                   | 73              | 1.13                 |
+			| 127        | 65.8                   | 77              | 1.17                 |
+			| 128        | 65.6                   | 89              | 1.36                 |
+			| 135        | 63.3                   | 104             | 1.65                 |
+			| 136        | 62.3                   | 97              | 1.56                 |
+			| 143        | 63.1                   | 53              | 0.84                 |
+			| 145        | 64.1                   | 93              | 1.45                 |
+			| 151        | 60.2                   | 28              | 0.47                 |
+			| 152        | 57.6                   | 41              | 0.72                 |
+			| 153        | 61.3                   | 66              | 1.08                 |
+			| 154        | 56.8                   | 33              | 0.59                 |
+			| 159        | 62.4                   | 78              | 1.26                 |
+			| 160        | 56.6                   | 80              | 1.42                 |
+			| 161        | 52.9                   | 42              | 0.8                  |
+			| 162        | 54.7                   | 55              | 1.01                 |
+			| 167        | 63.5                   | 34              | 0.54                 |
+			| 168        | 60.8                   | 58              | 0.96                 |
+			| 169        | 59.1                   | 40              | 0.68                 |
+			| 170        | 55.4                   | 69              | 1.25                 |
+			| 175        | 62.5                   | 58              | 0.93                 |
+			| 176        | 56.4                   | 59              | 1.05                 |
+			| 181        | 60.9                   | 78              | 1.29                 |
+			| 182        | 62.2                   | 110             | 1.78                 |
+			| 184        | 61.7                   | 72              | 1.18                 |
+			| 185        | 61.5                   | 73              | 1.2                  |
+			| 187        | 64.0                   | 64              | 1.01                 |
+			| 188        | 56.7                   | 53              | 0.94                 |
+			| 193        | 57.6                   | 51              | 0.89                 |
+			| 194        | 63.0                   | 34              | 0.54                 |
+			| 199        | 58.4                   | 25              | 0.43                 |
+			| 200        | 59.6                   | 38              | 0.64                 |
+			| 205        | 55.6                   | 52              | 0.94                 |
+			| 206        | 60.9                   | 33              | 0.54                 |
+			| 208        | 56.6                   | 83              | 1.47                 |
+			| 209        | 61.5                   | 47              | 0.77                 |
+			| 214        | 58.6                   | 61              | 1.05                 |
+			| 215        | 60.6                   | 43              | 0.71                 |
+			| 220        | 62.1                   | 66              | 1.07                 |
+			| 221        | 60.5                   | 38              | 0.63                 |
+			| 226        | 63.5                   | 70              | 1.11                 |
+			| 227        | 63.1                   | 38              | 0.6                  |
+			| 229        | 61.2                   | 40              | 0.66                 |
+			| 230        | 55.1                   | 46              | 0.84                 |
+			| 41         | 59.2                   | 31              | 0.53                 |
+			| 42         | 61.8                   | 22              | 0.36                 |
+			| 43         | 62.1                   | 15              | 0.24                 |
+			| 44         | 61.6                   | 17              | 0.28                 |
+
+
+##Assessing coverage and percent methylation with methylkit
 Create file list for reading in Bismark alignments (deduplicated sorted bam files)
 ```{r}
 file.list=c(dir("/Volumes/web/metacarcinus/Pgenerosa/20181011/dedup_sorted_bams/",pattern = "_dedup.sorted.bam"))
@@ -55,19 +114,19 @@ calculate region coverage
 tiles <- tileMethylCounts(myobj,win.size=1000,step.size=1000)
 ```
 
-find regions covered by all samples 
+find regions covered by all samples (This finds regions that are covered by two or more samples I believe, because the covereage has NAs for some samples.)
 ```{r}
 mmeth <- unite(tiles, min.per.group = 1L)
 ```
-This finds regions that are covered by two or more samples I believe, because the covereage has NAs for some samples. 
+
 ```{r}
 #chromosome regions that are covered by all samples
 d_noNAs <-getData(mmeth)[complete.cases(getData(mmeth)),]
 nrow(d_noNAs)
 ```
-There are only 11 regions that have coverage from all samples
+###There are only 11 regions that have coverage from all samples
 
-make a data frame with unqiue chromosome positions, sample number, and coverage to plots coverage for each sample
+Make a data frame with unqiue chromosome positions, sample number, and coverage to plots coverage for each sample
 ```{r}
 #subset mmeth data for genome locations and sample coverage of each location
 d <- getData(mmeth)[,c(1:2,grep("coverage", colnames(getData(mmeth))))]
@@ -100,6 +159,44 @@ for(i in 1:nrow(uniqTreat)){
 colourCount = length(unique(d$treatment))
 getPalette = colorRampPalette(brewer.pal(12, "Paired"))
 
-ggplot(d[which(d$coverage == 0),], aes(chr, fill = treatment)) + geom_histogram() + scale_fill_manual(values = getPalette(colourCount)) + theme_bw() + facet_wrap(~TimePoint) + xlab("genome region") + ylab("number of samples") + ggtitle("samples missing data from genome regions")
+ggplot(d[which(d$coverage == 0),], aes(chr, fill = treatment)) + geom_histogram() + scale_fill_manual(values = getPalette(colourCount)) + theme_bw() + facet_wrap(~TimePoint) + xlab("genome region") + ylab("number of samples") + ggtitle("samples organized by treatment length that have missing data from genome regions")
+```
+plot % methylation per region facetted by treatment and sample
+```{r}
+#make data frame with all meth info (source code: https://github.com/al2na/methylKit/blob/master/R/methylDBFunctions.R)
+all_tiles <- data.frame()
+for (i in 1:length(tiles)){
+  temp <- getData(tiles[[i]])[,c(1,2,5,6)]
+  temp$chr <- sub("__.*","",temp$chr)
+  temp$chr <- sub("PGA_scaffold","",temp$chr)
+  temp$chr <- paste(temp$chr,temp$start, sep =".")
+  temp$order <- i
+  temp$percentMeth <- 100*temp$numCs/temp$coverage
+  all_tiles <- rbind(all_tiles, temp)
+}
+all_tiles <- merge(all_tiles, treatment, by = "order")
 ```
 
+```{r, echo = FALSE}
+for(i in 1:nrow(uniqTreat)){
+  print(ggplot(all_tiles[which(all_tiles$treatment == uniqTreat[i,1]),], aes(percentMeth)) + 
+        geom_histogram(bins = 10, color = "darkblue", fill = "lightblue") + stat_bin(bins = 10, aes(y=..count.., label=..count..), geom="text", vjust=-.1) + facet_wrap(~sampleno, scales = "free") 
+        + theme_bw() + xlab("% methylation per region") + ylab("Frequency") + 
+        ggtitle(paste("Histograms of % CpG methylation for",uniqTreat[i,1],"treatment samples")))}
+```
+
+individual plots of % methylation per region  
+
+```{r, echo = FALSE}
+for(i in 1:length(tiles)){
+  getMethylationStats(tiles[[i]],plot = TRUE, both.strands = FALSE)
+}
+```
+
+individual plots of read coverage per region  
+
+```{r, echo = FALSE}
+for(i in 1:length(tiles)){
+  getCoverageStats(tiles[[i]],plot = TRUE, both.strands = FALSE)
+}
+```
