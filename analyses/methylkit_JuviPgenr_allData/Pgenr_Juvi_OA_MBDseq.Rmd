@@ -1,0 +1,78 @@
+---
+title: "GeoduckJuvOAmbdseq"
+output: html_document
+---
+
+Install methylkit on my ostrich account
+```{r, eval= FALSE}
+source("http://bioconductor.org/biocLite.R")
+biocLite("methylKit")
+```
+
+Load libraries
+```{r}
+library(methylKit)
+library(ggplot2)
+
+```
+
+## Assessing coverage and percent methylation with methylkit
+Create file list for reading in Bismark alignments (deduplicated sorted bam files)
+```{r}
+file.list=c(dir("/Volumes/web/metacarcinus/Pgenerosa/20181101/",pattern = "_dedup.sorted.bam"))
+file.list <- paste("/Volumes/web/metacarcinus/Pgenerosa/20181101/", file.list, sep = "")
+file.list <- as.list(file.list)
+```
+
+Read in treatment info for these samples
+```{r}
+treatment <- read.csv("~/Documents/GitHub/Shelly_Pgenerosa/data/Treatment_info.csv", header = TRUE)
+#subset dataframe to exclude lines with no info in them
+treatment <- treatment[1:52,]
+
+#create a list of lists (the format that methylkit expects) for sample ids
+li <- list()
+for (i in 1:length(treatment$sampleno))
+  li[[i]] = as.character(treatment$sampleno[i])
+
+#order treatment data frame by treatment to be able to add replicate numbers to each sample
+treatment <- treatment[order(treatment$treatment),]
+#create replicate numbers (1-4) for each treatment (13)
+treatment$replicate <- rep(1:4,13)
+```
+
+Read methylation calls from Bismark alignments  
+```{r}
+myobj <- processBismarkAln(location = file.list, sample.id = li, 
+                          assembly = "v3", read.context="CpG", mincov=3, treatment = treatment$treatment)
+```
+
+calculate region coverage  
+```{r}
+tiles <- tileMethylCounts(myobj,win.size=1000,step.size=1000)
+```
+
+find regions covered by all samples (This finds regions that are covered by two or more samples I believe, because the covereage has NAs for some samples.)
+```{r}
+mmeth <- unite(tiles, min.per.group = 1L)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
