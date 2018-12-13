@@ -1,0 +1,74 @@
+---
+title: "Pgenr_JuviOARRBS_low_vs_ambient"
+output: html_document
+---
+
+
+```{r}
+treatment <- read.csv("~/Documents/GitHub/Shelly_Pgenerosa/analyses/methylkit_JuviPgenr_allData/data/Treatment_info_CORRECTED.csv", header = TRUE)
+sample_nums <- data.frame(t(data.frame(li)), stringsAsFactors = FALSE)
+colnames(sample_nums) <- "sample_num"
+treatment$sample_num <- substr(treatment$EPI.Tube.Num,5,length(treatment$EPI.Tube.Num))
+treatment <- merge(sample_nums, treatment, by = "sample_num")
+```
+
+```{r}
+select_treats <- treatment[which(treatment$Treatment == "Super.Low-Low" | treatment$Treatment == "Ambient-Low"),]
+select.file.list <- file.list[c(37,38,41,42,43,44,45,46)]
+select.li <- li[c(37,38,41,42,43,44,45,46)]
+save(myobj, file = "/Volumes/web/metacarcinus/Pgenerosa/20181101/methylkit_20181126/myobj")
+```
+
+```{r}
+select.myobj <- processBismarkAln(location = select.file.list, sample.id = select.li, 
+                          assembly = "v3", read.context="CpG", mincov=3, treatment = select_treats$Treatment)
+
+```
+
+calculate region coverage  
+```{r}
+tiles <- tileMethylCounts(select.myobj,win.size=1000,step.size=1000)
+```
+
+individual plots of % methylation per region  
+
+```{r, echo = FALSE}
+for(i in 1:length(tiles)){
+  getMethylationStats(tiles[[i]],plot = TRUE, both.strands = FALSE)
+}
+```
+
+individual plots of read coverage per region  
+
+```{r, echo = FALSE}
+for(i in 1:length(tiles)){
+  getCoverageStats(tiles[[i]],plot = TRUE, both.strands = FALSE)
+}
+```
+
+
+
+
+
+find regions covered by all samples (This finds regions that are covered by two or more samples I believe, because the covereage has NAs for some samples.)
+```{r}
+mmeth <- unite(tiles, min.per.group = 1L)
+```
+sample clustering by differences in correlation of methylation patterns between samples
+```{r, echo = FALSE}
+clusterSamples(mmeth, dist = "correlation", method = "ward", plot = TRUE)
+```
+
+PCA of samples based on methylation patterns
+```{r, echo = FALSE}
+PCASamples(mmeth)
+```
+make a file with diff meth
+```{r}
+myDiff.loci <- calculateDiffMeth(mmeth)
+myDiff25p.l=getMethylDiff(myDiff.loci,difference=25,qvalue=0.01)
+# get hyper-methylated  
+hyper.l=getMethylDiff(myDiff.loci,difference=25,qvalue=0.01,type="hyper")
+# get hypo-methylated
+hypo.l=getMethylDiff(myDiff.loci,difference=25,qvalue=0.01,type="hypo")
+```
