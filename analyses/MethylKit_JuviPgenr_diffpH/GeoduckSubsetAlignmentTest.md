@@ -695,6 +695,13 @@ mmeth <- unite(tiles, min.per.group = 1L)
 ```
 
 ``` r
+#chromosome regions covered by at least two samples
+nrow(getData(mmeth))
+```
+
+    ## [1] 39
+
+``` r
 #chromosome regions that are covered by all samples
 d_noNAs <-getData(mmeth)[complete.cases(getData(mmeth)),]
 nrow(d_noNAs)

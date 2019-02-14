@@ -120,13 +120,15 @@ mmeth <- unite(tiles, min.per.group = 1L)
 ```
 
 ```{r}
+#chromosome regions covered by at least two samples
+nrow(getData(mmeth))
 #chromosome regions that are covered by all samples
 d_noNAs <-getData(mmeth)[complete.cases(getData(mmeth)),]
 nrow(d_noNAs)
 ```
 ###There are only 11 regions that have coverage from all samples
 
-Make a data frame with unqiue chromosome positions, sample number, and coverage to plots coverage for each sample
+Make a data frame with unqiue chromosome positions, sample number, and coverage to plot coverage for each sample
 ```{r}
 #subset mmeth data for genome locations and sample coverage of each location
 d <- getData(mmeth)[,c(1:2,grep("coverage", colnames(getData(mmeth))))]
@@ -200,3 +202,27 @@ for(i in 1:length(tiles)){
   getCoverageStats(tiles[[i]],plot = TRUE, both.strands = FALSE)
 }
 ```
+
+sample clustering by differences in correlation of methylation patterns between samples
+```{r, echo = FALSE}
+clusterSamples(mmeth, dist = "correlation", method = "ward", plot = TRUE)
+```
+
+PCA of samples based on methylation patterns
+```{r, echo = FALSE}
+PCASamples(mmeth)
+```
+
+make a file with diff meth
+```{r}
+myDiff.loci <- calculateDiffMeth(mmeth)
+myDiff25p.l=getMethylDiff(myDiff.loci,difference=25,qvalue=0.01)
+# get hyper-methylated
+hyper.l=getMethylDiff(myDiff.loci,difference=25,qvalue=0.01,type="hyper")
+# get hypo-methylated
+hypo.l=getMethylDiff(myDiff.loci,difference=25,qvalue=0.01,type="hypo")
+```
+
+ggplot(d, aes(sampleno, coverage)) + facet_wrap(~chr, scale = "free")
+
+ggplot(mapEff, aes(mapping_efficiency)) + geom_histogram(color = "darkblue", fill = "lightblue") + xlab("mapping efficiency (%)") + ylab("number of samples")
