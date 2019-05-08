@@ -1,0 +1,99 @@
+---
+title: "GeoduckJuvOAmbdseq"
+output: html_document
+---
+
+This notebook was started running Rstudio server on emu- microsoft open R
+Analysis on Bismark alignments of 52 RRBS juvenile OA treated geoduck to v070 genome with score_min L,0,-1.2 I 60 
+
+
+Install methylkit on Srlab on Emu
+```{bash, eval = FALSE}
+###ran these commands from the terminal
+sudo chmod -R 777 /home/srlab/R/x86_64-pc-linux-gnu-library/3.5
+sudo chmod -R 777 /opt/microsoft/ropen/3.5.1/lib64/R/library
+```
+
+
+```{r}
+remove.packages("BiocInstaller", lib=.libPaths())
+if (!requireNamespace("BiocManager"))
+    install.packages("BiocManager")
+BiocManager::install()
+biocLite("methylKit")
+```
+
+Load libraries
+```{r}
+library(methylKit)
+library(ggplot2)
+
+```
+
+```{bash}
+pwd
+```
+Download sorted deduplicated files
+```{bash}
+curl -O http://gannet.fish.washington.edu/metacarcinus/Pgenerosa/20181101/dedup_sorted_bam.tar.gz
+```
+
+unzip files
+```{bash}
+###I ran this from the command line, not in R, because in R it errored out and showed incomplete decompression. It was also much faster by command line
+tar xvzf /home/srlab/GitHub/Shelly_Pgenerosa/analyses/methylkit_JuviPgenr_allData/dedup_sorted_bam.tar.gz
+```
+
+
+## Assessing coverage and percent methylation with methylkit
+Create file list for reading in Bismark alignments (deduplicated sorted bam files)
+```{r}
+file.list=c(dir("~/GitHub/Shelly_Pgenerosa/analyses/methylkit_JuviPgenr_allData/dedup_sorted_bam/",pattern = "_dedup.sorted.bam"))
+file.list <- paste("~/GitHub/Shelly_Pgenerosa/analyses/methylkit_JuviPgenr_allData/dedup_sorted_bam/", file.list, sep = "")
+file.list <- as.list(file.list)
+```
+
+Read in treatment info for these samples
+```{r}
+treatment <- read.csv("~/GitHub/Shelly_Pgenerosa/data/Treatment_info.csv", header = TRUE)
+#subset dataframe to exclude lines with no info in them
+treatment <- treatment[1:52,]
+
+#create a list of lists (the format that methylkit expects) for sample ids
+li <- list()
+for (i in 1:length(treatment$sampleno))
+  li[[i]] = as.character(treatment$sampleno[i])
+
+#order treatment data frame by treatment to be able to add replicate numbers to each sample
+treatment <- treatment[order(treatment$treatment),]
+#create replicate numbers (1-4) for each treatment (13)
+treatment$replicate <- rep(1:4,13)
+```
+
+```{bash}
+curl -O http://gannet.fish.washington.edu/metacarcinus/Pgenerosa/20181101/methylkit_20181126/myobj
+```
+
+Read methylation calls from Bismark alignments.
+Ran 15 min/sample
+```{r, eval = FALSE}
+myobj <- processBismarkAln(location = file.list, sample.id = li, 
+                          assembly = "v3", read.context="CpG", mincov=3, treatment = treatment$treatment)
+```
+
+```{r}
+load("~/GitHub/Shelly_Pgenerosa/analyses/methylkit_JuviPgenr_allData/myobj")
+```
+
+
+
+calculate region coverage  
+```{r}
+##started running this at 10am Thursday, Dec 6 and stopped it Tuesday Dec. 11 at 8:44am. 
+tiles <- tileMethylCounts(myobj,win.size=1000,step.size=1000, mc.cores = 3)
+```
+
+find regions covered by all samples (This finds regions that are covered by two or more samples I believe, because the covereage has NAs for some samples.)
+```{r}
+mmeth <- unite(tiles, min.per.group = 1L)
+```
