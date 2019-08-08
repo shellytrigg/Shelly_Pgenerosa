@@ -2,32 +2,54 @@
 title: "Pgenr_JuviOARRBS_low_vs_ambient"
 output: html_document
 ---
-
-
+Load libraries
 ```{r}
-treatment <- read.csv("~/Documents/GitHub/Shelly_Pgenerosa/analyses/methylkit_JuviPgenr_allData/data/Treatment_info_CORRECTED.csv", header = TRUE)
-sample_nums <- data.frame(t(data.frame(li)), stringsAsFactors = FALSE)
-colnames(sample_nums) <- "sample_num"
-treatment$sample_num <- substr(treatment$EPI.Tube.Num,5,length(treatment$EPI.Tube.Num))
-treatment <- merge(sample_nums, treatment, by = "sample_num")
+library(methylKit)
+library(ggplot2)
+
 ```
 
+create file list
 ```{r}
-select_treats <- treatment[which(treatment$Treatment == "Super.Low-Low" | treatment$Treatment == "Ambient-Low"),]
+file.list=c(dir("~/GitHub/Shelly_Pgenerosa/analyses/methylkit_JuviPgenr_allData/dedup_sorted_bam/",pattern = "_dedup.sorted.bam"))
+file.list <- paste("~/GitHub/Shelly_Pgenerosa/analyses/methylkit_JuviPgenr_allData/dedup_sorted_bam/", file.list, sep = "")
+file.list <- as.list(file.list)
+```
+
+
+read in data
+```{r}
+treatment <- read.csv("~/GitHub/Shelly_Pgenerosa/data/Treatment_info_CORRECTED.csv", header = TRUE)
+
+```
+
+make a list of samples that are only from 145 days Ambient-low or Super.Low-low
+```{r}
+select_treats <- treatment[which((treatment$Treatment == "Super.Low-Low" & treatment$TimePoint == "Day145")|(treatment$Treatment == "Ambient-Low" & treatment$TimePoint == "Day145")),]
 select.file.list <- file.list[c(37,38,41,42,43,44,45,46)]
-select.li <- li[c(37,38,41,42,43,44,45,46)]
-save(myobj, file = "/Volumes/web/metacarcinus/Pgenerosa/20181101/methylkit_20181126/myobj")
-```
-
-```{r}
-select.myobj <- processBismarkAln(location = select.file.list, sample.id = select.li, 
-                          assembly = "v3", read.context="CpG", mincov=3, treatment = select_treats$Treatment)
+select.li <- as.list(gsub("~/GitHub/Shelly_Pgenerosa/analyses/methylkit_JuviPgenr_allData/dedup_sorted_bam/EPI-","",select.file.list))
+select.li <- as.list(gsub("_.*","", select.li))
 
 ```
 
-calculate region coverage  
 ```{r}
-tiles <- tileMethylCounts(select.myobj,win.size=1000,step.size=1000)
+#select.myobj <- processBismarkAln(location = select.file.list, sample.id = select.li, assembly = "v3", read.context="CpG", mincov=3, treatment = select_treats$Treatment)
+
+#save(select.myobj, file = "~/GitHub/Shelly_Pgenerosa/data/20190624_myobj")
+
+
+load("~/GitHub/Shelly_Pgenerosa/data/20190624_myobj")
+```
+
+calculate region coverage 
+```{r}
+#step below took ~24 hours
+
+#tiles <- tileMethylCounts(select.myobj,win.size=1000,step.size=1000,mc.cores = 3)
+#save(tiles, file = "~/GitHub/Shelly_Pgenerosa/data/20190624_tiles")
+
+load("~/GitHub/Shelly_Pgenerosa/data/20190624_tiles")
+
 ```
 
 individual plots of % methylation per region  
@@ -47,28 +69,44 @@ for(i in 1:length(tiles)){
 ```
 
 
-
-
-
 find regions covered by all samples (This finds regions that are covered by two or more samples I believe, because the covereage has NAs for some samples.)
 ```{r}
 mmeth <- unite(tiles, min.per.group = 1L)
 ```
 sample clustering by differences in correlation of methylation patterns between samples
 ```{r, echo = FALSE}
-clusterSamples(mmeth, dist = "correlation", method = "ward", plot = TRUE)
+clusterSamples(mmeth, dist = "correlation", method = "complete", plot = TRUE)
 ```
 
 PCA of samples based on methylation patterns
 ```{r, echo = FALSE}
 PCASamples(mmeth)
 ```
+
+
+confirm treatment and control groups are correctly assigned
+```{r}
+#view treatment assignments in the unite output
+mmeth
+#view the treatment assignments in the initial table
+select_treats$Treatment
+
+#confirmed treatment and contrl groups are correctly assigned
+```
+
+
 make a file with diff meth
 ```{r}
+
 myDiff.loci <- calculateDiffMeth(mmeth)
-myDiff25p.l=getMethylDiff(myDiff.loci,difference=25,qvalue=0.01)
+
+myDiff50p.l=getMethylDiff(myDiff.loci,difference=50,qvalue=0.01)
+
 # get hyper-methylated  
-hyper.l=getMethylDiff(myDiff.loci,difference=25,qvalue=0.01,type="hyper")
+hyper.l=getMethylDiff(myDiff.loci,difference=50,qvalue=0.01,type="hyper")
+write.table(getData(hyper.l), "~/GitHub/Shelly_Pgenerosa/analyses/methylkit_JuviPgenr_allData/v070_ALvSL-L_hyperDMR.tsv", sep = "\t", quote = FALSE, row.names = FALSE)
+
 # get hypo-methylated
-hypo.l=getMethylDiff(myDiff.loci,difference=25,qvalue=0.01,type="hypo")
+hypo.l=getMethylDiff(myDiff.loci,difference=50,qvalue=0.01,type="hypo")
+write.table(getData(hypo.l), "~/GitHub/Shelly_Pgenerosa/analyses/methylkit_JuviPgenr_allData/v070_ALvSL-L_hypoDMR.tsv", sep = "\t", quote = FALSE, row.names = FALSE)
 ```
