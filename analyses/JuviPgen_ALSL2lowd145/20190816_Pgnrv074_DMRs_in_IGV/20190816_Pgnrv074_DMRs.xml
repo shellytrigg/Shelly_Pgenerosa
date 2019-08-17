@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Session genome="/Users/strigg/Desktop/Pgenerosa_v074.fa" hasGeneTrack="false" hasSequenceTrack="true" locus="PGA_scaffold3__111_contigs__length_57743597:3738471-4008720" nextAutoscaleGroup="2" path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/20190816_Pgnrv074_DMRs.xml" version="8">
+<Session genome="/Volumes/web/metacarcinus/Pgenerosa/GENOMES/v074/Pgenerosa_v074.fa" hasGeneTrack="false" hasSequenceTrack="true" locus="PGA_scaffold10__49_contigs__length_53961475:1-48179888" path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/20190816_Pgnrv074_DMRs.xml" version="8">
     <Resources>
         <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-206_S27_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.NumCs3xcov.DMR.bedgraph"/>
-        <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-226_S34_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph"/>
         <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-226_S34_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.NumCs3xcov.DMR.bedgraph"/>
-        <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-221_S33_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph"/>
+        <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-226_S34_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph"/>
         <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-221_S33_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.NumCs3xcov.DMR.bedgraph"/>
+        <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-221_S33_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph"/>
         <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-214_S30_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph"/>
         <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-220_S32_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph"/>
         <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-220_S32_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.NumCs3xcov.DMR.bedgraph"/>
-        <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-205_S26_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph"/>
         <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-214_S30_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.NumCs3xcov.DMR.bedgraph"/>
+        <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-205_S26_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph"/>
         <Resource path="/Volumes/web/metacarcinus/Pgenerosa/GENOMES/v074/Pgenerosa_v074.mRNA.gff"/>
         <Resource path="/Volumes/web/metacarcinus/Pgenerosa/GENOMES/v074/Pgenerosa_v074.CDS.gff"/>
         <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-227_S35_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph"/>
@@ -21,31 +21,7 @@
         <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-206_S27_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph"/>
         <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-215_S31_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph"/>
     </Resources>
-    <Panel height="640" name="DataPanel" width="1453">
-        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-205_S26_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" name="EPI-205_S26_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
-            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
-        </Track>
-        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-206_S27_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" name="EPI-206_S27_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
-            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
-        </Track>
-        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-226_S34_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" name="EPI-226_S34_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
-            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
-        </Track>
-        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-227_S35_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" name="EPI-227_S35_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
-            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
-        </Track>
-        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-214_S30_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" name="EPI-214_S30_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
-            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
-        </Track>
-        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-215_S31_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" name="EPI-215_S31_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
-            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
-        </Track>
-        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-220_S32_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" name="EPI-220_S32_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
-            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
-        </Track>
-        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-221_S33_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" name="EPI-221_S33_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
-            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
-        </Track>
+    <Panel height="653" name="DataPanel" width="1421">
         <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-205_S26_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.NumCs3xcov.DMR.bedgraph" name="EPI-205_S26_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.NumCs3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
             <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="33.0" minimum="0.0" type="LINEAR"/>
         </Track>
@@ -70,14 +46,38 @@
         <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-221_S33_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.NumCs3xcov.DMR.bedgraph" name="EPI-221_S33_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.NumCs3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
             <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="17.0" minimum="0.0" type="LINEAR"/>
         </Track>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-205_S26_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" name="EPI-205_S26_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-206_S27_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" name="EPI-206_S27_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-226_S34_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" name="EPI-226_S34_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-227_S35_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" name="EPI-227_S35_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-214_S30_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" name="EPI-214_S30_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-215_S31_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" name="EPI-215_S31_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-220_S32_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" name="EPI-220_S32_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/20190816_Pgnrv074_DMRs_in_IGV/EPI-221_S33_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" name="EPI-221_S33_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz.3xcov.DMR.bedgraph" renderer="BAR_CHART" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
+        </Track>
     </Panel>
-    <Panel height="161" name="FeaturePanel" width="1453">
+    <Panel height="214" name="FeaturePanel" width="1421">
         <Track clazz="org.broad.igv.track.SequenceTrack" fontSize="10" id="Reference sequence" name="Reference sequence" visible="true"/>
-        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" fontSize="10" id="/Volumes/web/metacarcinus/Pgenerosa/GENOMES/v074/Pgenerosa_v074.CDS.gff" name="Pgenerosa_v074.CDS.gff" visible="true"/>
-        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" fontSize="10" id="/Volumes/web/metacarcinus/Pgenerosa/GENOMES/v074/Pgenerosa_v074.gene.gff" name="Pgenerosa_v074.gene.gff" visible="true"/>
-        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" fontSize="10" id="/Volumes/web/metacarcinus/Pgenerosa/GENOMES/v074/Pgenerosa_v074.mRNA.gff" name="Pgenerosa_v074.mRNA.gff" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;45.0;255,255,255;0,0,178" fontSize="10" id="/Volumes/web/metacarcinus/Pgenerosa/GENOMES/v074/Pgenerosa_v074.gene.gff" name="Pgenerosa_v074.gene.gff" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;45.0;255,255,255;0,0,178" fontSize="10" id="/Volumes/web/metacarcinus/Pgenerosa/GENOMES/v074/Pgenerosa_v074.mRNA.gff" name="Pgenerosa_v074.mRNA.gff" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;333.0;255,255,255;0,0,178" fontSize="10" id="/Volumes/web/metacarcinus/Pgenerosa/GENOMES/v074/Pgenerosa_v074.CDS.gff" name="Pgenerosa_v074.CDS.gff" visible="true"/>
     </Panel>
-    <PanelLayout dividerFractions="0.7830065359477124"/>
+    <PanelLayout dividerFractions="0.7494279176201373"/>
     <Regions>
         <Region chromosome="PGA_scaffold10__49_contigs__length_53961475" description="*" end="354000" start="353001"/>
         <Region chromosome="PGA_scaffold10__49_contigs__length_53961475" description="*" end="564000" start="563001"/>
