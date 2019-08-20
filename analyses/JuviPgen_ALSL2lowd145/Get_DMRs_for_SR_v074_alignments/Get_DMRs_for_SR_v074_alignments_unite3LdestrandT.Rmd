@@ -1,0 +1,51 @@
+---
+title: "Get_DMRs_for_SR_v074_alignments_unite3LdestrandT"
+output: html_document
+---
+
+Load libraries
+```{r}
+library(methylKit)
+library(ggplot2)
+
+```
+
+
+```{r}
+load("~/GitHub/Shelly_Pgenerosa/data/20190816_myobj")
+```
+
+calculate region coverage 
+```{r}
+load("~/GitHub/Shelly_Pgenerosa/data/20190816_tiles")
+```
+
+
+find regions covered by all samples (This finds regions that are covered by 3 of 4 samples within one treatment and for non-covered C's it assigns NAs.)
+```{r}
+mmeth <- unite(tiles, destrand = TRUE, min.per.group = 3L, mc.cores = 3)
+```
+
+
+sample clustering by differences in correlation of methylation patterns between samples
+```{r, echo = FALSE}
+clusterSamples(mmeth, dist = "correlation", method = "complete", plot = TRUE)
+```
+
+PCA of samples based on methylation patterns
+```{r, echo = FALSE}
+jpeg(filename = "~/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/Get_DMRs_for_SR_v074_alignments/PCA_unite3LdestrandT.jpeg", height = 1000, width = 1000) #Save file with designated name
+PCASamples(mmeth) #Run the PCA analysis and plot variances against PC number in a screeplot
+dev.off()
+
+```
+
+
+make a file with diff meth
+```{r}
+
+myDiff.loci <- calculateDiffMeth(mmeth, mc.cores = 3)
+
+myDiff50p.l=getMethylDiff(myDiff.loci,difference=50,qvalue=0.01)
+write.table(getData(myDiff50p.l), "~/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/Get_DMRs_for_SR_v074_alignments/SR_v074_ALvSL-L_hyperANDhypoDMR_unite3Ldestrand.tsv", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
+```
