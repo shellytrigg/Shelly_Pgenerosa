@@ -3,6 +3,8 @@ title: "Get_DMRs_for_SR_v074_alignments_unite3LdestrandT"
 output: html_document
 ---
 
+#This script is run on Emu's RStudio web interface
+
 Load libraries
 ```{r}
 library(methylKit)
@@ -21,9 +23,12 @@ load("~/GitHub/Shelly_Pgenerosa/data/20190816_tiles")
 ```
 
 
-find regions covered by all samples (This finds regions that are covered by 3 of 4 samples within one treatment and for non-covered C's it assigns NAs.)
+find regions covered by all samples (This finds regions that are covered by 3 of 4 samples within one treatment and for non-covered C's it assigns NAs). Also create unite object without specifying min.per.group. The min.per.group specification is an integer denoting minimum number of samples per replicate needed to cover a region/base. By default only regions/bases that are covered in all samples are united as methylBase object
 ```{r}
 mmeth <- unite(tiles, destrand = TRUE, min.per.group = 3L, mc.cores = 3)
+
+
+mmeth_nomin <- unite(tiles, destrand = TRUE, mc.cores = 3)
 ```
 
 
@@ -31,6 +36,12 @@ sample clustering by differences in correlation of methylation patterns between 
 ```{r, echo = FALSE}
 clusterSamples(mmeth, dist = "correlation", method = "complete", plot = TRUE)
 ```
+
+sample clustering by differences in correlation of methylation patterns between samples
+```{r, echo = FALSE}
+clusterSamples(mmeth_nomin, dist = "correlation", method = "complete", plot = TRUE)
+```
+
 
 PCA of samples based on methylation patterns
 ```{r, echo = FALSE}
@@ -46,6 +57,15 @@ make a file with diff meth
 
 myDiff.loci <- calculateDiffMeth(mmeth, mc.cores = 3)
 
+myDiff.loci.nomin <- calculateDiffMeth(mmeth_nomin, mc.cores = 3)
+
+
 myDiff50p.l=getMethylDiff(myDiff.loci,difference=50,qvalue=0.01)
+
+myDiff50p.l.nomin=getMethylDiff(myDiff.loci,difference=50,qvalue=0.01)
+
+
 write.table(getData(myDiff50p.l), "~/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/Get_DMRs_for_SR_v074_alignments/SR_v074_ALvSL-L_hyperANDhypoDMR_unite3Ldestrand.tsv", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
+
+write.table(getData(myDiff50p.l.nomin), "~/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/Get_DMRs_for_SR_v074_alignments/SR_v074_ALvSL-L_hyperANDhypoDMR_unite.minpgdefault.destrand.tsv", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
 ```
