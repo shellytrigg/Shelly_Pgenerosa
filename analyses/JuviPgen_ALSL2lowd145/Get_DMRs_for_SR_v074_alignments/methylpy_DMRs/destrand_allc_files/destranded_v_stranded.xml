@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Session genome="/Volumes/web/metacarcinus/Pgenerosa/GENOMES/v074/Pgenerosa_v074.fa" hasGeneTrack="false" hasSequenceTrack="false" locus="PGA_scaffold1__77_contigs__length_89643857:64882324-64882605" nextAutoscaleGroup="2" path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/Get_DMRs_for_SR_v074_alignments/methylpy_DMRs/destrand_allc_files/destranded_v_stranded.xml" version="8">
+    <Resources>
+        <Resource path="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-220_S32_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam"/>
+        <Resource path="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-226_S34_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam"/>
+        <Resource path="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-221_S33_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam"/>
+        <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/Get_DMRs_for_SR_v074_alignments/methylpy_DMRs/destrand_allc_files/DMR1000sortbpMCmax25_rms_results_collapsed.tsv.DMS.bed"/>
+        <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/Get_DMRs_for_SR_v074_alignments/methylpy_DMRs/destrand_allc_files/DMR250sortbpMCmax25cov5x_rms_results_collapsed.tsv.DMR.bed"/>
+        <Resource path="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-215_S31_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam"/>
+        <Resource path="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-205_S26_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam"/>
+        <Resource path="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-206_S27_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam"/>
+        <Resource path="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-227_S35_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam"/>
+        <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/Get_DMRs_for_SR_v074_alignments/methylpy_DMRs/DMR1000bpMCmax25_rms_results_collapsed.tsv.DMR.bed"/>
+        <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/Get_DMRs_for_SR_v074_alignments/methylpy_DMRs/destrand_allc_files/DMR250sortbpMCmax25cov5x_rms_results_collapsed.tsv.DMS.bed"/>
+        <Resource path="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/Get_DMRs_for_SR_v074_alignments/methylpy_DMRs/destrand_allc_files/DMR1000sortbpMCmax25_rms_results_collapsed.tsv.DMR.bed"/>
+        <Resource path="https://owl.fish.washington.edu/halfshell/genomic-databank/Pgenerosa_v074.fa.out.gff"/>
+        <Resource path="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-214_S30_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam"/>
+    </Resources>
+    <Panel height="52" name="Panel1566510585595" width="1329">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="175,175,175" colorScale="ContinuousColorScale;0.0;26.0;255,255,255;175,175,175" fontSize="10" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-205_S26_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_coverage" name="EPI-205_S26_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="10.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="60" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-205_S26_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_junctions" name="EPI-205_S26_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Junctions" visible="false"/>
+        <Track clazz="org.broad.igv.sam.AlignmentTrack" displayMode="EXPANDED" experimentType="OTHER" fontSize="10" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-205_S26_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" name="EPI-205_S26_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="58" name="Panel1566510929045" width="1329">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="175,175,175" colorScale="ContinuousColorScale;0.0;34.0;255,255,255;175,175,175" fontSize="10" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-206_S27_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_coverage" name="EPI-206_S27_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="43.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="60" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-206_S27_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_junctions" name="EPI-206_S27_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Junctions" visible="false"/>
+        <Track clazz="org.broad.igv.sam.AlignmentTrack" displayMode="EXPANDED" experimentType="OTHER" fontSize="10" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-206_S27_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" name="EPI-206_S27_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="58" name="Panel1566510987204" width="1329">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="175,175,175" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;175,175,175" fontSize="10" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-226_S34_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_coverage" name="EPI-226_S34_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="10.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="60" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-226_S34_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_junctions" name="EPI-226_S34_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Junctions" visible="false"/>
+        <Track clazz="org.broad.igv.sam.AlignmentTrack" displayMode="EXPANDED" experimentType="OTHER" fontSize="10" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-226_S34_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" name="EPI-226_S34_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="58" name="Panel1566511020226" width="1329">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="175,175,175" colorScale="ContinuousColorScale;0.0;20.0;255,255,255;175,175,175" fontSize="10" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-227_S35_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_coverage" name="EPI-227_S35_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="16.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="60" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-227_S35_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_junctions" name="EPI-227_S35_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Junctions" visible="false"/>
+        <Track clazz="org.broad.igv.sam.AlignmentTrack" displayMode="EXPANDED" experimentType="OTHER" fontSize="10" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-227_S35_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" name="EPI-227_S35_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="58" name="Panel1566511020288" width="1329">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="255,204,204" colorScale="ContinuousColorScale;0.0;27.0;255,255,255;175,175,175" fontSize="10" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-221_S33_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_coverage" name="EPI-221_S33_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="20.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="60" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-221_S33_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_junctions" name="EPI-221_S33_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Junctions" visible="false"/>
+        <Track clazz="org.broad.igv.sam.AlignmentTrack" displayMode="EXPANDED" experimentType="OTHER" fontSize="10" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-221_S33_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" name="EPI-221_S33_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="58" name="Panel1566511020474" width="1329">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="255,204,204" colorScale="ContinuousColorScale;0.0;14.0;255,255,255;175,175,175" fontSize="10" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-220_S32_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_coverage" name="EPI-220_S32_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="10.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="60" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-220_S32_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_junctions" name="EPI-220_S32_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Junctions" visible="false"/>
+        <Track clazz="org.broad.igv.sam.AlignmentTrack" displayMode="EXPANDED" experimentType="OTHER" fontSize="10" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-220_S32_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" name="EPI-220_S32_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="58" name="Panel1566511020668" width="1329">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="255,204,204" colorScale="ContinuousColorScale;0.0;27.0;255,255,255;175,175,175" fontSize="10" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-215_S31_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_coverage" name="EPI-215_S31_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="12.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="60" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-215_S31_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_junctions" name="EPI-215_S31_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Junctions" visible="false"/>
+        <Track clazz="org.broad.igv.sam.AlignmentTrack" displayMode="EXPANDED" experimentType="OTHER" fontSize="10" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-215_S31_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" name="EPI-215_S31_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="121" name="Panel1566511020770" width="1329">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="255,204,204" colorScale="ContinuousColorScale;0.0;83.0;255,255,255;175,175,175" fontSize="10" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-214_S30_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_coverage" name="EPI-214_S30_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="12.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="60" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-214_S30_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_junctions" name="EPI-214_S30_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Junctions" visible="false"/>
+        <Track clazz="org.broad.igv.sam.AlignmentTrack" displayMode="EXPANDED" experimentType="OTHER" fontSize="10" id="/Volumes/web/seashell/bu-mox/scrubbed/0807-004/EPI-214_S30_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" name="EPI-214_S30_L004_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;1.0;255,255,255;0,0,178" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/Get_DMRs_for_SR_v074_alignments/methylpy_DMRs/DMR1000bpMCmax25_rms_results_collapsed.tsv.DMR.bed" name="DMR1000bpMCmax25_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+    </Panel>
+    <Panel height="313" name="FeaturePanel" width="1329">
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;1.0;255,255,255;0,0,178" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/Get_DMRs_for_SR_v074_alignments/methylpy_DMRs/destrand_allc_files/DMR1000sortbpMCmax25_rms_results_collapsed.tsv.DMR.bed" name="DMR1000sortbpMCmax25_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;91.0;255,255,255;0,0,178" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/Get_DMRs_for_SR_v074_alignments/methylpy_DMRs/destrand_allc_files/DMR1000sortbpMCmax25_rms_results_collapsed.tsv.DMS.bed" name="DMR1000sortbpMCmax25_rms_results_collapsed.tsv.DMS.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;1.0;255,255,255;0,0,178" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/Get_DMRs_for_SR_v074_alignments/methylpy_DMRs/destrand_allc_files/DMR250sortbpMCmax25cov5x_rms_results_collapsed.tsv.DMR.bed" name="DMR250sortbpMCmax25cov5x_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;53.0;255,255,255;0,0,178" fontSize="10" id="/Users/strigg/Documents/GitHub/Shelly_Pgenerosa/analyses/JuviPgen_ALSL2lowd145/Get_DMRs_for_SR_v074_alignments/methylpy_DMRs/destrand_allc_files/DMR250sortbpMCmax25cov5x_rms_results_collapsed.tsv.DMS.bed" name="DMR250sortbpMCmax25cov5x_rms_results_collapsed.tsv.DMS.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;0.0;255,255,255;0,0,178" fontSize="10" id="https://owl.fish.washington.edu/halfshell/genomic-databank/Pgenerosa_v074.fa.out.gff" name="Pgenerosa_v074.fa.out.gff" visible="true"/>
+    </Panel>
+    <PanelLayout dividerFractions="0.006779661016949152,0.0711864406779661,0.1423728813559322,0.2135593220338983,0.2847457627118644,0.3559322033898305,0.4271186440677966,0.49830508474576274,0.6406779661016949"/>
+    <HiddenAttributes>
+        <Attribute name="DATA FILE"/>
+        <Attribute name="DATA TYPE"/>
+        <Attribute name="NAME"/>
+    </HiddenAttributes>
+</Session>
