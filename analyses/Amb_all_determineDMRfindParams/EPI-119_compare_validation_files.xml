@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Session genome="http://owl.fish.washington.edu/halfshell/genomic-databank/Pgenerosa_v074.fa" hasGeneTrack="false" hasSequenceTrack="true" locus="PGA_scaffold4__129_contigs__length_65288255:25115947-25116158" nextAutoscaleGroup="5" path="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/Amb_all_determineDMRfindParams/EPI-119_compare_validation_files.xml" version="8">
+    <Resources>
+        <Resource path="/Volumes/web/seashell/bu-mox/scrubbed/0809-005/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190822/5xbedgraph/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.destrand.5x.bedgraph"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190822/dedup_bams/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.filtered.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190822/amb_AllTimes_DMR250bp_MCmax25_cov5x_rms_results_collapsed.tsv.DMR.bed"/>
+        <Resource path="/Volumes/web/seashell/bu-mox/scrubbed/0809-005/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bedGraph.gz"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190822/allc_EPI-119_S31.scaff4.5x.bedGraph.gz"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190822/amb_AllTimes_DMR250bp_MCmax25_cov5x_clst3_rms_results_collapsed.tsv.DMR.bed"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190822/amb_AllTimes_DMR250bp_MCmax50_cov5x_clst3_rms_results_collapsed.tsv.DMR.bed"/>
+    </Resources>
+    <Panel height="1724" name="DataPanel" width="1416">
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" colorScale="ContinuousColorScale;0.0;100.0;255,255,255;0,0,178" fontSize="10" height="35" id="/Volumes/web/seashell/bu-mox/scrubbed/0809-005/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bedGraph.gz" name="EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bedGraph.gz" renderer="HEATMAP" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" colorScale="ContinuousColorScale;0.0;100.0;255,255,255;0,0,178" fontSize="10" height="35" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190822/5xbedgraph/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.destrand.5x.bedgraph" name="EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.destrand.5x.bedgraph" renderer="HEATMAP" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="100.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="175,175,175" colorScale="ContinuousColorScale;0.0;28.0;255,255,255;175,175,175" fontSize="10" height="40" id="/Volumes/web/seashell/bu-mox/scrubbed/0809-005/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_coverage" name="EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="10.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.AlignmentTrack" displayMode="EXPANDED" experimentType="OTHER" fontSize="10" height="71" id="/Volumes/web/seashell/bu-mox/scrubbed/0809-005/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" name="EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam" visible="true">
+            <RenderOptions colorOption="READ_STRAND"/>
+        </Track>
+    </Panel>
+    <Panel height="230" name="Panel1569431260507" width="1416">
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="60" id="/Volumes/web/seashell/bu-mox/scrubbed/0809-005/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam_junctions" name="EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.bam Junctions" visible="false"/>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" colorScale="ContinuousColorScale;0.0;1.0;255,255,255;0,0,178" fontSize="10" height="35" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190822/allc_EPI-119_S31.scaff4.5x.bedGraph.gz" name="allc_EPI-119_S31.scaff4.5x.bedGraph.gz" renderer="HEATMAP" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="1.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="175,175,175" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;175,175,175" fontSize="10" height="35" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190822/dedup_bams/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.filtered.bam_coverage" name="EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="10.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.AlignmentTrack" displayMode="EXPANDED" experimentType="OTHER" fontSize="10" height="47" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190822/dedup_bams/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.filtered.bam" name="EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.sorted.filtered.bam" visible="true">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="120" name="FeaturePanel" width="1416">
+        <Track clazz="org.broad.igv.track.SequenceTrack" fontSize="10" height="17" id="Reference sequence" name="Reference sequence" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;1.0;255,255,255;0,0,178" fontSize="10" height="18" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190822/amb_AllTimes_DMR250bp_MCmax50_cov5x_clst3_rms_results_collapsed.tsv.DMR.bed" name="amb_AllTimes_DMR250bp_MCmax50_cov5x_clst3_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;1.0;255,255,255;0,0,178" fontSize="10" height="17" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190822/amb_AllTimes_DMR250bp_MCmax25_cov5x_clst3_rms_results_collapsed.tsv.DMR.bed" name="amb_AllTimes_DMR250bp_MCmax25_cov5x_clst3_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;2.0;255,255,255;0,0,178" fontSize="10" height="18" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190822/amb_AllTimes_DMR250bp_MCmax25_cov5x_rms_results_collapsed.tsv.DMR.bed" name="amb_AllTimes_DMR250bp_MCmax25_cov5x_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+    </Panel>
+    <PanelLayout dividerFractions="0.415929203539823,0.831858407079646"/>
+    <HiddenAttributes>
+        <Attribute name="DATA FILE"/>
+        <Attribute name="DATA TYPE"/>
+        <Attribute name="NAME"/>
+    </HiddenAttributes>
+</Session>
