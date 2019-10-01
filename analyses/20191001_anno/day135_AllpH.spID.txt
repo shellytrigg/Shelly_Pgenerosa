@@ -1,0 +1,2 @@
+PGA_scaffold12__71_contigs__length_50438331 21584071 21584084 3 Q2EMV9
+PGA_scaffold1__77_contigs__length_89643857 30599528 30599553 3 Q8L706
