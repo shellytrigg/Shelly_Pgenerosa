@@ -1,0 +1,127 @@
+#copying over 0214_30K data
+
+rsync --archive --progress --verbose 20190214_30K Shelly@d-10-19-221-200.dhcp4.washington.edu:/Volumes/web/metacarcinus/Pgenerosa/analyses
+Warning: Permanently added 'd-10-19-221-200.dhcp4.washington.edu,10.19.221.200' (ECDSA) to the list of known hosts.
+Password:
+building file list ... 
+71 files to consider
+20190214_30K/
+20190214_30K/CHH_OT_EPI-111_S29_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.txt
+ 10,412,250,453 100%    7.70MB/s    0:21:29 (xfr#1, to-chk=57/71)
+20190214_30K/CHH_OT_EPI-113_S30_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.txt
+ 10,133,672,426 100%    8.02MB/s    0:20:05 (xfr#2, to-chk=56/71)
+20190214_30K/CHH_OT_EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.txt
+ 11,007,681,554 100%    7.56MB/s    0:23:09 (xfr#3, to-chk=55/71)
+20190214_30K/CHH_OT_EPI-120_S32_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.txt
+  9,845,688,078 100%    6.69MB/s    0:23:23 (xfr#4, to-chk=54/71)
+20190214_30K/CpG_OB_EPI-111_S29_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.txt
+  2,154,878,264 100%    6.77MB/s    0:05:03 (xfr#5, to-chk=53/71)
+20190214_30K/CpG_OB_EPI-113_S30_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.txt
+  2,090,817,039 100%    6.93MB/s    0:04:47 (xfr#6, to-chk=52/71)
+20190214_30K/CpG_OB_EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.txt
+  2,370,939,855 100%    6.95MB/s    0:05:25 (xfr#7, to-chk=51/71)
+20190214_30K/CpG_OB_EPI-120_S32_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.txt
+  2,050,243,302 100%    6.94MB/s    0:04:41 (xfr#8, to-chk=50/71)
+20190214_30K/CpG_OT_EPI-111_S29_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.txt
+  2,148,276,113 100%    6.88MB/s    0:04:57 (xfr#9, to-chk=49/71)
+20190214_30K/CpG_OT_EPI-113_S30_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.txt
+  2,083,146,067 100%    6.83MB/s    0:04:50 (xfr#10, to-chk=48/71)
+20190214_30K/CpG_OT_EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.txt
+  2,365,319,320 100%    6.94MB/s    0:05:25 (xfr#11, to-chk=47/71)
+20190214_30K/CpG_OT_EPI-120_S32_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.txt
+  2,046,030,178 100%    6.71MB/s    0:04:50 (xfr#12, to-chk=46/71)
+20190214_30K/EPI-111_S29_L005_R1_001_val_1_bismark_bt2_PE_report.html
+        366,210 100%  703.99kB/s    0:00:00 (xfr#13, to-chk=45/71)
+20190214_30K/EPI-111_S29_L005_R1_001_val_1_bismark_bt2_PE_report.txt
+          2,089 100%    4.01kB/s    0:00:00 (xfr#14, to-chk=44/71)
+20190214_30K/EPI-111_S29_L005_R1_001_val_1_bismark_bt2_pe.bam
+  3,453,566,302 100%    6.64MB/s    0:08:15 (xfr#15, to-chk=43/71)
+20190214_30K/EPI-111_S29_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.M-bias.txt
+         17,369 100%   34.97kB/s    0:00:00 (xfr#16, to-chk=42/71)
+20190214_30K/EPI-111_S29_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bam
+  2,853,113,946 100%    5.87MB/s    0:07:43 (xfr#17, to-chk=41/71)
+20190214_30K/EPI-111_S29_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bedGraph.gz
+     88,201,167 100%    6.24MB/s    0:00:13 (xfr#18, to-chk=40/71)
+20190214_30K/EPI-111_S29_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz
+     80,825,976 100%    6.57MB/s    0:00:11 (xfr#19, to-chk=39/71)
+20190214_30K/EPI-111_S29_L005_R1_001_val_1_bismark_bt2_pe.deduplicated_splitting_report.txt
+            883 100%    1.39kB/s    0:00:00 (xfr#20, to-chk=38/71)
+20190214_30K/EPI-111_S29_L005_R1_001_val_1_bismark_bt2_pe.deduplication_report.txt
+            349 100%    0.55kB/s    0:00:00 (xfr#21, to-chk=37/71)
+20190214_30K/EPI-111_S29_L005_dedup.sorted.bam
+  2,242,191,820 100%    6.71MB/s    0:05:18 (xfr#22, to-chk=36/71)
+20190214_30K/EPI-113_S30_L005_R1_001_val_1_bismark_bt2_PE_report.html
+        366,207 100%    3.12MB/s    0:00:00 (xfr#23, to-chk=35/71)
+20190214_30K/EPI-113_S30_L005_R1_001_val_1_bismark_bt2_PE_report.txt
+          2,089 100%   17.90kB/s    0:00:00 (xfr#24, to-chk=34/71)
+20190214_30K/EPI-113_S30_L005_R1_001_val_1_bismark_bt2_pe.bam
+  3,352,231,963 100%    7.15MB/s    0:07:27 (xfr#25, to-chk=33/71)
+20190214_30K/EPI-113_S30_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.M-bias.txt
+         17,366 100%   50.03kB/s    0:00:00 (xfr#26, to-chk=32/71)
+20190214_30K/EPI-113_S30_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bam
+  2,759,688,845 100%    7.19MB/s    0:06:05 (xfr#27, to-chk=31/71)
+20190214_30K/EPI-113_S30_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bedGraph.gz
+     85,875,761 100%    6.60MB/s    0:00:12 (xfr#28, to-chk=30/71)
+20190214_30K/EPI-113_S30_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz
+     78,542,762 100%    6.80MB/s    0:00:11 (xfr#29, to-chk=29/71)
+20190214_30K/EPI-113_S30_L005_R1_001_val_1_bismark_bt2_pe.deduplicated_splitting_report.txt
+            882 100%    0.99kB/s    0:00:00 (xfr#30, to-chk=28/71)
+20190214_30K/EPI-113_S30_L005_R1_001_val_1_bismark_bt2_pe.deduplication_report.txt
+            349 100%    0.39kB/s    0:00:00 (xfr#31, to-chk=27/71)
+20190214_30K/EPI-113_S30_L005_dedup.sorted.bam
+  2,162,896,076 100%    7.12MB/s    0:04:49 (xfr#32, to-chk=26/71)
+20190214_30K/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_PE_report.html
+        366,232 100%  445.39kB/s    0:00:00 (xfr#33, to-chk=25/71)
+20190214_30K/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_PE_report.txt
+          2,089 100%    2.54kB/s    0:00:00 (xfr#34, to-chk=24/71)
+20190214_30K/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.bam
+  3,607,626,093 100%    7.15MB/s    0:08:01 (xfr#35, to-chk=23/71)
+20190214_30K/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.M-bias.txt
+         17,442 100%   54.42kB/s    0:00:00 (xfr#36, to-chk=22/71)
+20190214_30K/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bam
+  2,957,678,140 100%    7.17MB/s    0:06:33 (xfr#37, to-chk=21/71)
+20190214_30K/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bedGraph.gz
+     94,298,690 100%    6.59MB/s    0:00:13 (xfr#38, to-chk=20/71)
+20190214_30K/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz
+     86,664,969 100%    6.25MB/s    0:00:13 (xfr#39, to-chk=19/71)
+20190214_30K/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplicated_splitting_report.txt
+            882 100%   24.61kB/s    0:00:00 (xfr#40, to-chk=18/71)
+20190214_30K/EPI-119_S31_L005_R1_001_val_1_bismark_bt2_pe.deduplication_report.txt
+            349 100%    9.21kB/s    0:00:00 (xfr#41, to-chk=17/71)
+20190214_30K/EPI-119_S31_L005_dedup.sorted.bam
+  2,312,480,331 100%    7.14MB/s    0:05:08 (xfr#42, to-chk=16/71)
+20190214_30K/EPI-120_S32_L005_R1_001_val_1_bismark_bt2_PE_report.html
+        366,203 100%    1.00MB/s    0:00:00 (xfr#43, to-chk=15/71)
+20190214_30K/EPI-120_S32_L005_R1_001_val_1_bismark_bt2_PE_report.txt
+          2,089 100%    5.83kB/s    0:00:00 (xfr#44, to-chk=14/71)
+20190214_30K/EPI-120_S32_L005_R1_001_val_1_bismark_bt2_pe.bam
+  3,215,678,549 100%    7.00MB/s    0:07:17 (xfr#45, to-chk=13/71)
+20190214_30K/EPI-120_S32_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.M-bias.txt
+         17,358 100%   18.37kB/s    0:00:00 (xfr#46, to-chk=12/71)
+20190214_30K/EPI-120_S32_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bam
+  2,670,597,983 100%    7.11MB/s    0:05:58 (xfr#47, to-chk=11/71)
+20190214_30K/EPI-120_S32_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bedGraph.gz
+     85,832,688 100%    7.07MB/s    0:00:11 (xfr#48, to-chk=10/71)
+20190214_30K/EPI-120_S32_L005_R1_001_val_1_bismark_bt2_pe.deduplicated.bismark.cov.gz
+     78,354,971 100%    6.72MB/s    0:00:11 (xfr#49, to-chk=9/71)
+20190214_30K/EPI-120_S32_L005_R1_001_val_1_bismark_bt2_pe.deduplicated_splitting_report.txt
+            882 100%    0.88kB/s    0:00:00 (xfr#50, to-chk=8/71)
+20190214_30K/EPI-120_S32_L005_R1_001_val_1_bismark_bt2_pe.deduplication_report.txt
+            349 100%    0.35kB/s    0:00:00 (xfr#51, to-chk=7/71)
+20190214_30K/EPI-120_S32_L005_dedup.sorted.bam
+  2,101,801,430 100%    7.17MB/s    0:04:39 (xfr#52, to-chk=6/71)
+20190214_30K/EPI_mapping_dedup_summary.txt
+            352 100%    0.37kB/s    0:00:00 (xfr#53, to-chk=5/71)
+20190214_30K/bismark_summary_report.html
+        271,437 100%  274.69kB/s    0:00:00 (xfr#54, to-chk=4/71)
+20190214_30K/bismark_summary_report.txt
+            924 100%    0.93kB/s    0:00:00 (xfr#55, to-chk=3/71)
+20190214_30K/bme.err
+        592,631 100%  561.88kB/s    0:00:01 (xfr#56, to-chk=2/71)
+20190214_30K/dedup.err
+          3,067 100%  748.78kB/s    0:00:00 (xfr#57, to-chk=1/71)
+20190214_30K/slurm-635581.out
+      5,323,154 100%    7.17MB/s    0:00:00 (xfr#58, to-chk=0/71)
+
+sent 93,096,200,790 bytes  received 1,378 bytes  7,492,953.61 bytes/sec
+total size is 160,769,900,256  speedup is 1.73
