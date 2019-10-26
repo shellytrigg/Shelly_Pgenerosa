@@ -1,0 +1,403 @@
+---
+title: "Untitled"
+author: "KE Lotterhos"
+date: "10/10/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("karyoploteR")
+```
+
+```{r, install}
+packages_needed <- c("scales", "biomartr", "rio", "tidyverse", "googledrive","data.table"
+                     )
+for (i in 1:length(packages_needed)){
+  if(!(packages_needed[i] %in% installed.packages())){install.packages(packages_needed[i])}
+}
+for (i in 1:length(packages_needed)){
+  library( packages_needed[i], character.only = TRUE)
+}
+bioc_packages_needed <- c("karyoploteR", "Biostrings", "biomaRt")
+if(length(bioc_packages_needed)>0){
+  if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+  for (i in 1:length(packages_needed)){
+     if(!(bioc_packages_needed[i] %in% installed.packages())){BiocManager::install(packages_needed[i])
+     }
+  }
+}
+for (i in 1:length(bioc_packages_needed)){
+  library(bioc_packages_needed[i], character.only = TRUE)
+}
+```
+
+ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/002/022/765/GCF_002022765.2_C_virginica-3.0/GCF_002022765.2_C_virginica-3.0_genomic.gff.gz
+
+```{r, load gff}
+if(!file.exists("_ncbi_downloads")){
+  gff.file <- getGFF(organism="Crassostrea virginica", gunzip=TRUE)
+}
+#gff.file <-"./ref_C_virginica-3.0_top_level.gff3"
+gff.file <- "_ncbi_downloads/annotation/Crassostrea_virginica_genomic_refseq.gff"
+header.lines <- readLines(gff.file)
+#The lines with the standard chromosomes start with "##sequence-region ".
+#Select them.
+ll <- header.lines[grepl(header.lines, pattern = "##sequence-region ")]
+#split them by space, and create a data.frame
+gg <- data.frame(do.call(rbind, strsplit(ll, split = " ")))
+gg[,3] <- as.numeric(as.character(gg[,3]))
+gg[,4] <- as.numeric(as.character(gg[,4]))
+CV.genome <- toGRanges(gg[,c(2,3,4)])
+```
+
+
+
+
+```{r, exon density}
+kp <- plotKaryotype(genome=CV.genome)
+#this part below plots the chromosomes
+kpAddCytobandsAsLine(kp)
+#features_df <- read_gff(gff.file)
+#head(features_df)
+features <- rtracklayer::import(gff.file)
+head(features)
+seqnames(features)
+chrs <- as.character(seqnames(features)@values[1:10])
+levels(features$type)
+genes <- features[features$type=="gene" ,]
+exons <- features[features$type=="exon",]
+#gff.file <-"./HSP.gff3"
+#features <- import(gff.file)
+#HSP <- features[features$type=="exon"]
+#HSP <- reduce(HSP)
+exons.sc <-IRanges::reduce(exons)
+genes.sc <-IRanges::reduce(genes)
+kp <- plotKaryotype(genome=CV.genome, ideogram.plotter = NULL)
+kpAddCytobandsAsLine(kp)
+kpPlotRegions(kp, data=genes)
+kp <- plotKaryotype(genome=CV.genome, ideogram.plotter = NULL, plot.type=2, chromosomes = chrs)
+kpAddCytobandsAsLine(kp)
+kpPlotRegions(kp, data=genes[strand(genes)=="+"], avoid.overlapping = FALSE)
+kpPlotRegions(kp, data=genes[strand(genes)=="-"], avoid.overlapping = FALSE, data.panel=2)
+kp <- plotKaryotype(genome=CV.genome[1:10], ideogram.plotter = NULL, chromosomes=chrs)
+#kpAddCytobandsAsLine(kp)
+kpPlotDensity(kp, data=exons,window.size = 100000, col=adjustcolor("blue", 0.5), lwd=0.5, border=adjustcolor("blue", 0.5), r0=0, r1=1)
+kpPlotDensity(kp, data=genes,window.size = 100000, col=adjustcolor("red", 0.3), lwd=0.5, data.panel=2, r0=0, r1=-1)
+kp <- plotKaryotype(genome=CV.genome[1:10], ideogram.plotter = NULL, chromosomes=chrs, plot.type=2)
+kpAddCytobandsAsLine(kp)
+kpPlotDensity(kp, data=exons,window.size = 100000, col=adjustcolor("blue", 0.5), lwd=0.5, border=adjustcolor("blue", 0.5), data.panel=1)
+kpPlotDensity(kp, data=genes,window.size = 100000, col=adjustcolor("red", 0.3), lwd=0.5, data.panel=2) #this should plot on the bottom, but doesn't seem to work
+```
+
+The first three required BED fields are:
+
+chrom - The name of the chromosome (e.g. chr3, chrY, chr2_random) or scaffold (e.g. scaffold10671).
+chromStart - The starting position of the feature in the chromosome or scaffold. The first base in a chromosome is numbered 0.
+chromEnd - Ending position
+
+
+
+### Load methylation data for mantle
+
+Data from Alan Downey-Wall 2017 exposure experiment
+
+`CG_unstranded_BetaMatrix.RData` represents the beta values for each individual at all potential CpG sites based on the oyster genome. In this file is destranded paired CpG cytosines prior to calculating the beta value. The two important complimentary files to this one are  `CG_unstranded_summaryTable.RData` for relevant CpG position information and `CG_unstranded_TotalCountMatrix.RData` for the coverage.
+
+These files contain all cpgs identified by Bismarck using the oyster genome. It has not been filtered.
+
+Remove 17099 because of low coverage and high % duplicated reads.
+
+```{r load mantle data}
+#list.files("~/Google Drive/LotterhosLab/2017-2020-Oyster OA Epigenetics/2017_CV_AdultExposureExp/Data/DNAm/Data/")
+mantle <- readRDS("CG_unstranded_BetaMatrix.RData")
+colnames(mantle) <- paste0("s", colnames(mantle))
+head(mantle)
+mantle1 <- as.data.frame(mantle) # takes afew seconds
+#mantle1 <- data.table(mantle) # gives error with dplyr functions
+head(mantle1)
+mantle2 <- mantle1 %>% dplyr::select(-c(s17099)) %>% dplyr::mutate(betamean = rowMeans(mantle1))
+mantle2$pos <- rownames(mantle)
+head(mantle2)
+rm(mantle, mantle1)
+mantle_pos <- readRDS("CG_unstranded_summaryTable.RData")
+names(mantle_pos)[1:3] <- c("chrom", "chromStart", "chromEnd")
+  # bedfile naming system - not sure yet if this is necessary to work with ranges
+mantle_pos$pos <- paste(mantle_pos$chrom, mantle_pos$chromStart, sep="_")
+head(mantle_pos)
+mantle_counts <- readRDS("CG_unstranded_TotalCountMatrix.RData")
+head(mantle_counts)
+mantle_info <- readRDS("metadata_20190811.Rdata")
+head(mantle_info)
+mantle_plot <- full_join(mantle_pos, mantle2)
+head(mantle_plot)
+#kp <- plotKaryotype(genome=CV.genome[1:10], ideogram.plotter = NULL, chromosomes=chrs)
+#kpAddCytobandsAsLine(kp)
+# kp
+# kpLines(kp, x=mantle_plot$chromStart, y=mantle_plot$betamean, data.panel = 1, chr=mantle_plot$chrom) DO NOT DO THIS - WAAAY TO MUCH INFO TO PLOT
+#kpAxis(kp, data.panel=1)
+```
+
+Let's summarize this beta data and plot it for a custom window size.
+
+This code uses the split, apply, combine approach to produce data summaries.
+
+For more information, check out Vince Buffalo's Bioinformatics Book.
+
+```{r split and summarize functions}
+beta_split_chrom <- split(mantle_plot$beta, mantle_plot$chrom)
+str(beta_split_chrom)
+beta_pos_chrom  <- split(mantle_plot$chromStart, mantle_plot$chrom)
+str(beta_pos_chrom)
+summ_beta <- function(beta, pos, window1=10^5){
+  bins <- cut(pos, breaks=seq(1, max(pos), by = window1))
+  #beta_split <- split(beta, bins)
+  out <- do.call(rbind, lapply(split(beta, bins), summary))
+  out2 <- as.data.frame(out)
+  out2$mid <- seq(window1/2, (max(pos)-window1/2), by = window1)
+  out2$window <- rownames(out)
+  return(out2)
+}
+```
+
+Make a plot with Mantle Methylation on the top and exon density on the bottom
+```{r, mantle exon plot}
+png("Mantle2018Top_ExonDensityBottom.png", width=12, height=8, units="in", res=400)
+  kp <- plotKaryotype(genome=CV.genome, ideogram.plotter = NULL, chromosomes=chrs, 
+                      plot.type=2)
+  kpAddCytobandsAsLine(kp)
+  
+  for (i in 2:length(beta_split_chrom)){
+    a<- 
+  summ_beta(beta_split_chrom[[i]], beta_pos_chrom[[i]])
+  head(a)
+  kpLines(kp, x=a$mid, y=a$"1st Qu.", data.panel = 1, chr=names(beta_split_chrom[i]), col="grey")
+  kpLines(kp, x=a$mid, y=a$"3rd Qu.", data.panel = 1, chr=names(beta_split_chrom[i]), col="grey")
+  kpLines(kp, x=a$mid, y=a$Mean, data.panel = 1, chr=names(beta_split_chrom[i]))
+  }
+  
+  kpAxis(kp, data.panel=1, labels = c("", 0.5, 1))
+  
+  kpPlotDensity(kp, data=exons,window.size = 100000, col=adjustcolor("blue", 0.5), lwd=0.5, border=adjustcolor("blue", 0.5), data.panel=2, r0=0, r1=1)
+dev.off()  
+```
+
+### Load methylation data for gonads
+
+Data from Yaamini V 2016 exposure experiment
+
+```{r}
+bedfile <- "bedfiles/2019-04-09-All-5x-CpGs.bedgraph"
+if(!file.exists(bedfile)){
+  dir.create("bedfiles")
+  download.file("https://gannet.fish.washington.edu/spartina/2018-10-10-project-virginica-oa-Large-Files/2019-05-13-Yaamini-Virginica-Repository/analyses/2019-03-18-Characterizing-CpG-Methylation/2019-04-09-All-5x-CpGs.bedgraph", "bedfiles/2019-04-09-All-5x-CpGs.bedgraph")
+}
+# gonads <- rtracklayer::import(bedfile) # error
+system("head bedfiles/2019-04-09-All-5x-CpGs.bedgraph")
+gonads <- read.table("bedfiles/2019-04-09-All-5x-CpGs.bedgraph")
+head(gonads)
+```
+
+
+plot Yaamini's data
+```{r}
+
+kp <- plotKaryotype(genome=CV.genome, ideogram.plotter = NULL,chromosomes=names(beta_split_chrom), plot.type=1)
+
+kpAddCytobandsAsLine(kp)
+
+
+#plot
+
+kpPoints(kp, x=gonads$V2, y=gonads$V4, chr = gonads$V1, data.panel=1)
+kpAxis(kp, data.panel=1, labels = c("", 0.5, 1))
+
+rm(kp)
+
+#try restricting points to those with > 0 % methylation
+kp <- plotKaryotype(genome=CV.genome, ideogram.plotter = NULL,chromosomes=names(beta_split_chrom), plot.type=1)
+
+kpAddCytobandsAsLine(kp)
+
+#try plotting data from just one chromosome
+kpPoints(kp, x=gonads[which(gonads$V1 == "NC_035785.1"),"V2"], y=gonads[which(gonads$V1 =="NC_035785.1"),"V4"], chr = gonads[which(gonads$V1 =="NC_035785.1"),"V1"], data.panel=1)
+
+
+
+```
+
+
+
+
+
+```{r}
+coverage.1 <- import.bed("./Total_EC.2c.bed")
+test.cov <- toGRanges(coverage.1)
+
+coverage.2 <- import.bed("./m4q4sc.bed")
+test.cov2 <- toGRanges(coverage.2)
+
+
+
+kpPlotCoverage(kp, data=test.cov)
+
+kp <- plotKaryotype(genome=CV.genome, ideogram.plotter = NULL,plot.type=2, chromosomes = "NC_035780.1")
+kpAddCytobandsAsLine(kp)
+kpPlotDensity(kp, data=exons.sc,window.size = 1000, chromosomes="NC_035780.1")
+#kpPoints(kp, chr="NC_007175.2", data=test.cov, y=score, data.panel = 2)
+kpPlotCoverage(kp, data=test.cov, data.panel=2,chromosomes="NC_035780.1")
+
+
+kp <- plotKaryotype(genome=CV.genome, ideogram.plotter = NULL,plot.type=2, chromosomes = "NC_035780.1")
+kpAddCytobandsAsLine(kp)
+kpPlotDensity(kp, data=exons,window.size = 1000000, chr="NC_035780.1")
+kpPlotDensity(kp, data=test.cov,window.size=1000000, chr="NC_035780.1", data.panel=2)
+
+EC_2.bam <-"./ECI_2.F.bam"
+
+kpAddChromosomeNumbers <- function(karyoplot, ...){
+  karyoplot$beginKpPlot()
+  on.exit(karyoplot$endKpPlot())
+  bb <- getChromosomeNamesBoundingBox(karyoplot)
+  chr.labels <- seq(1,length(karyoplot$chromosomes))
+  chr.labels <- paste("Chr ",chr.labels,sep="")
+  x <- (bb$x0 + bb$x1)/2
+  y <- (bb$y0 + bb$y1)/2
+  graphics::text(x = x, y = y, labels = chr.labels, ...)
+  invisible(karyoplot)
+}
+
+
+cbPalette <- c("#009E73","#D55E00","#56B4E9", "#0072B2","#E69F00", "#999999","#F0E442" , "#CC79A7")
+
+pie(rep(1, length(cbPalette)), labels = sprintf("%d (%s)", seq_along(cbPalette), 
+                                                cbPalette), col = alpha(cbPalette,0.9))
+coverage.1 <- import.bed("./Total_EC.2c.bed")
+test.cov <- toGRanges(coverage.1)
+
+coverage.2 <- import.bed("./m4q4sc.bed")
+test.cov2 <- toGRanges(coverage.2)
+
+kp <- plotKaryotype(genome=CV.genome, ideogram.plotter = NULL, plot.type = 3, chromosomes="NC_035785.1")
+
+png(filename="kary1new.png", type="cairo",units="px", width=5600, 
+    height=3000, res=300, bg="transparent")
+kp <- plotKaryotype(genome=CV.genome, ideogram.plotter = NULL, plot.type = 2, chromosomes=c("NC_035780.1","NC_035781.1","NC_035782.1","NC_035783.1","NC_035784.1","NC_035785.1","NC_035786.1","NC_035787.1","NC_035788.1","NC_035789.1"),labels.plotter = kpAddChromosomeNumbers)
+kp$plot.params$chromosome.height=1
+kp$plot.params$ideogramheight <-1
+kp$plot.params$data1inmargin <- -10
+kp$plot.params$data2inmargin <-30
+kp$plot.params$topmargin <-0
+kp$plot.params$bottommargin <-0
+
+kpAddCytobandsAsLine(kp, lwd=5)
+kpAddBaseNumbers(kp)
+#kpPlotRegions(kp, data=exons.sc)
+#kpPlotRegions(kp,data=HSP)
+#kpPlotDensity(kp, data=HSP, col = "red", data.panel=1,window.size = 100)
+#kpPlotDensity(kp, data=exons.sc,window.size = 100000)
+kpPlotDensity(kp, data=test.cov,window.size=100000, col=alpha(cbPalette[4],0.9),data.panel=1, ymax=150000)
+kpPlotDensity(kp, data=test.cov2,window.size = 100000, col=alpha(cbPalette[2],0.9),data.panel=2, ymax=40000, r1=0.9)
+dev.off()
+
+  png(filename="kary.black.png", type="cairo",units="px", width=5600, 
+    height=3000, res=300, bg="transparent")
+kp <- plotKaryotype(genome=CV.genome, ideogram.plotter = NULL, plot.type = 2, col="white", chromosomes=c("NC_035780.1","NC_035781.1","NC_035782.1","NC_035783.1","NC_035784.1","NC_035785.1","NC_035786.1","NC_035787.1","NC_035788.1","NC_035789.1"),labels.plotter = kpAddChromosomeNumbers)
+kp$plot.params$chromosome.height=1
+kp$plot.params$ideogramheight <-1
+kp$plot.params$data1inmargin <- -10
+kp$plot.params$data2inmargin <-30
+kp$plot.params$topmargin <-0
+kp$plot.params$bottommargin <-0
+
+kpAddCytobandsAsLine(kp, lwd=5)
+kpAddBaseNumbers(kp, col="white")
+#dev.off()
+#kpPlotRegions(kp, data=exons.sc)
+#kpPlotRegions(kp,data=HSP)
+#kpPlotDensity(kp, data=HSP, col = "red", data.panel=1,window.size = 100)
+#kpPlotDensity(kp, data=exons.sc,window.size = 100000, col=alpha(cbPalette[1],0.9), border="white")
+#dev.off()
+kpPlotDensity(kp, data=test.cov,window.size=100000, col=alpha(cbPalette[4],0.9),border="white",data.panel=2, ymax=30000)
+#kpPlotDensity(kp, data=test.cov2,window.size = 100000, col="red",data.panel=1, ymax=40000, r1=0.9)
+
+dev.off()
+
+
+kp <- plotKaryotype(genome=CV.genome, ideogram.plotter = NULL, plot.type = 3, chromosomes="NC_035785.1")
+
+png(filename="kary1.black.png", type="cairo",units="px", width=5600, 
+    height=3000, res=300, bg="transparent")
+kp <- plotKaryotype(genome=CV.genome, ideogram.plotter = NULL, plot.type = 2, col="white", chromosomes=c("NC_035780.1","NC_035781.1","NC_035782.1","NC_035783.1","NC_035784.1","NC_035785.1","NC_035786.1","NC_035787.1","NC_035788.1","NC_035789.1"),labels.plotter = kpAddChromosomeNumbers)
+kp$plot.params$chromosome.height=1
+kp$plot.params$ideogramheight <-1
+kp$plot.params$data1inmargin <- -10
+kp$plot.params$data2inmargin <-30
+kp$plot.params$topmargin <-0
+kp$plot.params$bottommargin <-0
+
+kpAddCytobandsAsLine(kp, lwd=5)
+kpAddBaseNumbers(kp, col="white")
+#dev.off()
+#kpPlotRegions(kp, data=exons.sc)
+#kpPlotRegions(kp,data=HSP)
+#kpPlotDensity(kp, data=HSP, col = "red", data.panel=1,window.size = 100)
+#kpPlotDensity(kp, data=exons.sc,window.size = 100000)
+kpPlotDensity(kp, data=test.cov2,window.size = 100000, col=alpha(cbPalette[2],0.9),data.panel=1, border="white",ymax=40000, r1=0.9)
+#dev.off()
+kpPlotDensity(kp, data=test.cov,window.size=100000, col=alpha(cbPalette[4],0.9),data.panel=2, border="white",ymax=30000)
+dev.off()
+
+png(filename="karynew.png", type="cairo",units="px", width=5600, 
+    height=3000, res=300, bg="transparent")
+kp <- plotKaryotype(genome=CV.genome, ideogram.plotter = NULL, plot.type = 2, chromosomes=c("NC_035780.1","NC_035781.1","NC_035782.1","NC_035783.1","NC_035784.1","NC_035785.1","NC_035786.1","NC_035787.1","NC_035788.1","NC_035789.1"),labels.plotter = kpAddChromosomeNumbers)
+kp$plot.params$chromosome.height=1
+kp$plot.params$ideogramheight <-1
+kp$plot.params$data1inmargin <- -10
+kp$plot.params$data2inmargin <-30
+kp$plot.params$topmargin <-0
+kp$plot.params$bottommargin <-0
+
+kpAddCytobandsAsLine(kp, lwd=5)
+kpAddBaseNumbers(kp)
+#kpPlotRegions(kp, data=exons.sc)
+#kpPlotRegions(kp,data=HSP)
+#kpPlotDensity(kp, data=HSP, col = "red", data.panel=1,window.size = 100)
+kpPlotDensity(kp, data=exons.sc,window.size = 100000, col=alpha(cbPalette[1],0.9))
+kpPlotDensity(kp, data=test.cov,window.size=100000, col=alpha(cbPalette[4],0.9),data.panel=2, ymax=150000)
+#kpPlotDensity(kp, data=test.cov2,window.size = 100000, col="red",data.panel=1, ymax=40000, r1=0.9)
+
+dev.off()
+
+png(filename="karynewblack.png", type="cairo",units="px", width=5600, 
+    height=3000, res=300, bg="transparent")
+kp <- plotKaryotype(genome=CV.genome, ideogram.plotter = NULL, plot.type = 2, chromosomes=c("NC_035780.1","NC_035781.1","NC_035782.1","NC_035783.1","NC_035784.1","NC_035785.1","NC_035786.1","NC_035787.1","NC_035788.1","NC_035789.1"),labels.plotter = kpAddChromosomeNumbers,col="white")
+kp$plot.params$chromosome.height=1
+kp$plot.params$ideogramheight <-1
+kp$plot.params$data1inmargin <- -30
+kp$plot.params$data2inmargin <-10
+kp$plot.params$topmargin <-0
+kp$plot.params$bottommargin <-0
+
+kpAddCytobandsAsLine(kp, lwd=5)
+kpAddBaseNumbers(kp, col="white")
+#kpPlotRegions(kp, data=exons.sc)
+#kpPlotRegions(kp,data=HSP)
+#kpPlotDensity(kp, data=HSP, col = "red", data.panel=1,window.size = 100)
+kpPlotDensity(kp, data=test.cov,window.size = 100000, col=alpha(cbPalette[4],0.9),border="grey",ymax=150000)
+kpPlotDensity(kp, data=test.cov2,window.size=100000, col=alpha(cbPalette[2],0.9),data.panel=2,border="grey",ymax=30000, r1=0.9)
+#kpPlotDensity(kp, data=test.cov2,window.size = 100000, col="red",data.panel=1, ymax=40000, r1=0.9)
+
+dev.off()
+
+#kpPlotBAMDensity(kp, data = EC_2.bam, window.size = 100000, data.panel=2)
+
+
+
