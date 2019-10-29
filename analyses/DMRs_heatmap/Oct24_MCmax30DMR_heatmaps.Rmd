@@ -105,3 +105,21 @@ plot heatmap of day145 sample comparison
 ColSideColors <- cbind(pH = c(rep("cyan",4),rep("green1",4),rep("green3",4),rep("mediumpurple1",4),rep("plum2",4),rep("magenta",4)))
 heatmap.2(day145_m,cexRow = 0.3, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = bluered, na.color = "black", density.info = "none", trace = "none", scale = "row")
 ```
+
+calculate group effect
+```{r}
+#reformat data
+day10_STACKED <- tidyr::gather(oct24_MCmax30_DMRs_day10[,7:19], "sample", "perc.meth",1:12)
+
+day10_STACKED$sample <- as.numeric(gsub("methylation_level_EPI\\.","",day10_STACKED$sample))
+
+day10_STACKED$group <- NA
+for(i in 1:nrow(day10_STACKED)){
+  if(day10_STACKED$sample[i] == 103 | day10_STACKED$sample[i] == 104 | day10_STACKED$sample[i] == 127 | day10_STACKED$sample[i] == 128){day10_STACKED$group[i] <- "low.pH"}
+  if(day10_STACKED$sample[i] == 111 | day10_STACKED$sample[i] == 113 | day10_STACKED$sample[i] == 143 | day10_STACKED$sample[i] == 145){day10_STACKED$group[i] <- "superlow.pH"}
+  if(day10_STACKED$sample[i] == 119 | day10_STACKED$sample[i] == 120 | day10_STACKED$sample[i] == 135 | day10_STACKED$sample[i] == 136){day10_STACKED$group[i] <- "amb"}
+}
+
+
+#plot distributions of % methylation by group facetted by DMR
+ggplot(data = day10_STACKED)+ geom_violin(aes(y = perc.meth,x = group, fill = group)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust = 1),axis.title=element_text(size=12,face="bold"))

@@ -76,7 +76,7 @@ rownames(day10_m) <- oct24_MCmax25_DMRs_day10$ID
 plot heatmap of day10 sample comparison
 ```{r, day10_DMR_heatmap}
 ColSideColors <- cbind(pH = c(rep("cyan",4),rep("plum2",4),rep("magenta",4)))
-heatmap.2(day10_m,cexRow = 0.3, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = bluered, na.color = "black", density.info = "none", trace = "none", scale = "row")
+heatmap.2(day10_m,margin = c(5,10),cexRow = 0.8, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = bluered, na.color = "black", density.info = "none", trace = "none", scale = "row")
 ```
 
 create matrix for day135 samples

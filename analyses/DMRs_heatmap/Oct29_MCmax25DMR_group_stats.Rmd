@@ -1,0 +1,24 @@
+---
+title: "Oct29_MCmax25DMR_group_stats"
+author: "Shelly Trigg"
+date: "10/29/2019"
+output: rmarkdown::github_document
+---
+
+This script was run with Gannet mounted
+
+
+load libraries
+```{r}
+library(gplots)
+
+```
+
+read in data
+```{r}
+oct24_MCmax25_DMRs_allAmb <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024_25bp/amb_AllTimes_DMR250bp_MCmax25_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
+oct24_MCmax25_DMRs_day10 <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024_25bp/day10_AllpH_DMR250bp_MCmax25_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
+oct24_MCmax25_DMRs_day135 <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024_25bp/day135_AllpH_DMR250bp_MCmax25_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
+oct24_MCmax25_DMRs_day145 <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024_25bp/day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
+
+```
