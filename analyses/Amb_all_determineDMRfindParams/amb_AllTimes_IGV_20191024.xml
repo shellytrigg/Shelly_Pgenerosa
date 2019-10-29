@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Session genome="/Volumes/web/metacarcinus/Pgenerosa/GENOMES/v074/Pgenerosa_v074.fa" hasGeneTrack="false" hasSequenceTrack="true" locus="PGA_scaffold1__77_contigs__length_89643857:1-89643857" path="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/Amb_all_determineDMRfindParams/amb_AllTimes_IGV_20191024.xml" version="8">
+    <Resources>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-153_S4_L002.filtered.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-120_S32_L005.filtered.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024_10bp/amb_AllTimes_DMR250bp_MCmax10_cov5x.filtered.bed"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-151_S2_L002.filtered.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-185_S19_L003.filtered.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-181_S16_L003.filtered.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024_25bp/amb_AllTimes_DMR250bp_MCmax25_cov5x.filtered.bed"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-182_S17_L003.filtered.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-184_S18_L003.filtered.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-44_S41_L005.filtered.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-43_S40_L005.filtered.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-42_S39_L005.filtered.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-154_S5_L002.filtered.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-136_S36_L005.filtered.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-41_S38_L005.filtered.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-135_S35_L005.filtered.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20191023/amb_AllTimes_DMR250bp_MCmax50_cov5x.filtered.bed"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-152_S3_L002.filtered.bam"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024/amb_AllTimes_DMR250bp_MCmax30_cov5x.filtered.bed"/>
+        <Resource path="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-119_S31_L005.filtered.bam"/>
+    </Resources>
+    <Panel height="20" name="Panel1571873456244" width="1239">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="0,153,153" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;175,175,175" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-41_S38_L005.filtered.bam_coverage" name="EPI-41_S38_L005.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="10.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-41_S38_L005.filtered.bam_junctions" name="EPI-41_S38_L005.filtered.bam Junctions" visible="false"/>
+        <Track altColor="0,153,153" clazz="org.broad.igv.sam.AlignmentTrack" color="0,153,153" experimentType="OTHER" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-41_S38_L005.filtered.bam" name="EPI-41_S38_L005.filtered.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="20" name="Panel1571873456461" width="1239">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="0,153,153" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;175,175,175" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-42_S39_L005.filtered.bam_coverage" name="EPI-42_S39_L005.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="12.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-42_S39_L005.filtered.bam_junctions" name="EPI-42_S39_L005.filtered.bam Junctions" visible="false"/>
+        <Track altColor="0,153,153" clazz="org.broad.igv.sam.AlignmentTrack" color="0,153,153" displayMode="SQUISHED" experimentType="OTHER" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-42_S39_L005.filtered.bam" name="EPI-42_S39_L005.filtered.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="20" name="Panel1571873456660" width="1239">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="0,153,153" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;175,175,175" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-43_S40_L005.filtered.bam_coverage" name="EPI-43_S40_L005.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="10.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-43_S40_L005.filtered.bam_junctions" name="EPI-43_S40_L005.filtered.bam Junctions" visible="false"/>
+        <Track altColor="0,153,153" clazz="org.broad.igv.sam.AlignmentTrack" color="0,153,153" displayMode="SQUISHED" experimentType="OTHER" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-43_S40_L005.filtered.bam" name="EPI-43_S40_L005.filtered.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="20" name="Panel1571873456842" width="1239">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="0,153,153" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;175,175,175" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-44_S41_L005.filtered.bam_coverage" name="EPI-44_S41_L005.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="10.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-44_S41_L005.filtered.bam_junctions" name="EPI-44_S41_L005.filtered.bam Junctions" visible="false"/>
+        <Track clazz="org.broad.igv.sam.AlignmentTrack" displayMode="SQUISHED" experimentType="OTHER" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-44_S41_L005.filtered.bam" name="EPI-44_S41_L005.filtered.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="20" name="Panel1571873457024" width="1239">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="102,0,204" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;175,175,175" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-119_S31_L005.filtered.bam_coverage" name="EPI-119_S31_L005.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="16.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-119_S31_L005.filtered.bam_junctions" name="EPI-119_S31_L005.filtered.bam Junctions" visible="false"/>
+        <Track altColor="153,0,204" clazz="org.broad.igv.sam.AlignmentTrack" color="102,0,204" displayMode="SQUISHED" experimentType="OTHER" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-119_S31_L005.filtered.bam" name="EPI-119_S31_L005.filtered.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="20" name="Panel1571873457199" width="1239">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="102,0,204" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;175,175,175" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-120_S32_L005.filtered.bam_coverage" name="EPI-120_S32_L005.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="15.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-120_S32_L005.filtered.bam_junctions" name="EPI-120_S32_L005.filtered.bam Junctions" visible="false"/>
+        <Track altColor="153,0,204" clazz="org.broad.igv.sam.AlignmentTrack" color="102,0,204" displayMode="SQUISHED" experimentType="OTHER" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-120_S32_L005.filtered.bam" name="EPI-120_S32_L005.filtered.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="20" name="Panel1571873457431" width="1239">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="102,0,204" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;175,175,175" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-135_S35_L005.filtered.bam_coverage" name="EPI-135_S35_L005.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="18.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-135_S35_L005.filtered.bam_junctions" name="EPI-135_S35_L005.filtered.bam Junctions" visible="false"/>
+        <Track altColor="153,0,204" clazz="org.broad.igv.sam.AlignmentTrack" color="102,0,204" displayMode="SQUISHED" experimentType="OTHER" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-135_S35_L005.filtered.bam" name="EPI-135_S35_L005.filtered.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="20" name="Panel1571873458152" width="1239">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="102,0,204" colorScale="ContinuousColorScale;0.0;17.0;255,255,255;175,175,175" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-136_S36_L005.filtered.bam_coverage" name="EPI-136_S36_L005.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="28.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-136_S36_L005.filtered.bam_junctions" name="EPI-136_S36_L005.filtered.bam Junctions" visible="false"/>
+        <Track clazz="org.broad.igv.sam.AlignmentTrack" displayMode="SQUISHED" experimentType="OTHER" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-136_S36_L005.filtered.bam" name="EPI-136_S36_L005.filtered.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="20" name="Panel1571873458325" width="1239">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="255,153,255" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;175,175,175" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-151_S2_L002.filtered.bam_coverage" name="EPI-151_S2_L002.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="11.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-151_S2_L002.filtered.bam_junctions" name="EPI-151_S2_L002.filtered.bam Junctions" visible="false"/>
+        <Track altColor="255,153,255" clazz="org.broad.igv.sam.AlignmentTrack" color="255,153,255" displayMode="SQUISHED" experimentType="OTHER" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-151_S2_L002.filtered.bam" name="EPI-151_S2_L002.filtered.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="20" name="Panel1571873458497" width="1239">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="255,153,255" colorScale="ContinuousColorScale;0.0;12.0;255,255,255;175,175,175" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-152_S3_L002.filtered.bam_coverage" name="EPI-152_S3_L002.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="10.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-152_S3_L002.filtered.bam_junctions" name="EPI-152_S3_L002.filtered.bam Junctions" visible="false"/>
+        <Track altColor="255,153,255" clazz="org.broad.igv.sam.AlignmentTrack" color="255,153,255" displayMode="SQUISHED" experimentType="OTHER" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-152_S3_L002.filtered.bam" name="EPI-152_S3_L002.filtered.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="20" name="Panel1571873458726" width="1239">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="255,153,255" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;175,175,175" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-153_S4_L002.filtered.bam_coverage" name="EPI-153_S4_L002.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="10.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-153_S4_L002.filtered.bam_junctions" name="EPI-153_S4_L002.filtered.bam Junctions" visible="false"/>
+        <Track altColor="255,153,255" clazz="org.broad.igv.sam.AlignmentTrack" color="255,153,255" displayMode="SQUISHED" experimentType="OTHER" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-153_S4_L002.filtered.bam" name="EPI-153_S4_L002.filtered.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="20" name="Panel1571873458904" width="1239">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="255,153,255" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;175,175,175" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-154_S5_L002.filtered.bam_coverage" name="EPI-154_S5_L002.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="10.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-154_S5_L002.filtered.bam_junctions" name="EPI-154_S5_L002.filtered.bam Junctions" visible="false"/>
+        <Track clazz="org.broad.igv.sam.AlignmentTrack" displayMode="SQUISHED" experimentType="OTHER" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-154_S5_L002.filtered.bam" name="EPI-154_S5_L002.filtered.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="20" name="Panel1571873459072" width="1239">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="255,255,102" colorScale="ContinuousColorScale;0.0;11.0;255,255,255;175,175,175" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-181_S16_L003.filtered.bam_coverage" name="EPI-181_S16_L003.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="11.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-181_S16_L003.filtered.bam_junctions" name="EPI-181_S16_L003.filtered.bam Junctions" visible="false"/>
+        <Track altColor="255,255,51" clazz="org.broad.igv.sam.AlignmentTrack" color="255,255,102" displayMode="SQUISHED" experimentType="OTHER" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-181_S16_L003.filtered.bam" name="EPI-181_S16_L003.filtered.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="20" name="Panel1571873459227" width="1239">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="255,255,102" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;175,175,175" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-182_S17_L003.filtered.bam_coverage" name="EPI-182_S17_L003.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="19.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-182_S17_L003.filtered.bam_junctions" name="EPI-182_S17_L003.filtered.bam Junctions" visible="false"/>
+        <Track altColor="255,255,51" clazz="org.broad.igv.sam.AlignmentTrack" color="255,255,102" displayMode="SQUISHED" experimentType="OTHER" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-182_S17_L003.filtered.bam" name="EPI-182_S17_L003.filtered.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="20" name="Panel1571873459377" width="1239">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="255,255,102" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;175,175,175" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-184_S18_L003.filtered.bam_coverage" name="EPI-184_S18_L003.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="10.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-184_S18_L003.filtered.bam_junctions" name="EPI-184_S18_L003.filtered.bam Junctions" visible="false"/>
+        <Track altColor="255,255,51" clazz="org.broad.igv.sam.AlignmentTrack" color="255,255,102" displayMode="SQUISHED" experimentType="OTHER" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-184_S18_L003.filtered.bam" name="EPI-184_S18_L003.filtered.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="20" name="Panel1571873459528" width="1239">
+        <Track autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" color="255,255,102" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;175,175,175" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-185_S19_L003.filtered.bam_coverage" name="EPI-185_S19_L003.filtered.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="10.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-185_S19_L003.filtered.bam_junctions" name="EPI-185_S19_L003.filtered.bam Junctions" visible="false"/>
+        <Track clazz="org.broad.igv.sam.AlignmentTrack" displayMode="SQUISHED" experimentType="OTHER" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20190926/allAmb/EPI-185_S19_L003.filtered.bam" name="EPI-185_S19_L003.filtered.bam" visible="false">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="192" name="FeaturePanel" width="1239">
+        <Track clazz="org.broad.igv.track.SequenceTrack" fontSize="10" height="20" id="Reference sequence" name="Reference sequence" visible="true"/>
+        <Track altColor="0,0,178" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;2.0;255,255,255;0,0,178" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20191023/amb_AllTimes_DMR250bp_MCmax50_cov5x.filtered.bed" name="MCmax50_cov5x.filtered.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;2.0;255,255,255;0,0,178" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024/amb_AllTimes_DMR250bp_MCmax30_cov5x.filtered.bed" name="MCmax30_cov5x.filtered.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;1.0;255,255,255;0,0,178" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024_25bp/amb_AllTimes_DMR250bp_MCmax25_cov5x.filtered.bed" name="MCmax25_cov5x.filtered.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;1.0;255,255,255;0,0,178" fontSize="10" height="20" id="/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024_10bp/amb_AllTimes_DMR250bp_MCmax10_cov5x.filtered.bed" name="MCmax10_cov5x.filtered.bed" visible="true"/>
+    </Panel>
+    <PanelLayout dividerFractions="0.011904761904761904,0.04365079365079365,0.08134920634920635,0.11904761904761904,0.15674603174603174,0.19444444444444445,0.23214285714285715,0.2698412698412698,0.30753968253968256,0.34523809523809523,0.38293650793650796,0.42063492063492064,0.4583333333333333,0.49603174603174605,0.5337301587301587,0.5714285714285714,0.6091269841269841"/>
+    <HiddenAttributes>
+        <Attribute name="DATA FILE"/>
+        <Attribute name="DATA TYPE"/>
+        <Attribute name="NAME"/>
+    </HiddenAttributes>
+</Session>
