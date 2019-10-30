@@ -262,3 +262,9 @@ ggplot(data = amb_STACKED[which(amb_STACKED$ID %in% pull(amb_aov_modelsumm[which
 dev.off()
 ```
 
+Create a table for parsing bed file and double checking ANOVA sig. DMRs
+```{r}
+amb_aov_modelsumm_4bed <- merge(oct24_MCmax30_DMRs_allAmb[,c("ID","chr", "start","end")], amb_aov_modelsumm, by = "ID")
+write.table(amb_aov_modelsumm_4bed, "amb_aov_modelsumm_4bed.txt", sep = "\t", quote = FALSE, row.names = FALSE)
+```
+```
