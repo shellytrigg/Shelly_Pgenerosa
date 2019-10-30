@@ -407,3 +407,34 @@ dev.off()
 
     ## quartz_off_screen 
     ##                 2
+
+Create a table for parsing bed file and double checking ANOVA sig. DMRs
+
+``` r
+amb_aov_modelsumm_4bed <- merge(oct24_MCmax30_DMRs_allAmb[,c("ID","chr", "start","end")], amb_aov_modelsumm[which(amb_aov_modelsumm$p.value < 0.1),], by = "ID")
+
+amb_aov_modelsumm_4bed <- amb_aov_modelsumm_4bed[,2:4]
+
+write.table(amb_aov_modelsumm_4bed, "amb_aov_modelsumm_4bed.txt", sep = "\t", quote = FALSE, row.names = FALSE)
+
+#create filtered bed for day10 DMRs
+day10_aov_modelsumm_4bed <- merge(oct24_MCmax30_DMRs_day10[,c("ID","chr", "start","end")], day10_aov_modelsumm[which(day10_aov_modelsumm$p.value < 0.1),], by = "ID")
+
+day10_aov_modelsumm_4bed <- day10_aov_modelsumm_4bed[,2:4]
+
+write.table(day10_aov_modelsumm_4bed, "day10_aov_modelsumm_4bed.txt", sep = "\t", quote = FALSE, row.names = FALSE)
+
+#create filtered bed for day135 DMRs
+day135_aov_modelsumm_4bed <- merge(oct24_MCmax30_DMRs_day135[,c("ID","chr", "start","end")], day135_aov_modelsumm[which(day135_aov_modelsumm$p.value < 0.1),], by = "ID")
+
+day135_aov_modelsumm_4bed <- day135_aov_modelsumm_4bed[,2:4]
+
+write.table(day135_aov_modelsumm_4bed, "day135_aov_modelsumm_4bed.txt", sep = "\t", quote = FALSE, row.names = FALSE)
+
+#create filtered bed for day145 DMRs
+day145_aov_modelsumm_4bed <- merge(oct24_MCmax30_DMRs_day145[,c("ID","chr", "start","end")], day145_aov_modelsumm[which(day145_aov_modelsumm$p.value < 0.1),], by = "ID")
+
+day145_aov_modelsumm_4bed <- day145_aov_modelsumm_4bed[,2:4]
+
+write.table(day145_aov_modelsumm_4bed, "day145_aov_modelsumm_4bed.txt", sep = "\t", quote = FALSE, row.names = FALSE)
+```
