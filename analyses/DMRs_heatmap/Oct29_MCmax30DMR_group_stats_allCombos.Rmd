@@ -264,7 +264,11 @@ dev.off()
 
 Create a table for parsing bed file and double checking ANOVA sig. DMRs
 ```{r}
-amb_aov_modelsumm_4bed <- merge(oct24_MCmax30_DMRs_allAmb[,c("ID","chr", "start","end")], amb_aov_modelsumm, by = "ID")
+amb_aov_modelsumm_4bed <- merge(oct24_MCmax30_DMRs_allAmb[,c("ID","chr", "start","end")], amb_aov_modelsumm[which(amb_aov_modelsumm$p.value < 0.1),], by = "ID")
+
+amb_aov_modelsumm_4bed <- amb_aov_modelsumm_4bed[,2:4]
+
+
 write.table(amb_aov_modelsumm_4bed, "amb_aov_modelsumm_4bed.txt", sep = "\t", quote = FALSE, row.names = FALSE)
 ```
 ```
