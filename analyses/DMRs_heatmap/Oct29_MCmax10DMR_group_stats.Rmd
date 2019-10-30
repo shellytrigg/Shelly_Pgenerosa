@@ -168,13 +168,13 @@ What do the anova significant at p < 0.1 look like?
 aov_0.1_d10_STACKED <- day10_m[which(rownames(day10_m) %in% pull(day10_aov_modelsumm[which(day10_aov_modelsumm$p.value < 0.1),],ID)),]
 
 ColSideColors <- cbind(pH = c(rep("cyan",4),rep("plum2",4),rep("magenta",4)))
-pdf("day10_MCmax10DMR_aov0.1_heatmap.pdf")
-heatmap.2(aov_0.1_d10_STACKED,margins = c(5,20), cexRow = 0.6, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = bluered, na.color = "black", density.info = "none", trace = "none", scale = "row")
+jpeg("day10_MCmax10DMR_aov0.1_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.1_d10_STACKED,margins = c(5,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = bluered, na.color = "black", density.info = "none", trace = "none", scale = "row")
 dev.off()
 
 #look at the abundance plot
 
-pdf("day10_MCmax10DMR_aov0.1_boxplots.pdf", width = 10, height = 7)
+jpeg("day10_MCmax10DMR_aov0.1_boxplots.jpg", width = 1000, height = 700)
 ggplot(data = day10_STACKED[which(day10_STACKED$ID %in% pull(day10_aov_modelsumm[which(day10_aov_modelsumm$p.value < 0.1),],ID)),])+ geom_violin(aes(y = perc.meth,x = group, fill = group)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust = 1),axis.title=element_text(size=12,face="bold"))
 dev.off()
 
@@ -185,13 +185,13 @@ What do the glm significant at p < 0.1 (uncorrected) look like?
 glm_0.1_d10_STACKED <- day10_m[which(rownames(day10_m) %in% pull(chi_total[which(chi_total$p.value < 0.1),],DMR)),]
 
 ColSideColors <- cbind(pH = c(rep("cyan",4),rep("plum2",4),rep("magenta",4)))
-pdf("day10_MCmax10DMR_glm0.1_heatmap.pdf")
-heatmap.2(glm_0.1_d10_STACKED,margins = c(5,20), cexRow = 0.6, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = bluered, na.color = "black", density.info = "none", trace = "none", scale = "row")
+jpeg("day10_MCmax10DMR_glm0.1_heatmap.jpg",width=800, height=1000)
+heatmap.2(glm_0.1_d10_STACKED,margins = c(5,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = bluered, na.color = "black", density.info = "none", trace = "none", scale = "row")
 dev.off()
 
 #look at the abundance plot
 
-pdf("day10_MCmax10DMR_glm0.1_boxplots.pdf", width = 10, height = 7)
+jpeg("day10_MCmax10DMR_glm0.1_boxplots.jpg", width = 1000, height = 700)
 ggplot(data = day10_STACKED[which(day10_STACKED$ID %in% pull(chi_total[which(chi_total$p.value < 0.1),],DMR)),])+ geom_violin(aes(y = perc.meth,x = group, fill = group)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust = 1),axis.title=element_text(size=12,face="bold"))
 dev.off()
 
