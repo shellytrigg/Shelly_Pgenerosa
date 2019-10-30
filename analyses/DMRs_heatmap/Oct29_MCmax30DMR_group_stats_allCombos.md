@@ -1,35 +1,55 @@
----
-title: "Oct29_MCmax30DMR_group_stats_allCombos"
-author: "Shelly Trigg"
-date: "10/29/2019"
-output: rmarkdown::github_document
----
+Oct29\_MCmax30DMR\_group\_stats\_allCombos
+================
+Shelly Trigg
+10/29/2019
 
 This script was run with Gannet mounted
 
-
 load libraries
-```{r}
+
+``` r
 library(gplots)
+```
+
+    ## 
+    ## Attaching package: 'gplots'
+
+    ## The following object is masked from 'package:stats':
+    ## 
+    ##     lowess
+
+``` r
 library(ggplot2)
 library(dplyr)
-library(broom)
+```
 
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+``` r
+library(broom)
 ```
 
 read in data
-```{r}
+
+``` r
 oct24_MCmax30_DMRs_allAmb <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024/amb_AllTimes_DMR250bp_MCmax30_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
 oct24_MCmax30_DMRs_day10 <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024/day10_AllpH_DMR250bp_MCmax30_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
 oct24_MCmax30_DMRs_day135 <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024/day135_AllpH_DMR250bp_MCmax30_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
 oct24_MCmax30_DMRs_day145 <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024/day145_AllpH_DMR250bp_MCmax30_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
-
 ```
 
-
-
 Make a unique ID column in each data frame
-```{r}
+
+``` r
 #for all ambient sample comparison
 oct24_MCmax30_DMRs_allAmb$ID <- paste(oct24_MCmax30_DMRs_allAmb$chr,":",oct24_MCmax30_DMRs_allAmb$start,"-",oct24_MCmax30_DMRs_allAmb$end, sep = "")
 oct24_MCmax30_DMRs_allAmb$ID <- gsub("__.*__.*:",":",oct24_MCmax30_DMRs_allAmb$ID)
@@ -48,12 +68,11 @@ oct24_MCmax30_DMRs_day135$ID <- gsub("__.*__.*:",":",oct24_MCmax30_DMRs_day135$I
 
 oct24_MCmax30_DMRs_day145$ID <- paste(oct24_MCmax30_DMRs_day145$chr,":",oct24_MCmax30_DMRs_day145$start,"-",oct24_MCmax30_DMRs_day145$end, sep = "")
 oct24_MCmax30_DMRs_day145$ID <- gsub("__.*__.*:",":",oct24_MCmax30_DMRs_day145$ID)
-
-
 ```
 
 reformat data for calculating group effect
-```{r}
+
+``` r
 #reformat all day 10 data to long format
 day10_STACKED <- tidyr::gather(oct24_MCmax30_DMRs_day10[,7:19], "sample", "perc.meth",1:12)
 
@@ -116,31 +135,69 @@ if(day145_STACKED$sample[i] == 205 | day145_STACKED$sample[i] == 206 | day145_ST
   if(day145_STACKED$sample[i] == 208 | day145_STACKED$sample[i] == 209 | day145_STACKED$sample[i] == 229 | day145_STACKED$sample[i] == 230){day145_STACKED$group[i] <- "low.low"}
   if(day145_STACKED$sample[i] == 214 | day145_STACKED$sample[i] == 215 | day145_STACKED$sample[i] == 220 | day145_STACKED$sample[i] == 221){day145_STACKED$group[i] <- "superlow.low"}
 }
-
 ```
 
 plot distribution of % methylation in all DMRs in all samples
-```{r}
+
+``` r
 jpeg("day10_MCmax30DMR_percmeth_hist.jpg", width = 800, height = 800)
 ggplot(day10_STACKED) + geom_histogram(aes(perc.meth, group = group, color = group,fill = group), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
-dev.off()
+```
 
-jpeg("day135_MCmax30DMR_percmeth_hist.jpg", width = 800, height = 800)
-ggplot(day135_STACKED) + geom_histogram(aes(perc.meth, group = group, color = group,fill = group), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
-dev.off()
+    ## Warning: Removed 78 rows containing non-finite values (stat_bin).
 
-jpeg("day145_MCmax30DMR_percmeth_hist.jpg", width = 800, height = 800)
-ggplot(day145_STACKED) + geom_histogram(aes(perc.meth, group = group, color = group,fill = group), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
-dev.off()
-
-jpeg("allAmb_MCmax30DMR_percmeth_hist.jpg", width = 800, height = 800)
-ggplot(amb_STACKED) + geom_histogram(aes(perc.meth, group = group, color = group,fill = group), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+``` r
 dev.off()
 ```
 
+    ## quartz_off_screen 
+    ##                 2
+
+``` r
+jpeg("day135_MCmax30DMR_percmeth_hist.jpg", width = 800, height = 800)
+ggplot(day135_STACKED) + geom_histogram(aes(perc.meth, group = group, color = group,fill = group), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+```
+
+    ## Warning: Removed 37 rows containing non-finite values (stat_bin).
+
+``` r
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+``` r
+jpeg("day145_MCmax30DMR_percmeth_hist.jpg", width = 800, height = 800)
+ggplot(day145_STACKED) + geom_histogram(aes(perc.meth, group = group, color = group,fill = group), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+```
+
+    ## Warning: Removed 43 rows containing non-finite values (stat_bin).
+
+``` r
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+``` r
+jpeg("allAmb_MCmax30DMR_percmeth_hist.jpg", width = 800, height = 800)
+ggplot(amb_STACKED) + geom_histogram(aes(perc.meth, group = group, color = group,fill = group), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+```
+
+    ## Warning: Removed 99 rows containing non-finite values (stat_bin).
+
+``` r
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
 
 run anova to assess group differences for each DMR
-```{r}
+
+``` r
 #for day 10 samples 
 day10_aov = day10_STACKED %>% group_by(ID) %>%
 do(meth_aov_models = aov(perc.meth ~ group, data =  . ))
@@ -175,90 +232,178 @@ write.csv(day145_aov_modelsumm, "day145_MCmax30_aov_modelsumm.csv", row.names = 
 ```
 
 create matrix for all ambient samples
-```{r}
+
+``` r
 allAmb_m <- as.matrix(oct24_MCmax30_DMRs_allAmb[,7:22])
 rownames(allAmb_m) <- oct24_MCmax30_DMRs_allAmb$ID
 ```
 
 create matrix for day10 samples
-```{r}
+
+``` r
 #subset out the data and order it
 day10_m <- as.matrix(oct24_MCmax30_DMRs_day10[,c(11:14,7:8,15:16,9:10,17:18)])
 rownames(day10_m) <- oct24_MCmax30_DMRs_day10$ID
 ```
 
 create matrix for day135 samples
-```{r}
+
+``` r
 #subset out the data and order it
 day135_m <- as.matrix(oct24_MCmax30_DMRs_day135[,c(7:18)])
 rownames(day135_m) <- oct24_MCmax30_DMRs_day135$ID
 ```
 
 create matrix for day145 samples
-```{r}
+
+``` r
 #subset out the data and order it
 day145_m <- as.matrix(oct24_MCmax30_DMRs_day145[,c(9:12,7:8,15:16,13:14,17:18,19:20,27:28,21:22,29:30,23:26)])
 rownames(day145_m) <- oct24_MCmax30_DMRs_day145$ID
 ```
 
-What do the anova significant at p < 0.1 look like?
-```{r}
+What do the anova significant at p \< 0.1 look like?
 
+``` r
 ##Day10 ANOVA data
 aov_0.1_d10_STACKED <- day10_m[which(rownames(day10_m) %in% pull(day10_aov_modelsumm[which(day10_aov_modelsumm$p.value < 0.1),],ID)),]
 
 ColSideColors <- cbind(pH = c(rep("cyan",4),rep("plum2",4),rep("magenta",4)))
 jpeg("day10_MCmax30DMR_aov0.1_heatmap.jpg", width = 800, height = 1000)
 heatmap.2(aov_0.1_d10_STACKED,margins = c(5,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = bluered, na.color = "black", density.info = "none", trace = "none", scale = "row")
-dev.off()
+```
 
+    ## Warning in heatmap.2(aov_0.1_d10_STACKED, margins = c(5, 20), cexRow =
+    ## 1.2, : Discrepancy: Colv is FALSE, while dendrogram is `both'. Omitting
+    ## column dendogram.
+
+``` r
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+``` r
 #look at the abundance plot
 
 jpeg("day10_MCmax30DMR_aov0.1_boxplots.jpg", width = 1000, height = 700)
 ggplot(data = day10_STACKED[which(day10_STACKED$ID %in% pull(day10_aov_modelsumm[which(day10_aov_modelsumm$p.value < 0.1),],ID)),])+ geom_violin(aes(y = perc.meth,x = group, fill = group)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust = 1),axis.title=element_text(size=12,face="bold"))
-dev.off()
+```
 
+    ## Warning: Removed 27 rows containing non-finite values (stat_ydensity).
+
+``` r
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+``` r
 #DAY135 ANOVA data
 aov_0.1_d135_STACKED <- day135_m[which(rownames(day135_m) %in% pull(day135_aov_modelsumm[which(day135_aov_modelsumm$p.value < 0.1),],ID)),]
 
 ColSideColors <- cbind(pH = c(rep("cyan",4),rep("plum2",4),rep("magenta",4)))
 jpeg("day135_MCmax30DMR_aov0.1_heatmap.jpg", width = 800, height = 1000)
 heatmap.2(aov_0.1_d135_STACKED,margins = c(5,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = bluered, na.color = "black", density.info = "none", trace = "none", scale = "row")
-dev.off()
+```
 
+    ## Warning in heatmap.2(aov_0.1_d135_STACKED, margins = c(5, 20), cexRow =
+    ## 1.2, : Discrepancy: Colv is FALSE, while dendrogram is `both'. Omitting
+    ## column dendogram.
+
+``` r
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+``` r
 #look at the abundance plot
 
 jpeg("day135_MCmax30DMR_aov0.1_boxplots.jpg", width = 1000, height = 700)
 ggplot(data = day135_STACKED[which(day135_STACKED$ID %in% pull(day135_aov_modelsumm[which(day135_aov_modelsumm$p.value < 0.1),],ID)),])+ geom_violin(aes(y = perc.meth,x = group, fill = group)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust = 1),axis.title=element_text(size=12,face="bold"))
-dev.off()
+```
 
+    ## Warning: Removed 10 rows containing non-finite values (stat_ydensity).
+
+``` r
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+``` r
 #DAY145 ANOVA data
 aov_0.1_d145_STACKED <- day145_m[which(rownames(day145_m) %in% pull(day145_aov_modelsumm[which(day145_aov_modelsumm$p.value < 0.1),],ID)),]
 
 ColSideColors <- cbind(pH = c(rep("cyan",4),rep("green1",4),rep("green3",4),rep("mediumpurple1",4),rep("plum2",4),rep("magenta",4)))
 jpeg("day145_MCmax30DMR_aov0.1_heatmap.jpg", width = 800, height = 1000)
 heatmap.2(aov_0.1_d145_STACKED,margins = c(5,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = bluered, na.color = "black", density.info = "none", trace = "none", scale = "row")
-dev.off()
+```
 
+    ## Warning in heatmap.2(aov_0.1_d145_STACKED, margins = c(5, 20), cexRow =
+    ## 1.2, : Discrepancy: Colv is FALSE, while dendrogram is `both'. Omitting
+    ## column dendogram.
+
+``` r
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+``` r
 #look at the abundance plot
 
 jpeg("day145_MCmax30DMR_aov0.1_boxplots.jpg", width = 1000, height = 700)
 ggplot(data = day145_STACKED[which(day145_STACKED$ID %in% pull(day145_aov_modelsumm[which(day145_aov_modelsumm$p.value < 0.1),],ID)),])+ geom_violin(aes(y = perc.meth,x = group, fill = group)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust = 1),axis.title=element_text(size=12,face="bold"))
+```
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_ydensity).
+
+``` r
 dev.off()
+```
 
+    ## quartz_off_screen 
+    ##                 2
 
+``` r
 # ALL AMB ANOVA data
 aov_0.1_amb_STACKED <- allAmb_m[which(rownames(allAmb_m) %in% pull(amb_aov_modelsumm[which(amb_aov_modelsumm$p.value < 0.1),],ID)),]
 
 ColSideColors <- cbind(day = c(rep("#969696",4),rep("#737373",4),rep("#525252",4),rep("#252525",4)))
 jpeg("amb_MCmax30DMR_aov0.1_heatmap.jpg", width = 800, height = 1000)
 heatmap.2(aov_0.1_amb_STACKED,margins = c(5,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = bluered, na.color = "black", density.info = "none", trace = "none", scale = "row")
-dev.off()
+```
 
+    ## Warning in heatmap.2(aov_0.1_amb_STACKED, margins = c(5, 20), cexRow =
+    ## 1.2, : Discrepancy: Colv is FALSE, while dendrogram is `both'. Omitting
+    ## column dendogram.
+
+``` r
+dev.off()
+```
+
+    ## quartz_off_screen 
+    ##                 2
+
+``` r
 #look at the abundance plot
 
 jpeg("amb_MCmax30DMR_aov0.1_boxplots.jpg", width = 1000, height = 700)
 ggplot(data = amb_STACKED[which(amb_STACKED$ID %in% pull(amb_aov_modelsumm[which(amb_aov_modelsumm$p.value < 0.1),],ID)),])+ geom_violin(aes(y = perc.meth,x = group, fill = group)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust = 1),axis.title=element_text(size=12,face="bold"))
+```
+
+    ## Warning: Removed 39 rows containing non-finite values (stat_ydensity).
+
+``` r
 dev.off()
 ```
 
+    ## quartz_off_screen 
+    ##                 2
