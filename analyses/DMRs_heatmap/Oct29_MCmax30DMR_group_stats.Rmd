@@ -1,5 +1,5 @@
 ---
-title: "Oct29_MCmax25DMR_group_stats"
+title: "Oct29_MCmax30DMR_group_stats"
 author: "Shelly Trigg"
 date: "10/29/2019"
 output: rmarkdown::github_document
@@ -19,42 +19,43 @@ library(broom)
 
 read in data
 ```{r}
-oct24_MCmax25_DMRs_allAmb <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024_25bp/amb_AllTimes_DMR250bp_MCmax25_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
-oct24_MCmax25_DMRs_day10 <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024_25bp/day10_AllpH_DMR250bp_MCmax25_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
-oct24_MCmax25_DMRs_day135 <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024_25bp/day135_AllpH_DMR250bp_MCmax25_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
-oct24_MCmax25_DMRs_day145 <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024_25bp/day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
+oct24_MCmax30_DMRs_allAmb <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024/amb_AllTimes_DMR250bp_MCmax30_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
+oct24_MCmax30_DMRs_day10 <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024/day10_AllpH_DMR250bp_MCmax30_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
+oct24_MCmax30_DMRs_day135 <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024/day135_AllpH_DMR250bp_MCmax30_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
+oct24_MCmax30_DMRs_day145 <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191024/day145_AllpH_DMR250bp_MCmax30_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
 
 ```
+
+
 
 Make a unique ID column in each data frame
 ```{r}
 #for all ambient sample comparison
-oct24_MCmax25_DMRs_allAmb$ID <- paste(oct24_MCmax25_DMRs_allAmb$chr,":",oct24_MCmax25_DMRs_allAmb$start,"-",oct24_MCmax25_DMRs_allAmb$end, sep = "")
-oct24_MCmax25_DMRs_allAmb$ID <- gsub("__.*__.*:",":",oct24_MCmax25_DMRs_allAmb$ID)
+oct24_MCmax30_DMRs_allAmb$ID <- paste(oct24_MCmax30_DMRs_allAmb$chr,":",oct24_MCmax30_DMRs_allAmb$start,"-",oct24_MCmax30_DMRs_allAmb$end, sep = "")
+oct24_MCmax30_DMRs_allAmb$ID <- gsub("__.*__.*:",":",oct24_MCmax30_DMRs_allAmb$ID)
 
 #for day 10 sample comparison
 
-oct24_MCmax25_DMRs_day10$ID <- paste(oct24_MCmax25_DMRs_day10$chr,":",oct24_MCmax25_DMRs_day10$start,"-",oct24_MCmax25_DMRs_day10$end, sep = "")
-oct24_MCmax25_DMRs_day10$ID <- gsub("__.*__.*:",":",oct24_MCmax25_DMRs_day10$ID)
+oct24_MCmax30_DMRs_day10$ID <- paste(oct24_MCmax30_DMRs_day10$chr,":",oct24_MCmax30_DMRs_day10$start,"-",oct24_MCmax30_DMRs_day10$end, sep = "")
+oct24_MCmax30_DMRs_day10$ID <- gsub("__.*__.*:",":",oct24_MCmax30_DMRs_day10$ID)
 
 #for day 135 sample comparison
 
-oct24_MCmax25_DMRs_day135$ID <- paste(oct24_MCmax25_DMRs_day135$chr,":",oct24_MCmax25_DMRs_day135$start,"-",oct24_MCmax25_DMRs_day135$end, sep = "")
-oct24_MCmax25_DMRs_day135$ID <- gsub("__.*__.*:",":",oct24_MCmax25_DMRs_day135$ID)
+oct24_MCmax30_DMRs_day135$ID <- paste(oct24_MCmax30_DMRs_day135$chr,":",oct24_MCmax30_DMRs_day135$start,"-",oct24_MCmax30_DMRs_day135$end, sep = "")
+oct24_MCmax30_DMRs_day135$ID <- gsub("__.*__.*:",":",oct24_MCmax30_DMRs_day135$ID)
 
 #for day 145 sample comparison
 
-oct24_MCmax25_DMRs_day145$ID <- paste(oct24_MCmax25_DMRs_day145$chr,":",oct24_MCmax25_DMRs_day145$start,"-",oct24_MCmax25_DMRs_day145$end, sep = "")
-oct24_MCmax25_DMRs_day145$ID <- gsub("__.*__.*:",":",oct24_MCmax25_DMRs_day145$ID)
+oct24_MCmax30_DMRs_day145$ID <- paste(oct24_MCmax30_DMRs_day145$chr,":",oct24_MCmax30_DMRs_day145$start,"-",oct24_MCmax30_DMRs_day145$end, sep = "")
+oct24_MCmax30_DMRs_day145$ID <- gsub("__.*__.*:",":",oct24_MCmax30_DMRs_day145$ID)
 
 
 ```
 
-
 calculate group effect
 ```{r}
 #reformat data to long format
-day10_STACKED <- tidyr::gather(oct24_MCmax25_DMRs_day10[,7:19], "sample", "perc.meth",1:12)
+day10_STACKED <- tidyr::gather(oct24_MCmax30_DMRs_day10[,7:19], "sample", "perc.meth",1:12)
 
 #make sample number column
 day10_STACKED$sample <- as.numeric(gsub("methylation_level_EPI\\.","",day10_STACKED$sample))
@@ -85,20 +86,20 @@ do(meth_aov_models = aov(perc.meth ~ group, data =  . ))
 #summarize anova results
 day10_aov_modelsumm <- glance(day10_aov, meth_aov_models)
 #write out anova summarized results
-write.csv(day10_aov_modelsumm, "day10_MCmax25_aov_modelsumm.csv", row.names = FALSE, quote = FALSE)
+write.csv(day10_aov_modelsumm, "day10_MCmax30_aov_modelsumm.csv", row.names = FALSE, quote = FALSE)
 
 #distribution is not normal, so don't choose gaussian. In order to choose gamma, values cannot be zero so convert to very small number
 
 #see what the smallest % methylation is in the data
 min(day10_STACKED[which(day10_STACKED$perc.meth !=0),"perc.meth"], na.rm = TRUE)
-#[1] 0.002309469
+#[1]  0.003496503
 
 
 #see (https://bookdown.org/ndphillips/YaRrr/regression-on-non-normal-data-with-glm.html) for advice on which family to choose
 
 #set zero values to 0.5X the minimum % methylation value
 day10_STACKED_nozero <- day10_STACKED
-day10_STACKED_nozero[day10_STACKED_nozero==0] <- 0.001
+day10_STACKED_nozero[day10_STACKED_nozero==0] <- 0.0015
 
 #run glm for each DMR to assess group differences using link = inverse
 day10_glm = day10_STACKED_nozero %>% group_by(ID) %>%
@@ -118,7 +119,7 @@ day10_glm_0_modelsumm <- glance(day10_glm_0, meth_glm_0_models)
 day10_glm_0_modelsumm_coeff <- tidy(day10_glm_0, meth_glm_0_models) 
 
 #calculate chi sq. pvalue for each glm
-chi_total <- data.frame(matrix(0,nrow = 88, ncol = 3))
+chi_total <- data.frame(matrix(0,nrow = nrow(day10_glm_modelsumm), ncol = 3))
 colnames(chi_total) <- c("DMR", "p.value","FDR")
 
 chi_total$DMR <- day10_glm_0$ID
@@ -131,14 +132,14 @@ for(i in 1:nrow(chi_total)){
 #FDR correct
 chi_total$FDR <- p.adjust(chi_total$p.value)
 
-write.csv(chi_total, "day10_MCmax25_glm_Gammainv_modelsumm.csv", row.names = FALSE, quote = FALSE)
+write.csv(chi_total, "day10_MCmax30_glm_Gammainv_modelsumm.csv", row.names = FALSE, quote = FALSE)
 ```
 
 create matrix for day10 samples
 ```{r}
 #subset out the data and order it
-day10_m <- as.matrix(oct24_MCmax25_DMRs_day10[,c(11:14,7:8,15:16,9:10,17:18)])
-rownames(day10_m) <- oct24_MCmax25_DMRs_day10$ID
+day10_m <- as.matrix(oct24_MCmax30_DMRs_day10[,c(11:14,7:8,15:16,9:10,17:18)])
+rownames(day10_m) <- oct24_MCmax30_DMRs_day10$ID
 ```
 
 
@@ -148,13 +149,13 @@ What do the anova significant at p < 0.1 look like?
 aov_0.1_d10_STACKED <- day10_m[which(rownames(day10_m) %in% pull(day10_aov_modelsumm[which(day10_aov_modelsumm$p.value < 0.1),],ID)),]
 
 ColSideColors <- cbind(pH = c(rep("cyan",4),rep("plum2",4),rep("magenta",4)))
-jpeg("day10_MCmax25DMR_aov0.1_heatmap.jpg", width = 800, height = 1000)
+jpeg("day10_MCmax30DMR_aov0.1_heatmap.jpg", width = 800, height = 1000)
 heatmap.2(aov_0.1_d10_STACKED,margins = c(5,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = bluered, na.color = "black", density.info = "none", trace = "none", scale = "row")
 dev.off()
 
 #look at the abundance plot
 
-jpeg("day10_MCmax25DMR_aov0.1_boxplots.jpg", width = 1000, height = 700)
+jpeg("day10_MCmax30DMR_aov0.1_boxplots.jpg", width = 1000, height = 700)
 ggplot(data = day10_STACKED[which(day10_STACKED$ID %in% pull(day10_aov_modelsumm[which(day10_aov_modelsumm$p.value < 0.1),],ID)),])+ geom_violin(aes(y = perc.meth,x = group, fill = group)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust = 1),axis.title=element_text(size=12,face="bold"))
 dev.off()
 
@@ -165,13 +166,13 @@ What do the glm significant at p < 0.1 (uncorrected) look like?
 glm_0.1_d10_STACKED <- day10_m[which(rownames(day10_m) %in% pull(chi_total[which(chi_total$p.value < 0.1),],DMR)),]
 
 ColSideColors <- cbind(pH = c(rep("cyan",4),rep("plum2",4),rep("magenta",4)))
-jpeg("day10_MCmax25DMR_glm0.1_heatmap.jpg",width=800, height=1000)
+jpeg("day10_MCmax30DMR_glm0.1_heatmap.jpg",width=800, height=1000)
 heatmap.2(glm_0.1_d10_STACKED,margins = c(5,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = bluered, na.color = "black", density.info = "none", trace = "none", scale = "row")
 dev.off()
 
 #look at the abundance plot
 
-jpeg("day10_MCmax25DMR_glm0.1_boxplots.jpg", width = 1000, height = 700)
+jpeg("day10_MCmax30DMR_glm0.1_boxplots.jpg", width = 1000, height = 700)
 ggplot(data = day10_STACKED[which(day10_STACKED$ID %in% pull(chi_total[which(chi_total$p.value < 0.1),],DMR)),])+ geom_violin(aes(y = perc.meth,x = group, fill = group)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust = 1),axis.title=element_text(size=12,face="bold"))
 dev.off()
 
