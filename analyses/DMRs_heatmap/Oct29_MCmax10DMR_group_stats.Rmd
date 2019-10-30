@@ -163,6 +163,14 @@ chi_total$FDR <- p.adjust(chi_total$p.value)
 write.csv(chi_total, "day10_glm_Gammainv_modelsumm.csv", row.names = FALSE, quote = FALSE)
 ```
 
+create matrix for day10 samples
+```{r}
+#subset out the data and order it
+day10_m <- as.matrix(oct24_MCmax10_DMRs_day10[,c(11:14,7:8,15:16,9:10,17:18)])
+rownames(day10_m) <- oct24_MCmax10_DMRs_day10$ID
+```
+
+
 What do the anova significant at p < 0.1 look like?
 ```{r}
 aov_0.1_d10_STACKED <- day10_m[which(rownames(day10_m) %in% pull(day10_aov_modelsumm[which(day10_aov_modelsumm$p.value < 0.1),],ID)),]
