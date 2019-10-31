@@ -1,0 +1,18 @@
+PGA_scaffold10__49_contigs__length_53961475	18561472	18561475	4	exon	PGEN_.00g211020.m01.exon07	NA	NA	NA	NA	NA
+PGA_scaffold10__49_contigs__length_53961475	18561472	18561475	4	CDS	PGEN_.00g211020.m01.CDS07	NA	NA	NA	NA	NA
+PGA_scaffold10__49_contigs__length_53961475	18561472	18561475	4	gene	PGEN_.00g211020	NA	NA	NA	NA	NA
+PGA_scaffold10__49_contigs__length_53961475	18561472	18561475	4	mRNA	PGEN_.00g211020.m01	NA	NA	NA	NA	NA
+PGA_scaffold11__79_contigs__length_51449921	45690766	45690850	9	exon	PGEN_.00g240250.m01.exon12	NA	NA	NA	NA	NA
+PGA_scaffold11__79_contigs__length_51449921	45690766	45690850	9	CDS	PGEN_.00g240250.m01.CDS12	NA	NA	NA	NA	NA
+PGA_scaffold11__79_contigs__length_51449921	45690766	45690850	9	gene	PGEN_.00g240250	P04052	RPB1_DROME	DNA-directed RNA polymerase II subunit RPB1 (RNA polymerase II subunit B1) (EC 2.7.7.6) (DNA-directed RNA polymerase III largest subunit)	GO:0003677; GO:0003899; GO:0005634; GO:0005665; GO:0005700; GO:0005703; GO:0006366; GO:0046872	nucleus [GO:0005634]; polytene chromosome [GO:0005700]; polytene chromosome puff [GO:0005703]; RNA polymerase II, core complex [GO:0005665]; DNA binding [GO:0003677]; DNA-directed 5'-3' RNA polymerase activity [GO:0003899]; metal ion binding [GO:0046872]; transcription by RNA polymerase II [GO:0006366]
+PGA_scaffold11__79_contigs__length_51449921	45690766	45690850	9	mRNA	PGEN_.00g240250.m01	NA	NA	NA	NA	NA
+PGA_scaffold17__51_contigs__length_34923512	11292333	11292334	4	repeat_region	19535.GS22252521.PGEN_.repeat01535678	NA	NA	NA	NA	NA
+PGA_scaffold17__51_contigs__length_34923512	11292333	11292345	4	repeat_region	19535.GS22252521.PGEN_.repeat01535679	NA	NA	NA	NA	NA
+PGA_scaffold17__51_contigs__length_34923512	11292333	11292361	4	gene	PGEN_.00g331000	A6QP79	COL12_BOVIN	Collectin-12 (Collectin placenta protein 1) (CL-P1)	GO:0004888; GO:0005581; GO:0006910; GO:0006955; GO:0008329; GO:0016021; GO:0030169; GO:0030246; GO:0034138; GO:0046872; GO:0060355; GO:0071360	collagen trimer [GO:0005581]; integral component of membrane [GO:0016021]; carbohydrate binding [GO:0030246]; low-density lipoprotein particle binding [GO:0030169]; metal ion binding [GO:0046872]; signaling pattern recognition receptor activity [GO:0008329]; transmembrane signaling receptor activity [GO:0004888]; cellular response to exogenous dsRNA [GO:0071360]; immune response [GO:0006955]; phagocytosis, recognition [GO:0006910]; positive regulation of cell adhesion molecule production [GO:0060355]; toll-like receptor 3 signaling pathway [GO:0034138]
+PGA_scaffold17__51_contigs__length_34923512	11292333	11292361	4	mRNA	PGEN_.00g331000.m01	NA	NA	NA	NA	NA
+PGA_scaffold4__129_contigs__length_65288255	19617132	19617268	10	repeat_region	19535.GS22252508.PGEN_.repeat00399147	NA	NA	NA	NA	NA
+PGA_scaffold7__69_contigs__length_43120122	22129088	22129115	3	repeat_region	19535.GS22252511.PGEN_.repeat00725372	NA	NA	NA	NA	NA
+PGA_scaffold7__69_contigs__length_43120122	22129088	22129115	3	gene	PGEN_.00g160750	NA	NA	NA	NA	NA
+PGA_scaffold7__69_contigs__length_43120122	22129088	22129115	3	mRNA	PGEN_.00g160750.m01	NA	NA	NA	NA	NA
+PGA_scaffold7__69_contigs__length_43120122	22129088	22129115	3	mRNA	PGEN_.00g160750.m02	NA	NA	NA	NA	NA
+PGA_scaffold9__45_contigs__length_38581958	6120265	6120300	3	repeat_region	19535.GS22252513.PGEN_.repeat00876604	NA	NA	NA	NA	NA

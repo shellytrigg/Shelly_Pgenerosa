@@ -1,0 +1,3 @@
+PGA_scaffold11__79_contigs__length_51449921 14810047 14810100 5 gene P23919
+PGA_scaffold17__51_contigs__length_34923512 11543869 11543894 3 gene O35274
+PGA_scaffold1__77_contigs__length_89643857 30599518 30599553 4 gene O43374

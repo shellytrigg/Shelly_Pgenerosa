@@ -1,0 +1,10 @@
+PGA_scaffold10__49_contigs__length_53961475 24776144 24776185 10 gene P9WQE8
+PGA_scaffold12__71_contigs__length_50438331 1231495 1231568 7 gene A6H5Z3
+PGA_scaffold12__71_contigs__length_50438331 27950246 27950273 4 gene B5X1P9
+PGA_scaffold1__77_contigs__length_89643857 60340188 60340200 5 gene Q6GNV7
+PGA_scaffold4__129_contigs__length_65288255 3367325 3367345 3 gene P23780
+PGA_scaffold4__129_contigs__length_65288255 3368800 3368840 3 gene P23780
+PGA_scaffold4__129_contigs__length_65288255 3369763 3369810 8 gene P23780
+PGA_scaffold5__109_contigs__length_67248332 1934947 1934957 3 gene Q9UJS0
+PGA_scaffold6__104_contigs__length_61759565 10801157 10801472 8 gene Q80VI1
+PGA_scaffold8__63_contigs__length_61151155 52956438 52956473 5 gene P46023

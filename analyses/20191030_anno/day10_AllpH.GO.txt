@@ -1,0 +1,65 @@
+PGA_scaffold10__49_contigs__length_53961475	24776144	24776185	10	gene	PGEN_.00g213500	P9WQE8	PHAS_MYCTO	Phthioceranic/hydroxyphthioceranic acid synthase (EC 2.3.1.-) (Polyketide synthase pks2)	GO:0006633; GO:0016491; GO:0016746; GO:0031177	oxidoreductase activity [GO:0016491]; phosphopantetheine binding [GO:0031177]; transferase activity, transferring acyl groups [GO:0016746]; fatty acid biosynthetic process [GO:0006633]
+PGA_scaffold10__49_contigs__length_53961475	24776144	24776185	10	mRNA	PGEN_.00g213500.m01	NA	NA	NA	NA	NA
+PGA_scaffold10__49_contigs__length_53961475	24776144	24776185	10	exon	PGEN_.00g213500.m01.exon08	NA	NA	NA	NA	NA
+PGA_scaffold10__49_contigs__length_53961475	24776144	24776185	10	CDS	PGEN_.00g213500.m01.CDS08	NA	NA	NA	NA	NA
+PGA_scaffold11__79_contigs__length_51449921	48720986	48721040	3	repeat_region	19535.GS22252515.PGEN_.repeat01110413	NA	NA	NA	NA	NA
+PGA_scaffold12__71_contigs__length_50438331	1231495	1231568	7	repeat_region	19535.GS22252516.PGEN_.repeat01117470	NA	NA	NA	NA	NA
+PGA_scaffold12__71_contigs__length_50438331	1231495	1231568	7	gene	PGEN_.00g242750	A6H5Z3	EXC6B_MOUSE	Exocyst complex component 6B (Exocyst complex component Sec15B) (SEC15-like protein 2)	GO:0000145; GO:0006887; GO:0006893; GO:0006904	exocyst [GO:0000145]; exocytosis [GO:0006887]; Golgi to plasma membrane transport [GO:0006893]; vesicle docking involved in exocytosis [GO:0006904]
+PGA_scaffold12__71_contigs__length_50438331	1231495	1231568	7	mRNA	PGEN_.00g242750.m01	NA	NA	NA	NA	NA
+PGA_scaffold12__71_contigs__length_50438331	1231495	1231568	7	mRNA	PGEN_.00g242750.m02	NA	NA	NA	NA	NA
+PGA_scaffold12__71_contigs__length_50438331	27950246	27950273	4	repeat_region	19535.GS22252516.PGEN_.repeat01163568	NA	NA	NA	NA	NA
+PGA_scaffold12__71_contigs__length_50438331	27950246	27950273	4	gene	PGEN_.00g251920	B5X1P9	ABRX1_SALSA	BRCA1-A complex subunit Abraxas 1 (Coiled-coil domain-containing protein 98) (Protein FAM175A)	GO:0005634; GO:0006302; GO:0006325; GO:0010212; GO:0031593; GO:0045739; GO:0070531; GO:0072425	BRCA1-A complex [GO:0070531]; nucleus [GO:0005634]; polyubiquitin modification-dependent protein binding [GO:0031593]; chromatin organization [GO:0006325]; double-strand break repair [GO:0006302]; positive regulation of DNA repair [GO:0045739]; response to ionizing radiation [GO:0010212]; signal transduction involved in G2 DNA damage checkpoint [GO:0072425]
+PGA_scaffold12__71_contigs__length_50438331	27950246	27950273	4	mRNA	PGEN_.00g251920.m01	NA	NA	NA	NA	NA
+PGA_scaffold15__101_contigs__length_47938513	11947178	11947224	4	repeat_region	19535.GS22252519.PGEN_.repeat01393010	NA	NA	NA	NA	NA
+PGA_scaffold1__77_contigs__length_89643857	60340188	60340200	5	gene	PGEN_.00g022180	Q6GNV7	DIRC2_XENLA	Solute carrier family 49 member 4 homolog (Disrupted in renal carcinoma protein 2 homolog)	GO:0005765; GO:0005887; GO:0055085	integral component of plasma membrane [GO:0005887]; lysosomal membrane [GO:0005765]; transmembrane transport [GO:0055085]
+PGA_scaffold1__77_contigs__length_89643857	60340188	60340200	5	mRNA	PGEN_.00g022180.m01	NA	NA	NA	NA	NA
+PGA_scaffold2__36_contigs__length_69596280	5301099	5301156	8	gene	PGEN_.00g035080	NA	NA	NA	NA	NA
+PGA_scaffold2__36_contigs__length_69596280	5301099	5301156	8	mRNA	PGEN_.00g035080.m01	NA	NA	NA	NA	NA
+PGA_scaffold2__36_contigs__length_69596280	36294473	36294489	3	gene	PGEN_.00g045970	NA	NA	NA	NA	NA
+PGA_scaffold2__36_contigs__length_69596280	36294473	36294489	3	mRNA	PGEN_.00g045970.m01	NA	NA	NA	NA	NA
+PGA_scaffold2__36_contigs__length_69596280	36294473	36294489	3	exon	PGEN_.00g045970.m01.exon02	NA	NA	NA	NA	NA
+PGA_scaffold2__36_contigs__length_69596280	36294473	36294489	3	CDS	PGEN_.00g045970.m01.CDS02	NA	NA	NA	NA	NA
+PGA_scaffold3__111_contigs__length_57743597	14002810	14002876	4	exon	PGEN_.00g062910.m01.exon01	NA	NA	NA	NA	NA
+PGA_scaffold3__111_contigs__length_57743597	14002810	14002876	4	CDS	PGEN_.00g062910.m01.CDS01	NA	NA	NA	NA	NA
+PGA_scaffold3__111_contigs__length_57743597	14002810	14002876	4	gene	PGEN_.00g062910	NA	NA	NA	NA	NA
+PGA_scaffold3__111_contigs__length_57743597	14002810	14002876	4	mRNA	PGEN_.00g062910.m01	NA	NA	NA	NA	NA
+PGA_scaffold4__129_contigs__length_65288255	3367325	3367345	3	repeat_region	19535.GS22252508.PGEN_.repeat00371456	NA	NA	NA	NA	NA
+PGA_scaffold4__129_contigs__length_65288255	3367325	3367345	3	gene	PGEN_.00g079760	P23780	BGAL_MOUSE	Beta-galactosidase (EC 3.2.1.23) (Acid beta-galactosidase) (Lactase)	GO:0004565; GO:0005615; GO:0005737; GO:0005764; GO:0005773; GO:0005794; GO:0016787; GO:0016936; GO:0019388; GO:0042803; GO:0043231; GO:0044262; GO:0051413; GO:1904016	cytoplasm [GO:0005737]; extracellular space [GO:0005615]; Golgi apparatus [GO:0005794]; intracellular membrane-bounded organelle [GO:0043231]; lysosome [GO:0005764]; vacuole [GO:0005773]; beta-galactosidase activity [GO:0004565]; galactoside binding [GO:0016936]; hydrolase activity [GO:0016787]; protein homodimerization activity [GO:0042803]; cellular carbohydrate metabolic process [GO:0044262]; galactose catabolic process [GO:0019388]; response to cortisone [GO:0051413]; response to Thyroglobulin triiodothyronine [GO:1904016]
+PGA_scaffold4__129_contigs__length_65288255	3367325	3367345	3	mRNA	PGEN_.00g079760.m01	NA	NA	NA	NA	NA
+PGA_scaffold4__129_contigs__length_65288255	3368800	3368840	3	repeat_region	19535.GS22252508.PGEN_.repeat00371461	NA	NA	NA	NA	NA
+PGA_scaffold4__129_contigs__length_65288255	3368800	3368840	3	gene	PGEN_.00g079760	P23780	BGAL_MOUSE	Beta-galactosidase (EC 3.2.1.23) (Acid beta-galactosidase) (Lactase)	GO:0004565; GO:0005615; GO:0005737; GO:0005764; GO:0005773; GO:0005794; GO:0016787; GO:0016936; GO:0019388; GO:0042803; GO:0043231; GO:0044262; GO:0051413; GO:1904016	cytoplasm [GO:0005737]; extracellular space [GO:0005615]; Golgi apparatus [GO:0005794]; intracellular membrane-bounded organelle [GO:0043231]; lysosome [GO:0005764]; vacuole [GO:0005773]; beta-galactosidase activity [GO:0004565]; galactoside binding [GO:0016936]; hydrolase activity [GO:0016787]; protein homodimerization activity [GO:0042803]; cellular carbohydrate metabolic process [GO:0044262]; galactose catabolic process [GO:0019388]; response to cortisone [GO:0051413]; response to Thyroglobulin triiodothyronine [GO:1904016]
+PGA_scaffold4__129_contigs__length_65288255	3368800	3368840	3	mRNA	PGEN_.00g079760.m01	NA	NA	NA	NA	NA
+PGA_scaffold4__129_contigs__length_65288255	3369763	3369810	8	repeat_region	19535.GS22252508.PGEN_.repeat00371466	NA	NA	NA	NA	NA
+PGA_scaffold4__129_contigs__length_65288255	3369763	3369810	8	gene	PGEN_.00g079760	P23780	BGAL_MOUSE	Beta-galactosidase (EC 3.2.1.23) (Acid beta-galactosidase) (Lactase)	GO:0004565; GO:0005615; GO:0005737; GO:0005764; GO:0005773; GO:0005794; GO:0016787; GO:0016936; GO:0019388; GO:0042803; GO:0043231; GO:0044262; GO:0051413; GO:1904016	cytoplasm [GO:0005737]; extracellular space [GO:0005615]; Golgi apparatus [GO:0005794]; intracellular membrane-bounded organelle [GO:0043231]; lysosome [GO:0005764]; vacuole [GO:0005773]; beta-galactosidase activity [GO:0004565]; galactoside binding [GO:0016936]; hydrolase activity [GO:0016787]; protein homodimerization activity [GO:0042803]; cellular carbohydrate metabolic process [GO:0044262]; galactose catabolic process [GO:0019388]; response to cortisone [GO:0051413]; response to Thyroglobulin triiodothyronine [GO:1904016]
+PGA_scaffold4__129_contigs__length_65288255	3369763	3369810	8	mRNA	PGEN_.00g079760.m01	NA	NA	NA	NA	NA
+PGA_scaffold4__129_contigs__length_65288255	5826926	5826980	10	gene	PGEN_.00g080730	NA	NA	NA	NA	NA
+PGA_scaffold4__129_contigs__length_65288255	5826926	5826980	10	mRNA	PGEN_.00g080730.m01	NA	NA	NA	NA	NA
+PGA_scaffold5__109_contigs__length_67248332	1934947	1934957	3	repeat_region	19535.GS22252509.PGEN_.repeat00474726	NA	NA	NA	NA	NA
+PGA_scaffold5__109_contigs__length_67248332	1934947	1934957	3	gene	PGEN_.00g104460	Q9UJS0	CMC2_HUMAN	Calcium-binding mitochondrial carrier protein Aralar2 (Citrin) (Mitochondrial aspartate glutamate carrier 2) (Solute carrier family 25 member 13)	GO:0005313; GO:0005509; GO:0005739; GO:0005743; GO:0005887; GO:0006094; GO:0006754; GO:0006839; GO:0015183; GO:0015810; GO:0015813; GO:0042802; GO:0043490; GO:0045333; GO:0051592	integral component of plasma membrane [GO:0005887]; mitochondrial inner membrane [GO:0005743]; mitochondrion [GO:0005739]; calcium ion binding [GO:0005509]; identical protein binding [GO:0042802]; L-aspartate transmembrane transporter activity [GO:0015183]; L-glutamate transmembrane transporter activity [GO:0005313]; aspartate transmembrane transport [GO:0015810]; ATP biosynthetic process [GO:0006754]; cellular respiration [GO:0045333]; gluconeogenesis [GO:0006094]; L-glutamate transmembrane transport [GO:0015813]; malate-aspartate shuttle [GO:0043490]; mitochondrial transport [GO:0006839]; response to calcium ion [GO:0051592]
+PGA_scaffold5__109_contigs__length_67248332	1934947	1934957	3	mRNA	PGEN_.00g104460.m01	NA	NA	NA	NA	NA
+PGA_scaffold5__109_contigs__length_67248332	1934947	1934957	3	mRNA	PGEN_.00g104460.m02	NA	NA	NA	NA	NA
+PGA_scaffold5__109_contigs__length_67248332	21524722	21524858	11	repeat_region	19535.GS22252509.PGEN_.repeat00505410	NA	NA	NA	NA	NA
+PGA_scaffold6__104_contigs__length_61759565	10801157	10801472	8	gene	PGEN_.00g133340	Q80VI1	TRI56_MOUSE	E3 ubiquitin-protein ligase TRIM56 (EC 2.3.2.27) (RING-type E3 ubiquitin transferase TRIM56) (Tripartite motif-containing protein 56)	GO:0004842; GO:0005737; GO:0008270; GO:0032608; GO:0034340; GO:0045087; GO:0046597; GO:0051607; GO:0061630; GO:0070534; GO:1902187	cytoplasm [GO:0005737]; ubiquitin protein ligase activity [GO:0061630]; ubiquitin-protein transferase activity [GO:0004842]; zinc ion binding [GO:0008270]; defense response to virus [GO:0051607]; innate immune response [GO:0045087]; interferon-beta production [GO:0032608]; negative regulation of viral entry into host cell [GO:0046597]; negative regulation of viral release from host cell [GO:1902187]; protein K63-linked ubiquitination [GO:0070534]; response to type I interferon [GO:0034340]
+PGA_scaffold6__104_contigs__length_61759565	10801157	10801472	8	mRNA	PGEN_.00g133340.m01	NA	NA	NA	NA	NA
+PGA_scaffold6__104_contigs__length_61759565	10801157	10801472	8	exon	PGEN_.00g133340.m01.exon01	NA	NA	NA	NA	NA
+PGA_scaffold6__104_contigs__length_61759565	10801157	10801472	8	CDS	PGEN_.00g133340.m01.CDS01	NA	NA	NA	NA	NA
+PGA_scaffold6__104_contigs__length_61759565	21771063	21771244	12	gene	PGEN_.00g137880	NA	NA	NA	NA	NA
+PGA_scaffold6__104_contigs__length_61759565	21771063	21771244	12	mRNA	PGEN_.00g137880.m01	NA	NA	NA	NA	NA
+PGA_scaffold6__104_contigs__length_61759565	21771063	21771244	12	exon	PGEN_.00g137880.m01.exon01	NA	NA	NA	NA	NA
+PGA_scaffold6__104_contigs__length_61759565	21771063	21771244	12	CDS	PGEN_.00g137880.m01.CDS01	NA	NA	NA	NA	NA
+PGA_scaffold7__69_contigs__length_43120122	25122061	25122171	4	repeat_region	19535.GS22252511.PGEN_.repeat00731273	NA	NA	NA	NA	NA
+PGA_scaffold8__63_contigs__length_61151155	4128966	4129144	3	gene	PGEN_.00g169790	NA	NA	NA	NA	NA
+PGA_scaffold8__63_contigs__length_61151155	4128966	4129144	3	mRNA	PGEN_.00g169790.m01	NA	NA	NA	NA	NA
+PGA_scaffold8__63_contigs__length_61151155	4128966	4129144	3	CDS	PGEN_.00g169790.m01.CDS06	NA	NA	NA	NA	NA
+PGA_scaffold8__63_contigs__length_61151155	4128966	4129144	3	exon	PGEN_.00g169790.m01.exon06	NA	NA	NA	NA	NA
+PGA_scaffold8__63_contigs__length_61151155	4128966	4129144	3	mRNA	PGEN_.00g169790.m02	NA	NA	NA	NA	NA
+PGA_scaffold8__63_contigs__length_61151155	4128966	4129144	3	CDS	PGEN_.00g169790.m02.CDS06	NA	NA	NA	NA	NA
+PGA_scaffold8__63_contigs__length_61151155	4128966	4129144	3	exon	PGEN_.00g169790.m02.exon06	NA	NA	NA	NA	NA
+PGA_scaffold8__63_contigs__length_61151155	6551273	6551294	3	gene	PGEN_.00g170580	NA	NA	NA	NA	NA
+PGA_scaffold8__63_contigs__length_61151155	6551273	6551294	3	mRNA	PGEN_.00g170580.m01	NA	NA	NA	NA	NA
+PGA_scaffold8__63_contigs__length_61151155	6551273	6551294	3	exon	PGEN_.00g170580.m01.exon03	NA	NA	NA	NA	NA
+PGA_scaffold8__63_contigs__length_61151155	6551273	6551294	3	CDS	PGEN_.00g170580.m01.CDS03	NA	NA	NA	NA	NA
+PGA_scaffold8__63_contigs__length_61151155	52956438	52956473	5	exon	PGEN_.00g187810.m01.exon17	NA	NA	NA	NA	NA
+PGA_scaffold8__63_contigs__length_61151155	52956438	52956473	5	CDS	PGEN_.00g187810.m01.CDS17	NA	NA	NA	NA	NA
+PGA_scaffold8__63_contigs__length_61151155	52956438	52956473	5	gene	PGEN_.00g187810	P46023	GR101_LYMST	G-protein coupled receptor GRL101	GO:0004930; GO:0005886; GO:0016021	integral component of membrane [GO:0016021]; plasma membrane [GO:0005886]; G protein-coupled receptor activity [GO:0004930]
+PGA_scaffold8__63_contigs__length_61151155	52956438	52956473	5	mRNA	PGEN_.00g187810.m01	NA	NA	NA	NA	NA
