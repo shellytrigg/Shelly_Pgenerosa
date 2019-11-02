@@ -1,0 +1,2 @@
+PGA_scaffold11__79_contigs__length_51449921 45690766 45690850 9 gene P04052
+PGA_scaffold17__51_contigs__length_34923512 11292333 11292361 4 gene A6QP79
