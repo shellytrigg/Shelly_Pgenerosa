@@ -1,0 +1,73 @@
+---
+title: "Oct31 GeoduckDMR functional analysis"
+author: "Shelly Trigg"
+date: "10/31/2019"
+output: html_document
+---
+
+
+load libraries
+```{r}
+library(gplots)
+library(ggplot2)
+library(dplyr)
+```
+
+read in data
+```{r}
+amb_GO <- read.table("amb_AllTimes.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+
+day10_GO <- read.table("day10_AllpH.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+
+day135_GO <- read.table("day135_AllpH.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+
+day145_GO <- read.table("day145_AllpH.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+
+
+```
+
+add header to data frames
+```{r}
+colnames(amb_GO) <- c("chr", "start", "end", "num.DMS","feature","gene","entry","entry.name","protein.name", "GO.IDs", "GO.terms")
+
+colnames(day10_GO) <- c("chr", "start", "end", "num.DMS","feature","gene","entry","entry.name","protein.name", "GO.IDs", "GO.terms")
+
+colnames(day135_GO) <- c("chr", "start", "end", "num.DMS","feature","gene","entry","entry.name","protein.name", "GO.IDs", "GO.terms")
+
+colnames(day145_GO) <- c("chr", "start", "end", "num.DMS","feature","gene","entry","entry.name","protein.name", "GO.IDs", "GO.terms")
+
+```
+
+add column to each GO data frame so they can be combined
+```{r}
+amb_GO$group <- "amb"
+day10_GO$group <- "day10"
+day135_GO$group <- "day135"
+day145_GO$group <- "day145"
+```
+
+combine GO data frames
+```{r}
+all_comparisons <- rbind(amb_GO,day10_GO, day135_GO, day145_GO)
+
+```
+
+plot DMR feature frequencies
+```{r}
+jpeg("features_histograms.jpg", width = 800, height = 800)
+#facet by feature
+ggplot(all_comparisons) + geom_histogram(aes(group, color = group, fill = group), stat = "count") + facet_wrap(~feature) + xlab("comparison") + ylab("number of features") + theme(legend.position = "none",axis.text.x = element_text(angle = 45))
+dev.off()
+
+#facet by exp. group
+jpeg("features_histograms_group_facet.jpg", width = 800, height = 800)
+ggplot(all_comparisons) + geom_histogram(aes(feature, color = feature, fill = feature), stat = "count") + facet_wrap(~group)
+dev.off()
+
+
+#stacked bar plot of features for each group
+jpeg("features_stacked_bar_plot.jpg", width = 800, height = 800)
+ggplot(all_comparisons, aes(x = factor(group), group = feature, fill = feature)) + geom_bar(position = "fill") + ylab("fraction of all features") + xlab("comparison")
+dev.off()
+
+```
