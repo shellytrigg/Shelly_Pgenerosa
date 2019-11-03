@@ -1,7 +1,7 @@
 ---
-title: "Oct31 GeoduckDMR functional analysis"
+title: "Nov2GeoduckDMR functional analysis"
 author: "Shelly Trigg"
-date: "10/31/2019"
+date: "11/02/2019"
 output: html_document
 ---
 
@@ -17,13 +17,16 @@ library(reshape2)
 
 read in data
 ```{r}
-amb_GO <- read.table("amb_AllTimes.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+##added quote = "", fill =FALSE to read table argument because it was not reading in all lines of input files and gave the error "EOF within quoted string". I found this site which gave that tip:
+#https://kbroman.org/blog/2017/08/08/eof-within-quoted-string/
 
-day10_GO <- read.table("day10_AllpH.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+amb_GO <- read.table("amb_AllTimes.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE, quote = "", fill =FALSE)
 
-day135_GO <- read.table("day135_AllpH.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+day10_GO <- read.table("day10_AllpH.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE, quote = "", fill =FALSE)
 
-day145_GO <- read.table("day145_AllpH.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+day135_GO <- read.table("day135_AllpH.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE,quote = "", fill =FALSE)
+
+day145_GO <- read.table("day145_AllpH.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE,quote = "", fill =FALSE)
 
 
 ```
@@ -83,22 +86,22 @@ for (i in 1:nrow(day10_GO)){
   day10_sig_pro_GOid <- rbind.fill(day10_sig_pro_GOid,day10_sig_pro_GOid_row)
 }
 
-#add protein IDs back to GO IDs
-silo39_sig_pro_GOid_term <- cbind(silo39_sig_pro_GO[,"protein_ID"], silo39_sig_pro_GOid_term)
-#this results in a table with protein ID listed in one column and each next column contains a GO ID that was listed with the protein in Uniprot DB.
+#add chr and position info back to GO IDs
+day10_sig_pro_GOid <- cbind(day10_GO[,c("chr","start","end")], day10_sig_pro_GOid[,-1])
+#this results in a table with "chr","start","end" listed and each next column contains a GO ID that was listed with the protein in Uniprot DB.
 #convert all factors to  characters
-silo39_sig_pro_GOid_term <- data.frame(lapply(silo39_sig_pro_GOid_term, as.character), stringsAsFactors = FALSE)
+#silo39_sig_pro_GOid_term <- data.frame(lapply(silo39_sig_pro_GOid_term, as.character), stringsAsFactors = FALSE)
 #proteins that don't have GO IDs?
 
 #reshape data so that all GO ID columns are gathered in one column called "GO" 
-STACKED_silo39_sig_pro_GOid_term <- tidyr::gather(silo39_sig_pro_GOid_term,"col","GO", 2:ncol(silo39_sig_pro_GOid_term))
+STACKED_day10_sig_pro_GOid <- tidyr::gather(day10_sig_pro_GOid,"col","GO", 4:ncol(day10_sig_pro_GOid))
 #exlude middle column which just contains the string "gene" in each row
-STACKED_silo39_sig_pro_GOid_term <- STACKED_silo39_sig_pro_GOid_term[,-2]
+STACKED_day10_sig_pro_GOid <- STACKED_day10_sig_pro_GOid[,-4]
 #remove duplicate rows
-STACKED_silo39_sig_pro_GOid_term <- unique(STACKED_silo39_sig_pro_GOid_term)
-colnames(STACKED_silo39_sig_pro_GOid_term)[1] <- "protein_ID"
+STACKED_day10_sig_pro_GOid <- unique(STACKED_day10_sig_pro_GOid)
+
 #remove any rows where GO column has NA value. 
-STACKED_silo39_sig_pro_GOid_term <- STACKED_silo39_sig_pro_GOid_term[which(!is.na(STACKED_silo39_sig_pro_GOid_term$GO)),]
+STACKED_day10_sig_pro_GOid <- STACKED_day10_sig_pro_GOid[which(!is.na(STACKED_day10_sig_pro_GOid$GO)),]
 #this resulting data frame has two columns "gene" and "GO"
 
 
