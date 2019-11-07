@@ -28,6 +28,22 @@ day135_GO <- read.table("day135_AllpH.GO.txt", header = FALSE, sep = "\t", strin
 
 day145_GO <- read.table("day145_AllpH.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE,quote = "", fill =FALSE)
 
+#read in non-significant + significant DMRs
+day10_GO_nosig <- read.table("../20191106_anno/day10_AllpH_filtrd_0928GFF3.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE, quote = "", fill = FALSE)
+
+day135_GO_nosig <- read.table("../20191106_anno/day135_AllpH_filtrd_0928GFF3.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE, quote = "", fill = FALSE)
+
+day145_GO_nosig <- read.table("../20191106_anno/day145_AllpH_filtrd_0928GFF3.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE, quote = "", fill = FALSE)
+
+amb_GO_nosig <- read.table("../20191106_anno/amb_AllTimes_filtrd_0928GFF3.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE, quote = "", fill = FALSE)
+
+#remove extra columns
+day10_GO_nosig <- day10_GO_nosig[,c(1:3,7)]
+day135_GO_nosig <- day135_GO_nosig[,c(1:3,7)]
+day145_GO_nosig <- day145_GO_nosig[,c(1:3,7)]
+amb_GO_nosig <- amb_GO_nosig[,c(1:3,7)]
+
+
 
 ```
 
@@ -41,6 +57,14 @@ colnames(day135_GO) <- c("chr", "start", "end", "num.DMS","feature","gene","entr
 
 colnames(day145_GO) <- c("chr", "start", "end", "num.DMS","feature","gene","entry","entry.name","protein.name", "GO.IDs", "GO.terms")
 
+
+colnames(day10_GO_nosig) <- c("chr", "start", "end","feature")
+
+colnames(day135_GO_nosig) <- c("chr", "start", "end","feature")
+
+colnames(day145_GO_nosig) <- c("chr", "start", "end","feature")
+
+colnames(amb_GO_nosig) <- c("chr", "start", "end","feature")
 ```
 
 add column to each GO data frame so they can be combined
@@ -49,12 +73,26 @@ amb_GO$group <- "amb"
 day10_GO$group <- "day10"
 day135_GO$group <- "day135"
 day145_GO$group <- "day145"
+
+
+amb_GO_nosig$group <- "amb"
+day10_GO_nosig$group <- "day10"
+day135_GO_nosig$group <- "day135"
+day145_GO_nosig$group <- "day145"
 ```
 
 combine GO data frames
 ```{r}
 all_comparisons <- rbind(amb_GO,day10_GO, day135_GO, day145_GO)
 
+all_comparisons_bkgrd <- rbind(amb_GO_nosig, day10_GO_nosig, day135_GO_nosig, day145_GO_nosig)
+
+all_comparisons_bkgrd$sig <- "All DMRs"
+all_comparisons$sig <- "Significant DMRs"
+
+all_comparisons_bkgrd <- rbind(all_comparisons_bkgrd,all_comparisons[,c(1:3,5,12:13)])
+
+all_comparisons_bkgrd$group.sig <- paste(all_comparisons_bkgrd$sig,all_comparisons_bkgrd$group,sep = ".")
 ```
 
 plot DMR feature frequencies
@@ -64,16 +102,24 @@ jpeg("features_histograms.jpg", width = 800, height = 800)
 ggplot(all_comparisons) + geom_histogram(aes(group, color = group, fill = group), stat = "count") + facet_wrap(~feature) + xlab("comparison") + ylab("number of features") + theme(legend.position = "none",axis.text.x = element_text(angle = 45))
 dev.off()
 
+ggplot(all_comparisons) + geom_bar(aes(group, color = group, fill = group), stat = "count") + facet_wrap(~feature) + xlab("comparison") + ylab("number of features") + theme(legend.position = "none",axis.text.x = element_text(angle = 45))
+
+
 #facet by exp. group
 jpeg("features_histograms_group_facet.jpg", width = 800, height = 800)
 ggplot(all_comparisons) + geom_histogram(aes(feature, color = feature, fill = feature), stat = "count") + facet_wrap(~group)
 dev.off()
 
-
 #stacked bar plot of features for each group
 jpeg("features_stacked_bar_plot.jpg", width = 800, height = 800)
 ggplot(all_comparisons, aes(x = factor(group), group = feature, fill = feature)) + geom_bar(position = "fill") + ylab("fraction of all features") + xlab("comparison")
 dev.off()
+
+#plot proportion percentages for features represented in all DMRs vs. significant DMRs for each comparison
+jpeg("AllvSigDMRsxfeatures_PropBarplot_GroupFacet.jpg", width = 800, height = 800)
+ggplot(all_comparisons_bkgrd, aes(x= feature,  group=group.sig)) + geom_bar(aes(y = ..prop.., fill = factor(..x..)), stat="count") + geom_text(aes( label = scales::percent(..prop..),y= ..prop.. ), stat= "count", vjust = -.5, size = 2) + labs(y = "Percent", fill="feature") + facet_grid(group~sig) + scale_y_continuous(labels = scales::percent,limits = c(0,0.35)) + scale_fill_manual(name="Features", values=c("#F8766D","#BB9D00","#00B81F","#00C0B8","#00A5FF","#E76BF3","#FF6C90"), labels=c("CDS", "exon", "gene","mRNA","repeat_region","rRNA","tRNA")) + theme_bw() + theme(axis.title.x=element_blank(),axis.text.x=element_blank(),axis.ticks.x=element_blank())
+dev.off()
+
 
 ```
 
@@ -104,5 +150,7 @@ STACKED_day10_sig_pro_GOid <- unique(STACKED_day10_sig_pro_GOid)
 STACKED_day10_sig_pro_GOid <- STACKED_day10_sig_pro_GOid[which(!is.na(STACKED_day10_sig_pro_GOid$GO)),]
 #this resulting data frame has two columns "gene" and "GO"
 
-
+#creating background gene list:
+all sites with 5x coverage
+or bin allc files in 25bp windows and sum coverage over 25bp window?
 ```
