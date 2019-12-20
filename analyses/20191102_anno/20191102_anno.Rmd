@@ -49,19 +49,14 @@ amb_GO_nosig <- amb_GO_nosig[,c(1:3,7)]
 
 #with Gannet mounted
 
-day10_GO_bkgd <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191109/all_day10_bkgd_0928GFF3.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE, quote = "", fill = FALSE)
+day10_GO_bkgd <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191109/all_day10_bkgd.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE, quote = "", fill = TRUE)
 
-day135_GO_bkgd <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191109/all_day135_bkgd_0928GFF3.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE, quote = "", fill = FALSE)
+day135_GO_bkgd <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191109/all_day135_bkgd.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE, quote = "", fill = TRUE)
 
-day145_GO_bkgd <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191109/all_day145_bkgd_0928GFF3.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE, quote = "", fill = FALSE)
+day145_GO_bkgd <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191109/all_day145_bkgd.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE, quote = "", fill = TRUE)
 
-amb_GO_bkgd <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191109/all_amb_bkgd_0928GFF3.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE, quote = "", fill = FALSE)
+amb_GO_bkgd <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191109/all_amb_bkgd.GO.txt", header = FALSE, sep = "\t", stringsAsFactors = FALSE, quote = "", fill = TRUE)
 
-#remove extra columns
-day10_GO_bkgd <- day10_GO_bkgd[,c(1:3,6)]
-day135_GO_bkgd <- day135_GO_bkgd[,c(1:3,6)]
-day145_GO_bkgd <- day145_GO_bkgd[,c(1:3,6)]
-amb_GO_bkgd <- amb_GO_bkgd[,c(1:3,6)]
 ```
 
 add header to data frames
@@ -84,13 +79,19 @@ colnames(day145_GO_nosig) <- c("chr", "start", "end","feature")
 colnames(amb_GO_nosig) <- c("chr", "start", "end","feature")
 
 
-colnames(day10_GO_bkgd) <- c("chr", "start", "end","feature")
+colnames(day10_GO_bkgd) <- c("chr", "start", "end","feature","gene","entry","entry.name","protein.name", "GO.IDs", "GO.terms")
 
-colnames(day135_GO_bkgd) <- c("chr", "start", "end","feature")
+colnames(day135_GO_bkgd) <- c("chr", "start", "end","feature","gene","entry","entry.name","protein.name", "GO.IDs", "GO.terms")
 
-colnames(day145_GO_bkgd) <- c("chr", "start", "end","feature")
+colnames(day145_GO_bkgd) <- c("chr", "start", "end","feature","gene","entry","entry.name","protein.name", "GO.IDs", "GO.terms")
 
-colnames(amb_GO_bkgd) <- c("chr", "start", "end","feature")
+colnames(amb_GO_bkgd) <- c("chr", "start", "end","feature","gene","entry","entry.name","protein.name", "GO.IDs", "GO.terms")
+
+#remove extra columns
+day10_feat_bkgd <- day10_GO_bkgd[,c(1:4)]
+day135_feat_bkgd <- day135_GO_bkgd[,c(1:4)]
+day145_feat_bkgd <- day145_GO_bkgd[,c(1:4)]
+amb_feat_bkgd <- amb_GO_bkgd[,c(1:4)]
 
 ```
 
@@ -108,10 +109,10 @@ day135_GO_nosig$group <- "day135"
 day145_GO_nosig$group <- "day145"
 
 
-amb_GO_bkgd$group <- "amb"
-day10_GO_bkgd$group <- "day10"
-day135_GO_bkgd$group <- "day135"
-day145_GO_bkgd$group <- "day145"
+amb_feat_bkgd$group <- "amb"
+day10_feat_bkgd$group <- "day10"
+day135_feat_bkgd$group <- "day135"
+day145_feat_bkgd$group <- "day145"
 
 ```
 
@@ -122,7 +123,7 @@ all_comparisons <- rbind(amb_GO,day10_GO, day135_GO, day145_GO)
 #20191109 I'm commenting this out because I've updated the background
 #all_comparisons_bkgrd <- rbind(amb_GO_nosig, day10_GO_nosig, day135_GO_nosig, day145_GO_nosig)
 
-all_comparisons_bkgrd <- rbind(amb_GO_bkgd, day10_GO_bkgd, day135_GO_bkgd, day145_GO_bkgd)
+all_comparisons_bkgrd <- rbind(amb_feat_bkgd, day10_feat_bkgd, day135_feat_bkgd, day145_feat_bkgd)
 
 all_comparisons_bkgrd$sig <- "BkgdCGs5xCov3idv"
 all_comparisons$sig <- "Significant DMRs"
@@ -197,6 +198,32 @@ STACKED_day10_sig_pro_GOid <- STACKED_day10_sig_pro_GOid[which(!is.na(STACKED_da
 #this resulting data frame has two columns "gene" and "GO"
 
 #creating background gene list:
-all sites with 5x coverage
-or bin allc files in 25bp windows and sum coverage over 25bp window?
+
+day10_bkgd_pro_GOid <- data.frame()
+for (i in 1:nrow(day10_GO_bkgd[which(substr(day10_GO_bkgd$GO.IDs,1,2)=="GO"),])){
+  day10_bkgd_pro_GOid_row <- data.frame(t(data.frame(strsplit(as.character(day10_GO_bkgd[which(substr(day10_GO_bkgd$GO.IDs,1,2)=="GO"),"GO.IDs"][i]),'; ', fixed = TRUE))))
+  day10_bkgd_pro_GOid <- rbind.fill(day10_bkgd_pro_GOid,day10_bkgd_pro_GOid_row)
+}
+
+#add chr and position info back to GO IDs
+day10_bkgd_pro_GOid <- cbind(day10_GO_bkgd[which(substr(day10_GO_bkgd$GO.IDs,1,2)=="GO"),c("chr","start","end")], day10_bkgd_pro_GOid[,-1])
+#this results in a table with "chr","start","end" listed and each next column contains a GO ID that was listed with the protein in Uniprot DB.
+#convert all factors to  characters
+#silo39_sig_pro_GOid_term <- data.frame(lapply(silo39_sig_pro_GOid_term, as.character), stringsAsFactors = FALSE)
+#proteins that don't have GO IDs?
+
+#convert factor columns to character
+class(day10_bkgd_pro_GOid[,4:ncol(day10_bkgd_pro_GOid)]) <- "character"
+
+#reshape data so that all GO ID columns are gathered in one column called "GO" 
+STACKED_day10_bkgd_pro_GOid <- tidyr::gather(day10_bkgd_pro_GOid,"col","GO", 4:ncol(day10_bkgd_pro_GOid))
+#exlude middle column which just contains the string "gene" in each row
+STACKED_day10_sig_pro_GOid <- STACKED_day10_sig_pro_GOid[,-4]
+#remove duplicate rows
+STACKED_day10_sig_pro_GOid <- unique(STACKED_day10_sig_pro_GOid)
+
+#remove any rows where GO column has NA value. 
+STACKED_day10_sig_pro_GOid <- STACKED_day10_sig_pro_GOid[which(!is.na(STACKED_day10_sig_pro_GOid$GO)),]
+#this resulting data frame has two columns "gene" and "GO"
+
 ```

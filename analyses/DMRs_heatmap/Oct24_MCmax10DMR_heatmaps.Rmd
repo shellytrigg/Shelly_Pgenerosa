@@ -11,6 +11,7 @@ This script was run with Gannet mounted
 load libraries
 ```{r}
 library(gplots)
+library(ggplot2)
 
 ```
 
@@ -105,3 +106,42 @@ plot heatmap of day145 sample comparison
 ColSideColors <- cbind(pH = c(rep("cyan",4),rep("green1",4),rep("green3",4),rep("mediumpurple1",4),rep("plum2",4),rep("magenta",4)))
 heatmap.2(day145_m,cexRow = 0.3, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = bluered, na.color = "black", density.info = "none", trace = "none", scale = "row")
 ```
+
+
+Calculate group means for each DMR
+```{r}
+
+amb <- data.frame(rowMeans(day10_m[,1:4], na.rm = TRUE))
+low.pH <- data.frame(rowMeans(day10_m[,5:8], na.rm = TRUE))
+superlow.pH <- data.frame(rowMeans(day10_m[,9:12], na.rm = TRUE))
+
+library(matrixStats)
+amb.sd <- data.frame(rowSds(day10_m[,1:4], na.rm = TRUE))
+low.pH.sd <- data.frame(rowSds(day10_m[,5:8], na.rm = TRUE))
+superlow.pH.sd <- data.frame(rowSds(day10_m[,9:12], na.rm = TRUE))
+
+
+colnames(amb)[1] <- "amb"
+colnames(low.pH)[1] <- "low.pH"
+colnames(superlow.pH)[1] <- "superlow.pH"
+day10_means_m <- as.matrix(cbind(amb,low.pH,superlow.pH))
+
+colnames(amb.sd)[1] <- "amb"
+colnames(low.pH.sd)[1] <- "low.pH"
+colnames(superlow.pH.sd)[1] <- "superlow.pH"
+day10_sd <- cbind(amb.sd,low.pH.sd,superlow.pH.sd)
+rownames(day10_sd) <- rownames(day10_m)
+
+day10_sd_0.2 <- day10_sd[which(day10_sd$amb <= 0.2 & day10_sd$low.pH <= 0.2 & day10_sd$superlow.pH <= 0.2),]
+
+```
+
+plot heatmap of mean %methylation for day10 sample comparison
+```{r, day10_DMR_heatmap}
+ColSideColors <- cbind(pH = c(rep("cyan",1),rep("plum2",1),rep("magenta",1)))
+heatmap.2(day10_means_m,cexRow = 0.3, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = bluered, na.color = "black", density.info = "none", trace = "none", scale = "row")
+
+ColSideColors <- cbind(pH = c(rep("cyan",1),rep("plum2",1),rep("magenta",1)))
+heatmap.2(day10_means_m[which(rownames(day10_means_m) %in% rownames(day10_sd_0.2)),],margins = c(8,20),cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = bluered, na.color = "black", density.info = "none", trace = "none")
+```
+
