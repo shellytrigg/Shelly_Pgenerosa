@@ -570,7 +570,7 @@ aov_0.01pH_d10DMR_bed$start <- gsub("-.*","", aov_0.01pH_d10DMR_bed$start)
 aov_0.01pH_d10DMR_bed$end <- gsub(".*-","",  rownames(aov_0.01pH_d10DMR_m))
 aov_0.01pH_d10DMR_bed$comparison <- "d10"
 aov_0.01pH_d10DMR_bed <- aov_0.01pH_d10DMR_bed[,c((ncol(aov_0.01pH_d10DMR_bed)-3):ncol(aov_0.01pH_d10DMR_bed)) ]
-write.table(aov_0.01pH_d10DMR_bed,"aov_0.01pH_d10DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE)
+write.table(aov_0.01pH_d10DMR_bed,"aov_0.01pH_d10DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE, sep = "\t")
 
 #write out d135 DMR bed file
 aov_0.01pH_d135DMR_bed <- data.frame(aov_0.01pH_d135DMR_m)
@@ -580,7 +580,7 @@ aov_0.01pH_d135DMR_bed$start <- gsub("-.*","", aov_0.01pH_d135DMR_bed$start)
 aov_0.01pH_d135DMR_bed$end <- gsub(".*-","",  rownames(aov_0.01pH_d135DMR_m))
 aov_0.01pH_d135DMR_bed$comparison <- "d135"
 aov_0.01pH_d135DMR_bed <- aov_0.01pH_d135DMR_bed[,c((ncol(aov_0.01pH_d135DMR_bed)-3):ncol(aov_0.01pH_d135DMR_bed)) ]
-write.table(aov_0.01pH_d135DMR_bed,"aov_0.01pH_d135DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE)
+write.table(aov_0.01pH_d135DMR_bed,"aov_0.01pH_d135DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE,sep = "\t")
 
 #write out d145 DMR bed file
 aov_0.01pH_d145DMR_bed <- data.frame(aov_0.01pH_d145DMR_m)
@@ -590,7 +590,7 @@ aov_0.01pH_d145DMR_bed$start <- gsub("-.*","", aov_0.01pH_d145DMR_bed$start)
 aov_0.01pH_d145DMR_bed$end <- gsub(".*-","",  rownames(aov_0.01pH_d145DMR_m))
 aov_0.01pH_d145DMR_bed$comparison <- "d145"
 aov_0.01pH_d145DMR_bed <- aov_0.01pH_d145DMR_bed[,c((ncol(aov_0.01pH_d145DMR_bed)-3):ncol(aov_0.01pH_d145DMR_bed)) ]
-write.table(aov_0.01pH_d145DMR_bed,"aov_0.01pH_d145DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE)
+write.table(aov_0.01pH_d145DMR_bed,"aov_0.01pH_d145DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE,sep = "\t")
 
 
 #write out amb DMR bed file
@@ -601,7 +601,7 @@ aov_0.01pH_ambDMR_bed$start <- gsub("-.*","", aov_0.01pH_ambDMR_bed$start)
 aov_0.01pH_ambDMR_bed$end <- gsub(".*-","",  rownames(aov_0.01pH_ambDMR_m))
 aov_0.01pH_ambDMR_bed$comparison <- "amb"
 aov_0.01pH_ambDMR_bed <- aov_0.01pH_ambDMR_bed[,c((ncol(aov_0.01pH_ambDMR_bed)-3):ncol(aov_0.01pH_ambDMR_bed)) ]
-write.table(aov_0.01pH_ambDMR_bed,"aov_0.01pH_ambDMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE)
+write.table(aov_0.01pH_ambDMR_bed,"aov_0.01pH_ambDMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE,sep = "\t")
 
 ###do the same for 0.05 cutoff
 #write out d10 DMR bed file
@@ -612,7 +612,7 @@ aov_0.05pH_d10DMR_bed$start <- gsub("-.*","", aov_0.05pH_d10DMR_bed$start)
 aov_0.05pH_d10DMR_bed$end <- gsub(".*-","",  rownames(aov_0.05pH_d10DMR_m))
 aov_0.05pH_d10DMR_bed$comparison <- "d10"
 aov_0.05pH_d10DMR_bed <- aov_0.05pH_d10DMR_bed[,c((ncol(aov_0.05pH_d10DMR_bed)-3):ncol(aov_0.05pH_d10DMR_bed)) ]
-write.table(aov_0.05pH_d10DMR_bed,"aov_0.05pH_d10DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE)
+write.table(aov_0.05pH_d10DMR_bed,"aov_0.05pH_d10DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE,sep = "\t")
 
 #write out d135 DMR bed file
 aov_0.05pH_d135DMR_bed <- data.frame(aov_0.05pH_d135DMR_m)
@@ -622,7 +622,7 @@ aov_0.05pH_d135DMR_bed$start <- gsub("-.*","", aov_0.05pH_d135DMR_bed$start)
 aov_0.05pH_d135DMR_bed$end <- gsub(".*-","",  rownames(aov_0.05pH_d135DMR_m))
 aov_0.05pH_d135DMR_bed$comparison <- "d135"
 aov_0.05pH_d135DMR_bed <- aov_0.05pH_d135DMR_bed[,c((ncol(aov_0.05pH_d135DMR_bed)-3):ncol(aov_0.05pH_d135DMR_bed)) ]
-write.table(aov_0.05pH_d135DMR_bed,"aov_0.05pH_d135DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE)
+write.table(aov_0.05pH_d135DMR_bed,"aov_0.05pH_d135DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE,sep = "\t")
 
 #write out d145 DMR bed file
 aov_0.05pH_d145DMR_bed <- data.frame(aov_0.05pH_d145DMR_m)
@@ -632,7 +632,7 @@ aov_0.05pH_d145DMR_bed$start <- gsub("-.*","", aov_0.05pH_d145DMR_bed$start)
 aov_0.05pH_d145DMR_bed$end <- gsub(".*-","",  rownames(aov_0.05pH_d145DMR_m))
 aov_0.05pH_d145DMR_bed$comparison <- "d145"
 aov_0.05pH_d145DMR_bed <- aov_0.05pH_d145DMR_bed[,c((ncol(aov_0.05pH_d145DMR_bed)-3):ncol(aov_0.05pH_d145DMR_bed)) ]
-write.table(aov_0.05pH_d145DMR_bed,"aov_0.05pH_d145DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE)
+write.table(aov_0.05pH_d145DMR_bed,"aov_0.05pH_d145DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE,sep = "\t")
 
 
 #write out amb DMR bed file
@@ -643,7 +643,7 @@ aov_0.05pH_ambDMR_bed$start <- gsub("-.*","", aov_0.05pH_ambDMR_bed$start)
 aov_0.05pH_ambDMR_bed$end <- gsub(".*-","",  rownames(aov_0.05pH_ambDMR_m))
 aov_0.05pH_ambDMR_bed$comparison <- "amb"
 aov_0.05pH_ambDMR_bed <- aov_0.05pH_ambDMR_bed[,c((ncol(aov_0.05pH_ambDMR_bed)-3):ncol(aov_0.05pH_ambDMR_bed)) ]
-write.table(aov_0.05pH_ambDMR_bed,"aov_0.05pH_ambDMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE)
+write.table(aov_0.05pH_ambDMR_bed,"aov_0.05pH_ambDMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE,sep = "\t")
 
 
 ```
