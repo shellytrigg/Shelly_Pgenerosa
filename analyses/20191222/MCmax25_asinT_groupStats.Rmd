@@ -1,0 +1,661 @@
+---
+title: "MCmax25DMR_asinT_Stats"
+author: "Shelly Trigg"
+date: "12/22/2019"
+output: rmarkdown::github_document
+---
+
+This script was run with Gannet mounted
+
+
+load libraries
+```{r}
+library(gplots)
+library(ggplot2)
+library(dplyr)
+library(broom)
+library(RColorBrewer)
+```
+
+read in data
+```{r}
+
+ambDMRs <- read.table("amb_AllTimes_DMR250bp_MCmax50_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
+
+d10DMRs <- read.table("day10_AllpH_DMR250bp_MCmax50_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
+
+
+d135DMRs <- read.table("day135_AllpH_DMR250bp_MCmax50_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
+
+
+d145DMRs <- read.table("day145_AllpH_DMR250bp_MCmax50_cov5x_rms_results_filtered.tsv", header = TRUE, sep = "\t")
+
+meta_data <- read.csv("Sample.Info.csv", stringsAsFactors = FALSE)
+
+#write out bedfile
+#write.table(DMRs[,1:4],"DMR250bp_MCmax25_cov5x_0.75xGroup.bed", sep = "\t",quote = FALSE, row.names = FALSE, col.names = FALSE )
+
+```
+
+Make a unique ID column 
+```{r}
+#for all ambient sample comparison
+d10DMRs$ID <- paste(d10DMRs$chr,":",d10DMRs$start,"-",d10DMRs$end, sep = "")
+d10DMRs$ID <- gsub("__.*__.*:",":",d10DMRs$ID)
+
+d135DMRs$ID <- paste(d135DMRs$chr,":",d135DMRs$start,"-",d135DMRs$end, sep = "")
+d135DMRs$ID <- gsub("__.*__.*:",":",d135DMRs$ID)
+
+ambDMRs$ID <- paste(ambDMRs$chr,":",ambDMRs$start,"-",ambDMRs$end, sep = "")
+ambDMRs$ID <- gsub("__.*__.*:",":",ambDMRs$ID)
+
+d145DMRs$ID <- paste(d145DMRs$chr,":",d145DMRs$start,"-",d145DMRs$end, sep = "")
+d145DMRs$ID <- gsub("__.*__.*:",":",d145DMRs$ID)
+
+```
+
+reformat data for calculating group effect
+```{r}
+#reformat all to long format
+d10DMRs_STACKED <- tidyr::gather(d10DMRs[,7:ncol(d10DMRs)], "Sample.ID", "perc.meth",1:12)
+
+d135DMRs_STACKED <- tidyr::gather(d135DMRs[,7:ncol(d135DMRs)], "Sample.ID", "perc.meth",1:12)
+
+d145DMRs_STACKED <- tidyr::gather(d145DMRs[,7:ncol(d145DMRs)], "Sample.ID", "perc.meth",1:24)
+
+ambDMRs_STACKED <- tidyr::gather(ambDMRs[,7:ncol(ambDMRs)], "Sample.ID", "perc.meth",1:16)
+
+
+#simplify sample ID column
+d10DMRs_STACKED$Sample.ID <- gsub("methylation_level_","", d10DMRs_STACKED$Sample.ID)
+d10DMRs_STACKED$Sample.ID <- gsub("\\.","_", d10DMRs_STACKED$Sample.ID)
+
+d135DMRs_STACKED$Sample.ID <- gsub("methylation_level_","", d135DMRs_STACKED$Sample.ID)
+d135DMRs_STACKED$Sample.ID <- gsub("\\.","_", d135DMRs_STACKED$Sample.ID)
+
+d145DMRs_STACKED$Sample.ID <- gsub("methylation_level_","", d145DMRs_STACKED$Sample.ID)
+d145DMRs_STACKED$Sample.ID <- gsub("\\.","_", d145DMRs_STACKED$Sample.ID)
+
+ambDMRs_STACKED$Sample.ID <- gsub("methylation_level_","", ambDMRs_STACKED$Sample.ID)
+ambDMRs_STACKED$Sample.ID <- gsub("\\.","_", ambDMRs_STACKED$Sample.ID)
+
+#merge with meta data
+d10DMRs_STACKED <- merge(d10DMRs_STACKED, meta_data, by = "Sample.ID")
+
+d135DMRs_STACKED <- merge(d135DMRs_STACKED, meta_data, by = "Sample.ID")
+
+d145DMRs_STACKED <- merge(d145DMRs_STACKED, meta_data, by = "Sample.ID")
+#create column for initial and secondary treatment
+d145DMRs_STACKED$Treatment <- paste(d145DMRs_STACKED$Initial.Treatment,d145DMRs_STACKED$Secondary.Treatment, sep ="_")
+
+ambDMRs_STACKED <- merge(ambDMRs_STACKED, meta_data, by = "Sample.ID")
+
+```
+
+plot % meth dist.
+```{r}
+jpeg("d10DMR_percmeth_hist.jpg", width = 800, height = 800)
+ggplot(d10DMRs_STACKED) + geom_histogram(aes(perc.meth, group = Initial.Treatment, color = Initial.Treatment,fill = Initial.Treatment), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+dev.off()
+
+jpeg("d135DMR_percmeth_hist.jpg", width = 800, height = 800)
+ggplot(d135DMRs_STACKED) + geom_histogram(aes(perc.meth, group = Initial.Treatment, color = Initial.Treatment,fill = Initial.Treatment), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+dev.off()
+
+jpeg("d145DMR_percmeth_hist.jpg", width = 800, height = 800)
+ggplot(d145DMRs_STACKED) + geom_histogram(aes(perc.meth, group = Treatment, color = Treatment,fill = Treatment), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+dev.off()
+
+jpeg("ambDMR_percmeth_hist.jpg", width = 800, height = 800)
+ggplot(ambDMRs_STACKED) + geom_histogram(aes(perc.meth, group = TimePoint, color = TimePoint,fill = TimePoint), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+dev.off()
+```
+
+arc sin sqrt transform the data
+```{r}
+#arcsin sqrt transformation function
+asinTransform <- function(p) { asin(sqrt(p))}
+
+#arcsin transform data 
+#day 10
+d10DMRs_STACKED_asin <- d10DMRs_STACKED
+d10DMRs_STACKED_asin$perc.meth <- asinTransform(d10DMRs_STACKED_asin$perc.meth)
+#day 135
+d135DMRs_STACKED_asin <- d135DMRs_STACKED
+d135DMRs_STACKED_asin$perc.meth <- asinTransform(d135DMRs_STACKED_asin$perc.meth)
+#day145
+d145DMRs_STACKED_asin <- d145DMRs_STACKED
+d145DMRs_STACKED_asin$perc.meth <- asinTransform(d145DMRs_STACKED_asin$perc.meth)
+#amb samples
+ambDMRs_STACKED_asin <- ambDMRs_STACKED
+ambDMRs_STACKED_asin$perc.meth <- asinTransform(ambDMRs_STACKED_asin$perc.meth)
+
+
+```
+
+plot distribution of TRANSFORMED % methylation in all DMRs in all samples
+```{r}
+jpeg("d10DMR_Tpercmeth_hist.jpg", width = 800, height = 800)
+ggplot(d10DMRs_STACKED_asin) + geom_histogram(aes(perc.meth, group = Initial.Treatment, color = Initial.Treatment,fill = Initial.Treatment), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+dev.off()
+
+jpeg("d135DMR_Tpercmeth_hist.jpg", width = 800, height = 800)
+ggplot(d135DMRs_STACKED_asin) + geom_histogram(aes(perc.meth, group = Initial.Treatment, color = Initial.Treatment,fill = Initial.Treatment), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+dev.off()
+
+jpeg("d145DMR_Tpercmeth_hist.jpg", width = 800, height = 800)
+ggplot(d145DMRs_STACKED_asin) + geom_histogram(aes(perc.meth, group = Treatment, color = Treatment,fill = Treatment), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+dev.off()
+
+jpeg("ambDMR_Tpercmeth_hist.jpg", width = 800, height = 800)
+ggplot(ambDMRs_STACKED_asin) + geom_histogram(aes(perc.meth, group = TimePoint, color = TimePoint,fill = TimePoint), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+dev.off()
+```
+
+## Run anova on TRANSFORMED data to assess group differences for each DMR
+
+**Hypotehsis: there is no effect from pH at day10**
+```{r}
+d10DMR_1way_aov_pH <- d10DMRs_STACKED_asin %>% group_by(ID) %>%
+do(meth_aov_models = aov(perc.meth~Initial.Treatment, data =  . ))
+#summarize ANOVA data
+d10DMR_1way_aov_pH_modelsumm <- glance(d10DMR_1way_aov_pH, meth_aov_models)
+```
+
+**Hypotehsis: there is no effect from pH at day135**
+```{r}
+d135DMR_1way_aov_pH <- d135DMRs_STACKED_asin %>% group_by(ID) %>%
+do(meth_aov_models = aov(perc.meth~Initial.Treatment, data =  . ))
+#summarize ANOVA data
+d135DMR_1way_aov_pH_modelsumm <- glance(d135DMR_1way_aov_pH, meth_aov_models)
+```
+
+**Hypotehsis: there is no effect from pH at day145**
+```{r}
+d145DMR_1way_aov_pH <- d145DMRs_STACKED_asin %>% group_by(ID) %>%
+do(meth_aov_models = aov(perc.meth~Treatment, data =  . ))
+#summarize ANOVA data
+d145DMR_1way_aov_pH_modelsumm <- glance(d145DMR_1way_aov_pH, meth_aov_models)
+```
+
+
+**Hypotehsis: there is no effect from time in ambient samples**
+```{r}
+ambDMR_1way_aov_pH <- ambDMRs_STACKED_asin %>% group_by(ID) %>%
+do(meth_aov_models = aov(perc.meth~TimePoint, data =  . ))
+#summarize ANOVA data
+ambDMR_1way_aov_pH_modelsumm <- glance(ambDMR_1way_aov_pH, meth_aov_models)
+```
+
+
+
+plot significant regions
+```{r}
+
+### DAY 10 ###
+jpeg("d10DMR_MCmax25_Taov0.01pHPercMeth.jpg", width = 17, height = 12, units = "in", res = 300)
+p <- ggplot(data = d10DMRs_STACKED[which(d10DMRs_STACKED$ID %in% pull(d10DMR_1way_aov_pH_modelsumm[which(d10DMR_1way_aov_pH_modelsumm$p.value < 0.01),],ID)),],aes(x = Initial.Treatment,y = perc.meth, color = Initial.Treatment)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust =1),axis.title=element_text(size=12,face="bold")) + scale_color_manual(values = c("cyan3", "gold2", "magenta3"))
+p + geom_jitter(width = 0.3) +  ggtitle("DMRs that show an overall pH model effect significant at ANOVA p.value < 0.01")
+dev.off()
+
+jpeg("d10DMR_MCmax25_Taov0.05pHPercMeth.jpg", width = 17, height = 12, units = "in", res = 300)
+p <- ggplot(data = d10DMRs_STACKED[which(d10DMRs_STACKED$ID %in% pull(d10DMR_1way_aov_pH_modelsumm[which(d10DMR_1way_aov_pH_modelsumm$p.value < 0.05),],ID)),],aes(x = Initial.Treatment,y = perc.meth, color = Initial.Treatment)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust =1),axis.title=element_text(size=12,face="bold")) + scale_color_manual(values = c("cyan3", "gold2", "magenta3"))
+p + geom_jitter(width = 0.3) +  ggtitle("DMRs that show an overall pH model effect significant at ANOVA p.value < 0.05")
+dev.off()
+
+### DAY 135 ###
+jpeg("d135DMR_MCmax25_Taov0.01pHPercMeth.jpg", width = 17, height = 12, units = "in", res = 300)
+p <- ggplot(data = d135DMRs_STACKED[which(d135DMRs_STACKED$ID %in% pull(d135DMR_1way_aov_pH_modelsumm[which(d135DMR_1way_aov_pH_modelsumm$p.value < 0.01),],ID)),],aes(x = Initial.Treatment,y = perc.meth, color = Initial.Treatment)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust =1),axis.title=element_text(size=12,face="bold")) + scale_color_manual(values = c("cyan3", "gold2", "magenta3"))
+p + geom_jitter(width = 0.3) +  ggtitle("Day 135 DMRs that show an overall pH model effect significant at ANOVA p.value < 0.01")
+dev.off()
+
+jpeg("d135DMR_MCmax25_Taov0.05pHPercMeth.jpg", width = 17, height = 12, units = "in", res = 300)
+p <- ggplot(data = d135DMRs_STACKED[which(d135DMRs_STACKED$ID %in% pull(d135DMR_1way_aov_pH_modelsumm[which(d135DMR_1way_aov_pH_modelsumm$p.value < 0.05),],ID)),],aes(x = Initial.Treatment,y = perc.meth, color = Initial.Treatment)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust =1),axis.title=element_text(size=12,face="bold")) + scale_color_manual(values = c("cyan3", "gold2", "magenta3"))
+p + geom_jitter(width = 0.3) +  ggtitle("Day 135 DMRs that show an overall pH model effect significant at ANOVA p.value < 0.05")
+dev.off()
+
+### DAY 145 ###
+jpeg("d145DMR_MCmax25_Taov0.01pHPercMeth.jpg", width = 17, height = 12, units = "in", res = 300)
+p <- ggplot(data = d145DMRs_STACKED[which(d145DMRs_STACKED$ID %in% pull(d145DMR_1way_aov_pH_modelsumm[which(d145DMR_1way_aov_pH_modelsumm$p.value < 0.01),],ID)),],aes(x = Treatment,y = perc.meth, color = Treatment)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust =1),axis.title=element_text(size=12,face="bold")) + scale_color_manual(values = c("cyan3","green3","gold2","greenyellow", "magenta3","lightslateblue"))
+p + geom_jitter(width = 0.3) +  ggtitle("Day 145 DMRs that show an overall pH model effect significant at ANOVA p.value < 0.01")
+dev.off()
+
+jpeg("d145DMR_MCmax25_Taov0.05pHPercMeth.jpg", width = 17, height = 12, units = "in", res = 300)
+p <- ggplot(data = d145DMRs_STACKED[which(d145DMRs_STACKED$ID %in% pull(d145DMR_1way_aov_pH_modelsumm[which(d145DMR_1way_aov_pH_modelsumm$p.value < 0.05),],ID)),],aes(x =Treatment,y = perc.meth, color = Treatment)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust =1),axis.title=element_text(size=12,face="bold")) + scale_color_manual(values = c("cyan3","green3","gold2","greenyellow", "magenta3","lightslateblue"))
+p + geom_jitter(width = 0.3) +  ggtitle("Day 145 DMRs that show an overall pH model effect significant at ANOVA p.value < 0.05")
+dev.off()
+
+### Amb samples ###
+jpeg("ambDMR_MCmax25_Taov0.01pHPercMeth.jpg", width = 17, height = 12, units = "in", res = 300)
+p <- ggplot(data = ambDMRs_STACKED[which(ambDMRs_STACKED$ID %in% pull(ambDMR_1way_aov_pH_modelsumm[which(ambDMR_1way_aov_pH_modelsumm$p.value < 0.01),],ID)),],aes(x = TimePoint,y = perc.meth, color = TimePoint)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust =1),axis.title=element_text(size=12,face="bold")) 
+p + geom_jitter(width = 0.3) +  ggtitle("Ambient x Time DMRs that show an overall pH model effect significant at ANOVA p.value < 0.01")
+dev.off()
+
+jpeg("ambDMR_MCmax25_Taov0.05pHPercMeth.jpg", width = 17, height = 12, units = "in", res = 300)
+p <- ggplot(data = ambDMRs_STACKED[which(ambDMRs_STACKED$ID %in% pull(ambDMR_1way_aov_pH_modelsumm[which(ambDMR_1way_aov_pH_modelsumm$p.value < 0.05),],ID)),],aes(x =TimePoint,y = perc.meth, color = TimePoint)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust =1),axis.title=element_text(size=12,face="bold"))
+p + geom_jitter(width = 0.3) +  ggtitle("Ambient x Time DMRs that show an overall pH model effect significant at ANOVA p.value < 0.05")
+dev.off()
+```
+
+plot heatmap of 1way aov for pH p.val 0.01 sig DMRs
+```{r}
+#create matrix for d10 samples
+aov_0.01pH_d10DMR_m <- as.matrix(d10DMRs[,7:18])
+rownames(aov_0.01pH_d10DMR_m) <- d10DMRs$ID
+
+aov_0.01pH_d10DMR_m <- aov_0.01pH_d10DMR_m[which(rownames(aov_0.01pH_d10DMR_m) %in% pull(d10DMR_1way_aov_pH_modelsumm[which(d10DMR_1way_aov_pH_modelsumm$p.value < 0.01),],ID)),]
+#remove extra text from column names
+colnames(aov_0.01pH_d10DMR_m) <- gsub("methylation_level_","",colnames(aov_0.01pH_d10DMR_m))
+
+
+#reorder columns by pH treatment (amb, low, superlow)
+aov_0.01pH_d10DMR_m <- aov_0.01pH_d10DMR_m[,c(5,6,7,8,1,2,9,10,3,4,11,12)]
+
+#define color bar corresponding to treatment
+ColSideColors <- cbind(pH = c(rep("cyan3",4),rep("gold2",4),rep("magenta3",4)))
+
+jpeg("DMR_MCmax25DMR_Taov0.01_d10_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.01pH_d10DMR_m,margins = c(10,20), cexRow = 1.2, cexCol = 1, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), ColSideColors = ColSideColors,na.color = "black", density.info = "none", trace = "none", scale = "row", sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.01pH_d10DMR_m),rowsep=1:nrow(aov_0.01pH_d10DMR_m))
+dev.off()
+
+###Visualize group means
+#calculate group means
+MeanD10pHamb <- rowMeans(aov_0.01pH_d10DMR_m[,grep("119|120|135|136", colnames(aov_0.01pH_d10DMR_m))], na.rm = TRUE)
+
+MeanD10pHlow <- rowMeans(aov_0.01pH_d10DMR_m[,grep("103|104|127|128", colnames(aov_0.01pH_d10DMR_m))], na.rm = TRUE)
+
+MeanD10pHslow <- rowMeans(aov_0.01pH_d10DMR_m[,grep("111|113|143|145", colnames(aov_0.01pH_d10DMR_m))], na.rm = TRUE)
+
+#bind all group means together
+aov_0.01pH_d10DMR_mean_m <- as.matrix(data.frame(cbind(MeanD10pHamb,MeanD10pHlow, MeanD10pHslow)))
+#define color bar for group means
+ColSideColors <- cbind(pH = c(rep("cyan3",1),rep("gold2",1),rep("magenta3",1)))
+
+#plot group means heatmap
+jpeg("DMR_MCmax25DMR_Taov0.01_d10mean_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.01pH_d10DMR_mean_m,margins = c(10,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), na.color = "black", density.info = "none", trace = "none", scale = "row",sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.01pH_d10DMR_mean_m),rowsep=1:nrow(aov_0.01pH_d10DMR_mean_m))
+dev.off()
+
+
+### DAY 135 ###
+#create matrix for d135 samples
+aov_0.01pH_d135DMR_m <- as.matrix(d135DMRs[,7:18])
+rownames(aov_0.01pH_d135DMR_m) <- d135DMRs$ID
+
+aov_0.01pH_d135DMR_m <- aov_0.01pH_d135DMR_m[which(rownames(aov_0.01pH_d135DMR_m) %in% pull(d135DMR_1way_aov_pH_modelsumm[which(d135DMR_1way_aov_pH_modelsumm$p.value < 0.01),],ID)),]
+#remove extra text from column names
+colnames(aov_0.01pH_d135DMR_m) <- gsub("methylation_level_","",colnames(aov_0.01pH_d135DMR_m))
+
+
+#columns are already ordered by pH treatment (amb, low, superlow)
+#define color bar corresponding to treatment
+ColSideColors <- cbind(pH = c(rep("cyan3",4),rep("gold2",4),rep("magenta3",4)))
+
+jpeg("DMR_MCmax25DMR_Taov0.01_d135_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.01pH_d135DMR_m,margins = c(10,20), cexRow = 1.2, cexCol = 1, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), ColSideColors = ColSideColors,na.color = "black", density.info = "none", trace = "none", scale = "row", sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.01pH_d135DMR_m),rowsep=1:nrow(aov_0.01pH_d135DMR_m))
+dev.off()
+
+###Visualize group means
+#calculate group means
+Meand135pHamb <- rowMeans(aov_0.01pH_d135DMR_m[,grep("151|152|153|154", colnames(aov_0.01pH_d135DMR_m))], na.rm = TRUE)
+
+Meand135pHlow <- rowMeans(aov_0.01pH_d135DMR_m[,grep("159|160|161|162", colnames(aov_0.01pH_d135DMR_m))], na.rm = TRUE)
+
+Meand135pHslow <- rowMeans(aov_0.01pH_d135DMR_m[,grep("167|168|169|170", colnames(aov_0.01pH_d135DMR_m))], na.rm = TRUE)
+
+#bind all group means together
+aov_0.01pH_d135DMR_mean_m <- as.matrix(data.frame(cbind(Meand135pHamb,Meand135pHlow, Meand135pHslow)))
+#define color bar for group means
+ColSideColors <- cbind(pH = c(rep("cyan3",1),rep("gold2",1),rep("magenta3",1)))
+
+#plot group means heatmap
+jpeg("DMR_MCmax25DMR_Taov0.01_d135mean_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.01pH_d135DMR_mean_m,margins = c(10,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), na.color = "black", density.info = "none", trace = "none", scale = "row",sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.01pH_d135DMR_mean_m),rowsep=1:nrow(aov_0.01pH_d135DMR_mean_m))
+dev.off()
+
+
+### DAY 145 ###
+#create matrix for d145 samples
+aov_0.01pH_d145DMR_m <- as.matrix(d145DMRs[,7:30])
+rownames(aov_0.01pH_d145DMR_m) <- d145DMRs$ID
+
+aov_0.01pH_d145DMR_m <- aov_0.01pH_d145DMR_m[which(rownames(aov_0.01pH_d145DMR_m) %in% pull(d145DMR_1way_aov_pH_modelsumm[which(d145DMR_1way_aov_pH_modelsumm$p.value < 0.01),],ID)),]
+#remove extra text from column names
+colnames(aov_0.01pH_d145DMR_m) <- gsub("methylation_level_","",colnames(aov_0.01pH_d145DMR_m))
+
+
+#order columns by pH treatment (amb-amb, amb-low,low-amb, low-low, superlow-amb, superlow-low)
+aov_0.01pH_d145DMR_m <- aov_0.01pH_d145DMR_m[,c(3,4,5,6,13,14,21,22,1,2,9,10,15,16,23,24,7,8,11,12,17,18,19,20)]
+
+#define color bar corresponding to treatment
+ColSideColors <- cbind(pH = c(rep("cyan3",4),rep("green3",4),rep("gold2",4),rep("greenyellow",4),rep("magenta3",4),rep("lightslateblue",4)))
+
+jpeg("DMR_MCmax25DMR_Taov0.01_d145_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.01pH_d145DMR_m,margins = c(10,20), cexRow = 1.2, cexCol = 1, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), ColSideColors = ColSideColors,na.color = "black", density.info = "none", trace = "none", scale = "row", sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.01pH_d145DMR_m),rowsep=1:nrow(aov_0.01pH_d145DMR_m))
+dev.off()
+
+###Visualize group means
+#calculate group means
+
+Meand145pHambamb <- rowMeans(aov_0.01pH_d145DMR_m[,grep("181|182|184|185", colnames(aov_0.01pH_d145DMR_m))], na.rm = TRUE)
+
+Meand145pHamblow <- rowMeans(aov_0.01pH_d145DMR_m[,grep("205|206|226|227", colnames(aov_0.01pH_d145DMR_m))], na.rm = TRUE)
+
+Meand145pHlowamb <- rowMeans(aov_0.01pH_d145DMR_m[,grep("175|176|193|194", colnames(aov_0.01pH_d145DMR_m))], na.rm = TRUE)
+
+Meand145pHlowlow <- rowMeans(aov_0.01pH_d145DMR_m[,grep("208|209|229|230", colnames(aov_0.01pH_d145DMR_m))], na.rm = TRUE)
+
+Meand145pHSlowamb <- rowMeans(aov_0.01pH_d145DMR_m[,grep("187|188|199|200", colnames(aov_0.01pH_d145DMR_m))], na.rm = TRUE)
+
+Meand145pHSlowlow <- rowMeans(aov_0.01pH_d145DMR_m[,grep("214|215|220|221", colnames(aov_0.01pH_d145DMR_m))], na.rm = TRUE)
+
+#bind all group means together
+aov_0.01pH_d145DMR_mean_m <- as.matrix(data.frame(cbind(Meand145pHambamb,Meand145pHamblow,Meand145pHlowamb,Meand145pHlowlow,Meand145pHSlowamb,Meand145pHSlowlow)))
+#define color bar for group means
+ColSideColors <- cbind(pH = c(rep("cyan3",1),rep("green3",1),rep("gold2",1),rep("greenyellow",1),rep("magenta3",1),rep("lightslateblue",1)))
+#plot group means heatmap
+jpeg("DMR_MCmax25DMR_Taov0.01_d145mean_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.01pH_d145DMR_mean_m,margins = c(10,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), na.color = "black", density.info = "none", trace = "none", scale = "row",sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.01pH_d145DMR_mean_m),rowsep=1:nrow(aov_0.01pH_d145DMR_mean_m))
+dev.off()
+
+####  All Ambient Samples  ##
+
+#create matrix for amb samples
+aov_0.01pH_ambDMR_m <- as.matrix(ambDMRs[,7:22])
+rownames(aov_0.01pH_ambDMR_m) <- ambDMRs$ID
+
+aov_0.01pH_ambDMR_m <- aov_0.01pH_ambDMR_m[which(rownames(aov_0.01pH_ambDMR_m) %in% pull(ambDMR_1way_aov_pH_modelsumm[which(ambDMR_1way_aov_pH_modelsumm$p.value < 0.01),],ID)),]
+#remove extra text from column names
+colnames(aov_0.01pH_ambDMR_m) <- gsub("methylation_level_","",colnames(aov_0.01pH_ambDMR_m))
+
+
+#columns are already ordered by time (day0, day10,day135,day145)
+#define color bar corresponding to treatment
+ColSideColors <- cbind(day = c(rep("gray82",4),rep("gray53",4),rep("gray30",4),rep("gray8",4)))
+
+jpeg("DMR_MCmax25DMR_Taov0.01_amb_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.01pH_ambDMR_m,margins = c(10,20), cexRow = 1.2, cexCol = 1, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), ColSideColors = ColSideColors,na.color = "black", density.info = "none", trace = "none", scale = "row", sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.01pH_ambDMR_m),rowsep=1:nrow(aov_0.01pH_ambDMR_m))
+dev.off()
+
+###Visualize group means
+#calculate group means
+Meanambd0 <- rowMeans(aov_0.01pH_ambDMR_m[,grep("41|42|43|44", colnames(aov_0.01pH_ambDMR_m))], na.rm = TRUE)
+
+Meanambd10 <- rowMeans(aov_0.01pH_ambDMR_m[,grep("119|120|135|136", colnames(aov_0.01pH_ambDMR_m))], na.rm = TRUE)
+
+
+Meanambd135 <- rowMeans(aov_0.01pH_ambDMR_m[,grep("151|152|153|154", colnames(aov_0.01pH_ambDMR_m))], na.rm = TRUE)
+
+Meanambd145 <- rowMeans(aov_0.01pH_ambDMR_m[,grep("181|182|184|185", colnames(aov_0.01pH_ambDMR_m))], na.rm = TRUE)
+
+#bind all group means together
+aov_0.01pH_ambDMR_mean_m <- as.matrix(data.frame(cbind(Meanambd0,Meanambd10, Meanambd135,Meanambd145)))
+#define color bar for group means
+ColSideColors <- cbind(day = c(rep("gray82",1),rep("gray53",1),rep("gray30",1),rep("gray8",1)))
+
+#plot group means heatmap
+jpeg("DMR_MCmax25DMR_Taov0.01_ambmean_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.01pH_ambDMR_mean_m,margins = c(10,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), na.color = "black", density.info = "none", trace = "none", scale = "row",sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.01pH_ambDMR_mean_m),rowsep=1:nrow(aov_0.01pH_ambDMR_mean_m))
+dev.off()
+```
+
+plot heatmap of 1way aov for pH p.val 0.05 sig DMRs
+```{r}
+#create matrix for d10 samples
+aov_0.05pH_d10DMR_m <- as.matrix(d10DMRs[,7:18])
+rownames(aov_0.05pH_d10DMR_m) <- d10DMRs$ID
+
+aov_0.05pH_d10DMR_m <- aov_0.05pH_d10DMR_m[which(rownames(aov_0.05pH_d10DMR_m) %in% pull(d10DMR_1way_aov_pH_modelsumm[which(d10DMR_1way_aov_pH_modelsumm$p.value < 0.05),],ID)),]
+#remove extra text from column names
+colnames(aov_0.05pH_d10DMR_m) <- gsub("methylation_level_","",colnames(aov_0.05pH_d10DMR_m))
+
+
+#reorder columns by pH treatment (amb, low, superlow)
+aov_0.05pH_d10DMR_m <- aov_0.05pH_d10DMR_m[,c(5,6,7,8,1,2,9,10,3,4,11,12)]
+#define color bar corresponding to treatment
+ColSideColors <- cbind(pH = c(rep("cyan3",4),rep("gold2",4),rep("magenta3",4)))
+
+jpeg("DMR_MCmax25DMR_Taov0.05_d10_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.05pH_d10DMR_m,margins = c(10,20), cexRow = 1.2, cexCol = 1, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), ColSideColors = ColSideColors,na.color = "black", density.info = "none", trace = "none", scale = "row", sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.05pH_d10DMR_m),rowsep=1:nrow(aov_0.05pH_d10DMR_m))
+dev.off()
+
+###Visualize group means
+#calculate group means
+MeanD10pHamb <- rowMeans(aov_0.05pH_d10DMR_m[,grep("119|120|135|136", colnames(aov_0.05pH_d10DMR_m))], na.rm = TRUE)
+
+MeanD10pHlow <- rowMeans(aov_0.05pH_d10DMR_m[,grep("103|104|127|128", colnames(aov_0.05pH_d10DMR_m))], na.rm = TRUE)
+
+MeanD10pHslow <- rowMeans(aov_0.05pH_d10DMR_m[,grep("111|113|143|145", colnames(aov_0.05pH_d10DMR_m))], na.rm = TRUE)
+
+#bind all group means together
+aov_0.05pH_d10DMR_mean_m <- as.matrix(data.frame(cbind(MeanD10pHamb,MeanD10pHlow, MeanD10pHslow)))
+#define color bar for group means
+ColSideColors <- cbind(pH = c(rep("cyan3",1),rep("gold2",1),rep("magenta3",1)))
+
+#plot group means heatmap
+jpeg("DMR_MCmax25DMR_Taov0.05_d10mean_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.05pH_d10DMR_mean_m,margins = c(10,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), na.color = "black", density.info = "none", trace = "none", scale = "row",sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.05pH_d10DMR_mean_m),rowsep=1:nrow(aov_0.05pH_d10DMR_mean_m))
+dev.off()
+
+
+
+### DAY 135 ###
+#create matrix for d135 samples
+aov_0.05pH_d135DMR_m <- as.matrix(d135DMRs[,7:18])
+rownames(aov_0.05pH_d135DMR_m) <- d135DMRs$ID
+
+aov_0.05pH_d135DMR_m <- aov_0.05pH_d135DMR_m[which(rownames(aov_0.05pH_d135DMR_m) %in% pull(d135DMR_1way_aov_pH_modelsumm[which(d135DMR_1way_aov_pH_modelsumm$p.value < 0.05),],ID)),]
+#remove extra text from column names
+colnames(aov_0.05pH_d135DMR_m) <- gsub("methylation_level_","",colnames(aov_0.05pH_d135DMR_m))
+
+
+#columns are already ordered by pH treatment (amb, low, superlow)
+#define color bar corresponding to treatment
+ColSideColors <- cbind(pH = c(rep("cyan3",4),rep("gold2",4),rep("magenta3",4)))
+
+jpeg("DMR_MCmax25DMR_Taov0.05_d135_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.05pH_d135DMR_m,margins = c(10,20), cexRow = 1.2, cexCol = 1, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), ColSideColors = ColSideColors,na.color = "black", density.info = "none", trace = "none", scale = "row", sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.05pH_d135DMR_m),rowsep=1:nrow(aov_0.05pH_d135DMR_m))
+dev.off()
+
+###Visualize group means
+#calculate group means
+Meand135pHamb <- rowMeans(aov_0.05pH_d135DMR_m[,grep("151|152|153|154", colnames(aov_0.05pH_d135DMR_m))], na.rm = TRUE)
+
+Meand135pHlow <- rowMeans(aov_0.05pH_d135DMR_m[,grep("159|160|161|162", colnames(aov_0.05pH_d135DMR_m))], na.rm = TRUE)
+
+Meand135pHslow <- rowMeans(aov_0.05pH_d135DMR_m[,grep("167|168|169|170", colnames(aov_0.05pH_d135DMR_m))], na.rm = TRUE)
+
+#bind all group means together
+aov_0.05pH_d135DMR_mean_m <- as.matrix(data.frame(cbind(Meand135pHamb,Meand135pHlow, Meand135pHslow)))
+#define color bar for group means
+ColSideColors <- cbind(pH = c(rep("cyan3",1),rep("gold2",1),rep("magenta3",1)))
+
+#plot group means heatmap
+jpeg("DMR_MCmax25DMR_Taov0.05_d135mean_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.05pH_d135DMR_mean_m,margins = c(10,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), na.color = "black", density.info = "none", trace = "none", scale = "row",sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.05pH_d135DMR_mean_m),rowsep=1:nrow(aov_0.05pH_d135DMR_mean_m))
+dev.off()
+
+##### DAY 145  ######
+#create matrix for d145 samples
+aov_0.05pH_d145DMR_m <- as.matrix(d145DMRs[,7:30])
+rownames(aov_0.05pH_d145DMR_m) <- d145DMRs$ID
+
+aov_0.05pH_d145DMR_m <- aov_0.05pH_d145DMR_m[which(rownames(aov_0.05pH_d145DMR_m) %in% pull(d145DMR_1way_aov_pH_modelsumm[which(d145DMR_1way_aov_pH_modelsumm$p.value < 0.05),],ID)),]
+#remove extra text from column names
+colnames(aov_0.05pH_d145DMR_m) <- gsub("methylation_level_","",colnames(aov_0.05pH_d145DMR_m))
+
+
+#order columns by pH treatment (amb-amb, amb-low,low-amb, low-low, superlow-amb, superlow-low)
+aov_0.05pH_d145DMR_m <- aov_0.05pH_d145DMR_m[,c(3,4,5,6,13,14,21,22,1,2,9,10,15,16,23,24,7,8,11,12,17,18,19,20)]
+
+#define color bar corresponding to treatment
+ColSideColors <- cbind(pH = c(rep("cyan3",4),rep("green3",4),rep("gold2",4),rep("greenyellow",4),rep("magenta3",4),rep("lightslateblue",4)))
+
+jpeg("DMR_MCmax25DMR_Taov0.05_d145_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.05pH_d145DMR_m,margins = c(10,20), cexRow = 1.2, cexCol = 1, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), ColSideColors = ColSideColors,na.color = "black", density.info = "none", trace = "none", scale = "row", sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.05pH_d145DMR_m),rowsep=1:nrow(aov_0.05pH_d145DMR_m))
+dev.off()
+
+###Visualize group means
+#calculate group means
+
+Meand145pHambamb <- rowMeans(aov_0.05pH_d145DMR_m[,grep("181|182|184|185", colnames(aov_0.05pH_d145DMR_m))], na.rm = TRUE)
+
+Meand145pHamblow <- rowMeans(aov_0.05pH_d145DMR_m[,grep("205|206|226|227", colnames(aov_0.05pH_d145DMR_m))], na.rm = TRUE)
+
+Meand145pHlowamb <- rowMeans(aov_0.05pH_d145DMR_m[,grep("175|176|193|194", colnames(aov_0.05pH_d145DMR_m))], na.rm = TRUE)
+
+Meand145pHlowlow <- rowMeans(aov_0.05pH_d145DMR_m[,grep("208|209|229|230", colnames(aov_0.05pH_d145DMR_m))], na.rm = TRUE)
+
+Meand145pHSlowamb <- rowMeans(aov_0.05pH_d145DMR_m[,grep("187|188|199|200", colnames(aov_0.05pH_d145DMR_m))], na.rm = TRUE)
+
+Meand145pHSlowlow <- rowMeans(aov_0.05pH_d145DMR_m[,grep("214|215|220|221", colnames(aov_0.05pH_d145DMR_m))], na.rm = TRUE)
+
+#bind all group means together
+aov_0.05pH_d145DMR_mean_m <- as.matrix(data.frame(cbind(Meand145pHambamb,Meand145pHamblow,Meand145pHlowamb,Meand145pHlowlow,Meand145pHSlowamb,Meand145pHSlowlow)))
+#define color bar for group means
+ColSideColors <- cbind(pH = c(rep("cyan3",1),rep("green3",1),rep("gold2",1),rep("greenyellow",1),rep("magenta3",1),rep("lightslateblue",1)))
+#plot group means heatmap
+jpeg("DMR_MCmax25DMR_Taov0.05_d145mean_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.05pH_d145DMR_mean_m,margins = c(10,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), na.color = "black", density.info = "none", trace = "none", scale = "row",sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.05pH_d145DMR_mean_m),rowsep=1:nrow(aov_0.05pH_d145DMR_mean_m))
+dev.off()
+
+##### AMBIENT SAMPLES ######
+
+#create matrix for amb samples
+aov_0.05pH_ambDMR_m <- as.matrix(ambDMRs[,7:22])
+rownames(aov_0.05pH_ambDMR_m) <- ambDMRs$ID
+
+aov_0.05pH_ambDMR_m <- aov_0.05pH_ambDMR_m[which(rownames(aov_0.05pH_ambDMR_m) %in% pull(ambDMR_1way_aov_pH_modelsumm[which(ambDMR_1way_aov_pH_modelsumm$p.value < 0.05),],ID)),]
+#remove extra text from column names
+colnames(aov_0.05pH_ambDMR_m) <- gsub("methylation_level_","",colnames(aov_0.05pH_ambDMR_m))
+
+
+#columns are already ordered by time (day0, day10,day135,day145)
+#define color bar corresponding to treatment
+ColSideColors <- cbind(day = c(rep("gray82",4),rep("gray53",4),rep("gray30",4),rep("gray8",4)))
+
+jpeg("DMR_MCmax25DMR_Taov0.05_amb_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.05pH_ambDMR_m,margins = c(10,20), cexRow = 1.2, cexCol = 1, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), ColSideColors = ColSideColors,na.color = "black", density.info = "none", trace = "none", scale = "row", sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.05pH_ambDMR_m),rowsep=1:nrow(aov_0.05pH_ambDMR_m))
+dev.off()
+
+###Visualize group means
+#calculate group means
+Meanambd0 <- rowMeans(aov_0.05pH_ambDMR_m[,grep("41|42|43|44", colnames(aov_0.05pH_ambDMR_m))], na.rm = TRUE)
+
+Meanambd10 <- rowMeans(aov_0.05pH_ambDMR_m[,grep("119|120|135|136", colnames(aov_0.05pH_ambDMR_m))], na.rm = TRUE)
+
+
+Meanambd135 <- rowMeans(aov_0.05pH_ambDMR_m[,grep("151|152|153|154", colnames(aov_0.05pH_ambDMR_m))], na.rm = TRUE)
+
+Meanambd145 <- rowMeans(aov_0.05pH_ambDMR_m[,grep("181|182|184|185", colnames(aov_0.05pH_ambDMR_m))], na.rm = TRUE)
+
+#bind all group means together
+aov_0.05pH_ambDMR_mean_m <- as.matrix(data.frame(cbind(Meanambd0,Meanambd10, Meanambd135,Meanambd145)))
+#define color bar for group means
+ColSideColors <- cbind(day = c(rep("gray82",1),rep("gray53",1),rep("gray30",1),rep("gray8",1)))
+
+#plot group means heatmap
+jpeg("DMR_MCmax25DMR_Taov0.05_ambmean_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.05pH_ambDMR_mean_m,margins = c(10,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), na.color = "black", density.info = "none", trace = "none", scale = "row",sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.05pH_ambDMR_mean_m),rowsep=1:nrow(aov_0.05pH_ambDMR_mean_m))
+dev.off()
+```
+
+Write out bedfiles
+```{r}
+#write out d10 DMR bed file
+aov_0.01pH_d10DMR_bed <- data.frame(aov_0.01pH_d10DMR_m)
+aov_0.01pH_d10DMR_bed$Scaffold <- gsub("\\:.*","", rownames(aov_0.01pH_d10DMR_m))
+aov_0.01pH_d10DMR_bed$start <- gsub(".*\\:","", rownames(aov_0.01pH_d10DMR_m))
+aov_0.01pH_d10DMR_bed$start <- gsub("-.*","", aov_0.01pH_d10DMR_bed$start)
+aov_0.01pH_d10DMR_bed$end <- gsub(".*-","",  rownames(aov_0.01pH_d10DMR_m))
+aov_0.01pH_d10DMR_bed$comparison <- "d10"
+aov_0.01pH_d10DMR_bed <- aov_0.01pH_d10DMR_bed[,c((ncol(aov_0.01pH_d10DMR_bed)-3):ncol(aov_0.01pH_d10DMR_bed)) ]
+write.table(aov_0.01pH_d10DMR_m,"aov_0.01pH_d10DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE)
+
+#write out d135 DMR bed file
+aov_0.01pH_d135DMR_bed <- data.frame(aov_0.01pH_d135DMR_m)
+aov_0.01pH_d135DMR_bed$Scaffold <- gsub("\\:.*","", rownames(aov_0.01pH_d135DMR_m))
+aov_0.01pH_d135DMR_bed$start <- gsub(".*\\:","", rownames(aov_0.01pH_d135DMR_m))
+aov_0.01pH_d135DMR_bed$start <- gsub("-.*","", aov_0.01pH_d135DMR_bed$start)
+aov_0.01pH_d135DMR_bed$end <- gsub(".*-","",  rownames(aov_0.01pH_d135DMR_m))
+aov_0.01pH_d135DMR_bed$comparison <- "d135"
+aov_0.01pH_d135DMR_bed <- aov_0.01pH_d135DMR_bed[,c((ncol(aov_0.01pH_d135DMR_bed)-3):ncol(aov_0.01pH_d135DMR_bed)) ]
+write.table(aov_0.01pH_d135DMR_m,"aov_0.01pH_d135DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE)
+
+#write out d145 DMR bed file
+aov_0.01pH_d145DMR_bed <- data.frame(aov_0.01pH_d145DMR_m)
+aov_0.01pH_d145DMR_bed$Scaffold <- gsub("\\:.*","", rownames(aov_0.01pH_d145DMR_m))
+aov_0.01pH_d145DMR_bed$start <- gsub(".*\\:","", rownames(aov_0.01pH_d145DMR_m))
+aov_0.01pH_d145DMR_bed$start <- gsub("-.*","", aov_0.01pH_d145DMR_bed$start)
+aov_0.01pH_d145DMR_bed$end <- gsub(".*-","",  rownames(aov_0.01pH_d145DMR_m))
+aov_0.01pH_d145DMR_bed$comparison <- "d145"
+aov_0.01pH_d145DMR_bed <- aov_0.01pH_d145DMR_bed[,c((ncol(aov_0.01pH_d145DMR_bed)-3):ncol(aov_0.01pH_d145DMR_bed)) ]
+write.table(aov_0.01pH_d145DMR_m,"aov_0.01pH_d145DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE)
+
+
+#write out amb DMR bed file
+aov_0.01pH_ambDMR_bed <- data.frame(aov_0.01pH_ambDMR_m)
+aov_0.01pH_ambDMR_bed$Scaffold <- gsub("\\:.*","", rownames(aov_0.01pH_ambDMR_m))
+aov_0.01pH_ambDMR_bed$start <- gsub(".*\\:","", rownames(aov_0.01pH_ambDMR_m))
+aov_0.01pH_ambDMR_bed$start <- gsub("-.*","", aov_0.01pH_ambDMR_bed$start)
+aov_0.01pH_ambDMR_bed$end <- gsub(".*-","",  rownames(aov_0.01pH_ambDMR_m))
+aov_0.01pH_ambDMR_bed$comparison <- "amb"
+aov_0.01pH_ambDMR_bed <- aov_0.01pH_ambDMR_bed[,c((ncol(aov_0.01pH_ambDMR_bed)-3):ncol(aov_0.01pH_ambDMR_bed)) ]
+write.table(aov_0.01pH_ambDMR_m,"aov_0.01pH_ambDMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE)
+
+###do the same for 0.05 cutoff
+#write out d10 DMR bed file
+aov_0.05pH_d10DMR_bed <- data.frame(aov_0.05pH_d10DMR_m)
+aov_0.05pH_d10DMR_bed$Scaffold <- gsub("\\:.*","", rownames(aov_0.05pH_d10DMR_m))
+aov_0.05pH_d10DMR_bed$start <- gsub(".*\\:","", rownames(aov_0.05pH_d10DMR_m))
+aov_0.05pH_d10DMR_bed$start <- gsub("-.*","", aov_0.05pH_d10DMR_bed$start)
+aov_0.05pH_d10DMR_bed$end <- gsub(".*-","",  rownames(aov_0.05pH_d10DMR_m))
+aov_0.05pH_d10DMR_bed$comparison <- "d10"
+aov_0.05pH_d10DMR_bed <- aov_0.05pH_d10DMR_bed[,c((ncol(aov_0.05pH_d10DMR_bed)-3):ncol(aov_0.05pH_d10DMR_bed)) ]
+write.table(aov_0.05pH_d10DMR_m,"aov_0.05pH_d10DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE)
+
+#write out d135 DMR bed file
+aov_0.05pH_d135DMR_bed <- data.frame(aov_0.05pH_d135DMR_m)
+aov_0.05pH_d135DMR_bed$Scaffold <- gsub("\\:.*","", rownames(aov_0.05pH_d135DMR_m))
+aov_0.05pH_d135DMR_bed$start <- gsub(".*\\:","", rownames(aov_0.05pH_d135DMR_m))
+aov_0.05pH_d135DMR_bed$start <- gsub("-.*","", aov_0.05pH_d135DMR_bed$start)
+aov_0.05pH_d135DMR_bed$end <- gsub(".*-","",  rownames(aov_0.05pH_d135DMR_m))
+aov_0.05pH_d135DMR_bed$comparison <- "d135"
+aov_0.05pH_d135DMR_bed <- aov_0.05pH_d135DMR_bed[,c((ncol(aov_0.05pH_d135DMR_bed)-3):ncol(aov_0.05pH_d135DMR_bed)) ]
+write.table(aov_0.05pH_d135DMR_m,"aov_0.05pH_d135DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE)
+
+#write out d145 DMR bed file
+aov_0.05pH_d145DMR_bed <- data.frame(aov_0.05pH_d145DMR_m)
+aov_0.05pH_d145DMR_bed$Scaffold <- gsub("\\:.*","", rownames(aov_0.05pH_d145DMR_m))
+aov_0.05pH_d145DMR_bed$start <- gsub(".*\\:","", rownames(aov_0.05pH_d145DMR_m))
+aov_0.05pH_d145DMR_bed$start <- gsub("-.*","", aov_0.05pH_d145DMR_bed$start)
+aov_0.05pH_d145DMR_bed$end <- gsub(".*-","",  rownames(aov_0.05pH_d145DMR_m))
+aov_0.05pH_d145DMR_bed$comparison <- "d145"
+aov_0.05pH_d145DMR_bed <- aov_0.05pH_d145DMR_bed[,c((ncol(aov_0.05pH_d145DMR_bed)-3):ncol(aov_0.05pH_d145DMR_bed)) ]
+write.table(aov_0.05pH_d145DMR_m,"aov_0.05pH_d145DMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE)
+
+
+#write out amb DMR bed file
+aov_0.05pH_ambDMR_bed <- data.frame(aov_0.05pH_ambDMR_m)
+aov_0.05pH_ambDMR_bed$Scaffold <- gsub("\\:.*","", rownames(aov_0.05pH_ambDMR_m))
+aov_0.05pH_ambDMR_bed$start <- gsub(".*\\:","", rownames(aov_0.05pH_ambDMR_m))
+aov_0.05pH_ambDMR_bed$start <- gsub("-.*","", aov_0.05pH_ambDMR_bed$start)
+aov_0.05pH_ambDMR_bed$end <- gsub(".*-","",  rownames(aov_0.05pH_ambDMR_m))
+aov_0.05pH_ambDMR_bed$comparison <- "amb"
+aov_0.05pH_ambDMR_bed <- aov_0.05pH_ambDMR_bed[,c((ncol(aov_0.05pH_ambDMR_bed)-3):ncol(aov_0.05pH_ambDMR_bed)) ]
+write.table(aov_0.05pH_ambDMR_m,"aov_0.05pH_ambDMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE)
+
+
+```
+
+
+run tukey
+```{r}
+#subset data for DMRs with TxS 2way ANOVA p.value < 0.1 and run tukey HSD for each DMR
+d10DMR_tuk_pH <- d10DMRs_STACKED_asin %>% group_by(ID) %>%
+do(meth_tuk_models = TukeyHSD(aov(perc.meth~Initial.Treatment, data =  . )))
+
+#summarize TukeyHSD results
+d10DMR_tuk_pH_summ <- tidy(d10DMR_tuk_pH, meth_tuk_models)
+```
+
