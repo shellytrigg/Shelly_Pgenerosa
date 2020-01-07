@@ -1,0 +1,142 @@
+methylpy DMRfind --allc-files EPI-41_S38_L005_5xmerg_allc.tsv EPI-42_S39_L005_5xmerg_allc.tsv EPI-43_S40_L005_5xmerg_allc.tsv EPI-44_S41_L005_5xmerg_allc.tsv EPI-119_S31_L005_5xmerg_allc.tsv EPI-120_S32_L005_5xmerg_allc.tsv EPI-135_S35_L005_5xmerg_allc.tsv EPI-136_S36_L005_5xmerg_allc.tsv EPI-151_S2_L002_5xmerg_allc.tsv EPI-152_S3_L002_5xmerg_allc.tsv EPI-153_S4_L002_5xmerg_allc.tsv EPI-154_S5_L002_5xmerg_allc.tsv EPI-181_S16_L003_5xmerg_allc.tsv EPI-182_S17_L003_5xmerg_allc.tsv EPI-184_S18_L003_5xmerg_allc.tsv EPI-185_S19_L003_5xmerg_allc.tsv --samples EPI-41 EPI-42 EPI-43 EPI-44 EPI-119 EPI-120 EPI-135 EPI-136 EPI-151 EPI-152 EPI-153 EPI-154 EPI-181 EPI-182 EPI-184 EPI-185 --mc-type "CGN" --num-procs 8 --output-prefix amb_AllTimes_DMR250bp_MCmax25_cov5x --mc-max-dist 25 --dmr-max-dist 250 --min-num-dms 3 --sample-category 0 0 0 0 1 1 1 1 2 2 2 2 3 3 3 3
+
+
+Adding Methylation Levels
+Sun Dec 22 18:18:49 2019
+
+Done
+Sun Dec 22 18:19:37 2019
+
+bash-3.2$ ls
+EPI-103_S27_L005_5xmerg_allc.tsv
+EPI-104_S28_L005_5xmerg_allc.tsv
+EPI-111_S29_L005_5xmerg_allc.tsv
+EPI-113_S30_L005_5xmerg_allc.tsv
+EPI-119_S31_L005_5xmerg_allc.tsv
+EPI-120_S32_L005_5xmerg_allc.tsv
+EPI-127_S33_L005_5xmerg_allc.tsv
+EPI-128_S34_L005_5xmerg_allc.tsv
+EPI-135_S35_L005_5xmerg_allc.tsv
+EPI-136_S36_L005_5xmerg_allc.tsv
+EPI-143_S37_L005_5xmerg_allc.tsv
+EPI-145_S38_L005_5xmerg_allc.tsv
+EPI-151_S2_L002_5xmerg_allc.tsv
+EPI-152_S3_L002_5xmerg_allc.tsv
+EPI-153_S4_L002_5xmerg_allc.tsv
+EPI-154_S5_L002_5xmerg_allc.tsv
+EPI-159_S6_L002_5xmerg_allc.tsv
+EPI-160_S7_L002_5xmerg_allc.tsv
+EPI-161_S8_L002_5xmerg_allc.tsv
+EPI-162_S9_L002_5xmerg_allc.tsv
+EPI-167_S10_L002_5xmerg_allc.tsv
+EPI-168_S11_L002_5xmerg_allc.tsv
+EPI-169_S12_L002_5xmerg_allc.tsv
+EPI-170_S13_L002_5xmerg_allc.tsv
+EPI-175_S14_L003_5xmerg_allc.tsv
+EPI-176_S15_L003_5xmerg_allc.tsv
+EPI-181_S16_L003_5xmerg_allc.tsv
+EPI-182_S17_L003_5xmerg_allc.tsv
+EPI-184_S18_L003_5xmerg_allc.tsv
+EPI-185_S19_L003_5xmerg_allc.tsv
+EPI-187_S20_L003_5xmerg_allc.tsv
+EPI-188_S21_L003_5xmerg_allc.tsv
+EPI-193_S22_L003_5xmerg_allc.tsv
+EPI-194_S23_L003_5xmerg_allc.tsv
+EPI-199_S24_L003_5xmerg_allc.tsv
+EPI-200_S25_L003_5xmerg_allc.tsv
+EPI-205_S26_L004_5xmerg_allc.tsv
+EPI-206_S27_L004_5xmerg_allc.tsv
+EPI-208_S28_L004_5xmerg_allc.tsv
+EPI-209_S29_L004_5xmerg_allc.tsv
+EPI-214_S30_L004_5xmerg_allc.tsv
+EPI-215_S31_L004_5xmerg_allc.tsv
+EPI-220_S32_L004_5xmerg_allc.tsv
+EPI-221_S33_L004_5xmerg_allc.tsv
+EPI-226_S34_L004_5xmerg_allc.tsv
+EPI-227_S35_L004_5xmerg_allc.tsv
+EPI-229_S36_L004_5xmerg_allc.tsv
+EPI-230_S37_L004_5xmerg_allc.tsv
+EPI-41_S38_L005_5xmerg_allc.tsv
+EPI-42_S39_L005_5xmerg_allc.tsv
+EPI-43_S40_L005_5xmerg_allc.tsv
+EPI-44_S41_L005_5xmerg_allc.tsv
+amb_AllTimes_DMR250bp_MCmax25_cov5x_rms_results.tsv.gz
+amb_AllTimes_DMR250bp_MCmax25_cov5x_rms_results_collapsed.tsv
+amb_AllTimes_DMR250bp_MCmax25_cov5x_rms_results_collapsed.tsv.DMR.bed
+amb_AllTimes_DMR250bp_MCmax25_cov5x_rms_results_collapsed.tsv.DMS.bed
+day10_AllpH_DMR250bp_MCmax25_cov5x_rms_results.tsv.gz
+day10_AllpH_DMR250bp_MCmax25_cov5x_rms_results_collapsed.tsv
+day10_AllpH_DMR250bp_MCmax25_cov5x_rms_results_collapsed.tsv.DMR.bed
+day10_AllpH_DMR250bp_MCmax25_cov5x_rms_results_collapsed.tsv.DMS.bed
+bash-3.2$ ls
+                                            EPI-103_S27_L005_5xmerg_allc.tsv                                        EPI-175_S14_L003_5xmerg_allc.tsv
+            EPI-41_S38_L005_5xmerg_allc.tsv                                             EPI-104_S28_L005_5xmerg_allc.tsv                                        EPI-176_S15_L003
+_5xmerg_allc.tsv                                        EPI-42_S39_L005_5xmerg_allc.tsv                                             EPI-111_S29_L005_5xmerg_allc.tsv
+                            EPI-181_S16_L003_5xmerg_allc.tsv                                        EPI-43_S40_L005_5xmerg_allc.tsv
+EPI-113_S30_L005_5xmerg_allc.tsv                                        EPI-182_S17_L003_5xmerg_allc.tsv                                        EPI-44_S41_L005_5xmerg_allc.tsv
+EPI-119_S31_L005_5xmerg_allc.tsv                                        EPI-184_S18_L003_5xmerg_allc.tsv                                        amb_AllTimes_DMR250bp_MCmax25_co
+v5x_rms_results.tsv.gz
+EPI-120_S32_L005_5xmerg_allc.tsv                                        EPI-185_S19_L003_5xmerg_allc.tsv                                        amb_AllTimes_DMR250bp_MCmax25_co
+v5x_rms_results_collapsed.tsv
+EPI-127_S33_L005_5xmerg_allc.tsv                                        EPI-187_S20_L003_5xmerg_allc.tsv                                        amb_AllTimes_DMR250bp_MCmax25_co
+v5x_rms_results_collapsed.tsv.DMR.bed
+EPI-128_S34_L005_5xmerg_allc.tsv                                        EPI-188_S21_L003_5xmerg_allc.tsv                                        amb_AllTimes_DMR250bp_MCmax25_co
+v5x_rms_results_collapsed.tsv.DMS.bed
+EPI-135_S35_L005_5xmerg_allc.tsv                                        EPI-193_S22_L003_5xmerg_allc.tsv                                        day10_AllpH_DMR250bp_MCmax25_cov
+5x_rms_results.bed
+EPI-136_S36_L005_5xmerg_allc.tsv                                        EPI-194_S23_L003_5xmerg_allc.tsv                                        day10_AllpH_DMR250bp_MCmax25_cov
+5x_rms_results.short.bed
+EPI-143_S37_L005_5xmerg_allc.tsv                                        EPI-199_S24_L003_5xmerg_allc.tsv                                        day10_AllpH_DMR250bp_MCmax25_cov
+5x_rms_results.tsv.gz
+EPI-145_S38_L005_5xmerg_allc.tsv                                        EPI-200_S25_L003_5xmerg_allc.tsv                                        day10_AllpH_DMR250bp_MCmax25_cov
+5x_rms_results_collapsed.bed
+EPI-151_S2_L002_5xmerg_allc.tsv                                         EPI-205_S26_L004_5xmerg_allc.tsv                                        day10_AllpH_DMR250bp_MCmax25_cov
+5x_rms_results_collapsed.tsv
+EPI-152_S3_L002_5xmerg_allc.tsv                                         EPI-206_S27_L004_5xmerg_allc.tsv                                        day10_AllpH_DMR250bp_MCmax25_cov
+5x_rms_results_collapsed.tsv.DMR.bed
+EPI-153_S4_L002_5xmerg_allc.tsv                                         EPI-208_S28_L004_5xmerg_allc.tsv                                        day10_AllpH_DMR250bp_MCmax25_cov
+5x_rms_results_collapsed.tsv.DMS.bed
+EPI-154_S5_L002_5xmerg_allc.tsv                                         EPI-209_S29_L004_5xmerg_allc.tsv                                        day10_DMS_scaffold_position
+EPI-159_S6_L002_5xmerg_allc.tsv                                         EPI-214_S30_L004_5xmerg_allc.tsv                                        day135_AllpH_DMR250bp_MCmax25_co
+v5x_rms_results.tsv.gz
+EPI-160_S7_L002_5xmerg_allc.tsv                                         EPI-215_S31_L004_5xmerg_allc.tsv                                        day135_AllpH_DMR250bp_MCmax25_co
+v5x_rms_results_collapsed.tsv
+EPI-161_S8_L002_5xmerg_allc.tsv                                         EPI-220_S32_L004_5xmerg_allc.tsv                                        day135_AllpH_DMR250bp_MCmax25_co
+v5x_rms_results_collapsed.tsv.DMR.bed
+EPI-162_S9_L002_5xmerg_allc.tsv                                         EPI-221_S33_L004_5xmerg_allc.tsv                                        day135_AllpH_DMR250bp_MCmax25_co
+v5x_rms_results_collapsed.tsv.DMS.bed
+EPI-167_S10_L002_5xmerg_allc.tsv                                        EPI-226_S34_L004_5xmerg_allc.tsv                                        day145_AllpH_DMR250bp_MCmax25_co
+v5x_rms_results.tsv.gz
+EPI-168_S11_L002_5xmerg_allc.tsv                                        EPI-227_S35_L004_5xmerg_allc.tsv                                        day145_AllpH_DMR250bp_MCmax25_co
+v5x_rms_results_collapsed.tsv
+EPI-169_S12_L002_5xmerg_allc.tsv                                        EPI-229_S36_L004_5xmerg_allc.tsv                                        day145_AllpH_DMR250bp_MCmax25_co
+v5x_rms_results_collapsed.tsv.DMR.bed
+EPI-170_S13_L002_5xmerg_allc.tsv                                        EPI-230_S37_L004_5xmerg_allc.tsv                                        day145_AllpH_DMR250bp_MCmax25_co
+v5x_rms_results_collapsed.tsv.DMS.bed
+bash-3.2$ history | head
+    7  methylpy call-methylation-state -h
+    8  exit
+    9  cd /Volumes/web/metacarcinus/Salmo_Calig/
+   10  ls
+   11  cd analyses/
+   12  ls
+   13  cd 20190828_Salmo/
+   14  ls
+   15  history | grep rsync
+   16  rsync --verbose *.sorted.bam strigg@mox.hyak.uw.edu:/gscratch/scrubbed/strigg/analyses/20190828_Salmo
+bash-3.2$ history | tail
+  498  ls
+  499  top
+  500  ls
+  501  cd ~/Documents/GitHub/Shelly_Pgenerosa/analyses/20191222/
+  502  ls
+  503  methylpy DMRfind --allc-files EPI-41_S38_L005_5xmerg_allc.tsv EPI-42_S39_L005_5xmerg_allc.tsv EPI-43_S40_L005_5xmerg_allc.tsv EPI-44_S41_L005_5xmerg_allc.tsv EPI-119_S31
+_L005_5xmerg_allc.tsv EPI-120_S32_L005_5xmerg_allc.tsv EPI-135_S35_L005_5xmerg_allc.tsv EPI-136_S36_L005_5xmerg_allc.tsv EPI-151_S2_L002_5xmerg_allc.tsv EPI-152_S3_L002_5xmerg_
+allc.tsv EPI-153_S4_L002_5xmerg_allc.tsv EPI-154_S5_L002_5xmerg_allc.tsv EPI-181_S16_L003_5xmerg_allc.tsv EPI-182_S17_L003_5xmerg_allc.tsv EPI-184_S18_L003_5xmerg_allc.tsv EPI-
+185_S19_L003_5xmerg_allc.tsv --samples EPI-41 EPI-42 EPI-43 EPI-44 EPI-119 EPI-120 EPI-135 EPI-136 EPI-151 EPI-152 EPI-153 EPI-154 EPI-181 EPI-182 EPI-184 EPI-185 --mc-type "CG
+N" --num-procs 8 --output-prefix amb_AllTimes_DMR250bp_MCmax25_cov5x --mc-max-dist 25 --dmr-max-dist 250 --min-num-dms 3 --sample-category 0 0 0 0 1 1 1 1 2 2 2 2 3 3 3 3
+  504  ls
+  505  ls
+  506  history | head
+  507  history | tail
+bash-3.2$

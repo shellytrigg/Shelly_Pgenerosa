@@ -1,0 +1,140 @@
+methylpy DMRfind --allc-files EPI-175_S14_L003_5xmerg_allc.tsv EPI-176_S15_L003_5xmerg_allc.tsv EPI-181_S16_L003_5xmerg_allc.tsv EPI-182_S17_L003_5xmerg_allc.tsv EPI-184_S18_L003_5xmerg_allc.tsv EPI-185_S19_L003_5xmerg_allc.tsv EPI-187_S20_L003_5xmerg_allc.tsv EPI-188_S21_L003_5xmerg_allc.tsv EPI-193_S22_L003_5xmerg_allc.tsv EPI-194_S23_L003_5xmerg_allc.tsv EPI-199_S24_L003_5xmerg_allc.tsv EPI-200_S25_L003_5xmerg_allc.tsv EPI-205_S26_L004_5xmerg_allc.tsv EPI-206_S27_L004_5xmerg_allc.tsv EPI-208_S28_L004_5xmerg_allc.tsv EPI-209_S29_L004_5xmerg_allc.tsv EPI-214_S30_L004_5xmerg_allc.tsv EPI-215_S31_L004_5xmerg_allc.tsv EPI-220_S32_L004_5xmerg_allc.tsv EPI-221_S33_L004_5xmerg_allc.tsv EPI-226_S34_L004_5xmerg_allc.tsv EPI-227_S35_L004_5xmerg_allc.tsv EPI-229_S36_L004_5xmerg_allc.tsv EPI-230_S37_L004_5xmerg_allc.tsv --samples EPI-175 EPI-176 EPI-181 EPI-182 EPI-184 EPI-185 EPI-187 EPI-188 EPI-193 EPI-194 EPI-199 EPI-200 EPI-205 EPI-206 EPI-208 EPI-209 EPI-214 EPI-215 EPI-220 EPI-221 EPI-226 EPI-227 EPI-229 EPI-230 --mc-type "CGN" --num-procs 8 --output-prefix day145_AllpH_DMR250bp_MCmax25_cov5x --mc-max-dist 25 --dmr-max-dist 250 --min-num-dms 3 --sample-category 0 0 1 1 1 1 2 2 0 0 2 2 3 3 4 4 5 5 5 5 3 3 4 4
+
+
+
+
+Splitting allc files for chromosome Scaffold_12
+Mon Dec 23 12:40:19 2019
+
+Ran 12312 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_10_chunk_2.tsv
+Ran 16245 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_10_chunk_3.tsv
+Ran 6944 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_09_chunk_2.tsv
+Ran 12839 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_10_chunk_6.tsv
+Ran 18446 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_10_chunk_4.tsv
+Ran 12124 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_10_chunk_7.tsv
+Ran 18140 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_10_chunk_5.tsv
+Ran 7346 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_11_chunk_1.tsv
+Running rms tests for chromosome Scaffold_12
+Mon Dec 23 12:43:46 2019
+
+Splitting allc files for chromosome Scaffold_13
+Mon Dec 23 12:43:46 2019
+
+Ran 15126 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_11_chunk_0.tsv
+Ran 13202 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_11_chunk_3.tsv
+Ran 13883 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_11_chunk_2.tsv
+Ran 12747 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_11_chunk_5.tsv
+Ran 14591 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_11_chunk_7.tsv
+Ran 16279 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_11_chunk_6.tsv
+Ran 12940 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_12_chunk_2.tsv
+Ran 12823 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_12_chunk_0.tsv
+Running rms tests for chromosome Scaffold_13
+Mon Dec 23 12:48:12 2019
+
+Splitting allc files for chromosome Scaffold_14
+Mon Dec 23 12:48:12 2019
+
+Ran 16449 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_12_chunk_1.tsv
+Ran 16090 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_12_chunk_3.tsv
+Ran 8790 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_12_chunk_5.tsv
+Ran 11013 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_11_chunk_4.tsv
+Ran 14895 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_12_chunk_4.tsv
+Ran 10277 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_13_chunk_1.tsv
+Ran 20155 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_12_chunk_6.tsv
+Ran 16506 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_12_chunk_7.tsv
+Ran 14500 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_13_chunk_0.tsv
+Ran 9314 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_13_chunk_2.tsv
+Running rms tests for chromosome Scaffold_14
+Mon Dec 23 12:51:39 2019
+
+Splitting allc files for chromosome Scaffold_15
+Mon Dec 23 12:51:39 2019
+
+Ran 10455 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_13_chunk_3.tsv
+Ran 11411 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_13_chunk_5.tsv
+Ran 12529 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_13_chunk_4.tsv
+Ran 12610 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_13_chunk_6.tsv
+Ran 16778 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_13_chunk_7.tsv
+Ran 12498 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_14_chunk_0.tsv
+Running rms tests for chromosome Scaffold_15
+Mon Dec 23 12:56:19 2019
+
+Splitting allc files for chromosome Scaffold_16
+Mon Dec 23 12:56:19 2019
+
+Ran 14196 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_14_chunk_3.tsv
+Ran 16567 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_14_chunk_1.tsv
+Ran 16673 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_14_chunk_5.tsv
+Ran 19902 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_14_chunk_4.tsv
+Ran 13129 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_14_chunk_7.tsv
+Ran 8674 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_15_chunk_2.tsv
+Ran 13077 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_15_chunk_0.tsv
+Ran 11777 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_15_chunk_1.tsv
+Running rms tests for chromosome Scaffold_16
+Mon Dec 23 13:00:36 2019
+
+Splitting allc files for chromosome Scaffold_17
+Mon Dec 23 13:00:36 2019
+
+Ran 20153 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_14_chunk_6.tsv
+Ran 10937 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_15_chunk_3.tsv
+Ran 12485 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_15_chunk_4.tsv
+Ran 10601 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_15_chunk_6.tsv
+Ran 6318 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_16_chunk_1.tsv
+Ran 10317 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_16_chunk_3.tsv
+Ran 12431 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_15_chunk_5.tsv
+Ran 11960 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_15_chunk_7.tsv
+Running rms tests for chromosome Scaffold_17
+Mon Dec 23 13:03:59 2019
+
+Splitting allc files for chromosome Scaffold_18
+Mon Dec 23 13:03:59 2019
+
+Ran 7256 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_16_chunk_2.tsv
+Ran 11838 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_16_chunk_4.tsv
+Ran 8058 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_16_chunk_7.tsv
+Ran 10905 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_16_chunk_5.tsv
+Ran 8170 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_16_chunk_6.tsv
+Ran 9046 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_17_chunk_1.tsv
+Ran 12517 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_17_chunk_0.tsv
+Ran 18227 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_14_chunk_2.tsv
+Running rms tests for chromosome Scaffold_18
+Mon Dec 23 13:07:49 2019
+
+Ran 9736 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_17_chunk_2.tsv
+Ran 10044 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_17_chunk_4.tsv
+Ran 9029 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_17_chunk_5.tsv
+Ran 13922 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_17_chunk_3.tsv
+Ran 9210 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_17_chunk_7.tsv
+Ran 9576 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_17_chunk_6.tsv
+Ran 6174 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_18_chunk_1.tsv
+Ran 10373 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_18_chunk_0.tsv
+Ran 7212 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_18_chunk_3.tsv
+Ran 7033 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_18_chunk_4.tsv
+Ran 5251 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_18_chunk_5.tsv
+Ran 8790 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_18_chunk_6.tsv
+Ran 7481 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_18_chunk_7.tsv
+Ran 6383 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_18_chunk_2.tsv
+Ran 8941 root mean square tests. Results in day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results_for_Scaffold_16_chunk_0.tsv
+Merging sorted day145_AllpH_DMR250bp_MCmax25_cov5x_rms_results.tsv files.
+Mon Dec 23 13:15:28 2019
+
+Begin FDR Correction
+Mon Dec 23 13:21:09 2019
+
+m0 estimate for iteration 0: 2125699
+Histogram FDR correction did not converge. Using the smallest p-value 0.0003333333333333333 as cutoff.
+
+Calculating Residual Cutoff
+Mon Dec 23 13:21:21 2019
+
+Begin Defining Windows
+Mon Dec 23 13:21:32 2019
+
+Adding Methylation Levels
+Mon Dec 23 13:23:02 2019
+
+Done
+Mon Dec 23 13:23:46 2019
+
+bash-3.2$
