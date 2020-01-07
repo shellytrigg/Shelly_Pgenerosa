@@ -56,6 +56,14 @@ jpeg("allSample_DMR_percmeth_hist.jpg", width = 800, height = 800)
 ggplot(allDMRs_STACKED) + geom_histogram(aes(perc.meth, group = Treatment, color = Treatment,fill = Treatment), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
 dev.off()
 
+jpeg("allSample_d10_DMR_percmeth_hist.jpg", width = 800, height = 800)
+ggplot(allDMRs_STACKED[which(allDMRs_STACKED$TimePoint == "Day10"),]) + geom_histogram(aes(perc.meth, group = Treatment, color = Treatment,fill = Treatment), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+dev.off()
+
+jpeg("allSample_d135_DMR_percmeth_hist.jpg", width = 800, height = 800)
+ggplot(allDMRs_STACKED[which(allDMRs_STACKED$TimePoint == "Day135"),]) + geom_histogram(aes(perc.meth, group = Treatment, color = Treatment,fill = Treatment), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+dev.off()
+
 ```
 
 arc sin sqrt transform the data
