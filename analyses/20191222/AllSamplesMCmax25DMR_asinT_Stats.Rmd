@@ -110,6 +110,8 @@ allDMR_d10_1way_aov_pH <- allDMRs_STACKED_asin[which(allDMRs_STACKED_asin$TimePo
 do(meth_aov_models = aov(perc.meth~Initial.Treatment, data =  . ))
 #summarize ANOVA data
 allDMR_d10_1way_aov_pH_modelsumm <- glance(allDMR_d10_1way_aov_pH, meth_aov_models)
+#write anova output to file
+write.csv(allDMR_d10_1way_aov_pH_modelsumm, "allDMR_d10_1way_aov_pH_modelsumm.csv", row.names = FALSE, quote = FALSE)
 ```
 
 **Hypotehsis: there is no effect from pH at day135**
@@ -118,6 +120,8 @@ allDMR_d135_1way_aov_pH <- allDMRs_STACKED_asin[which(allDMRs_STACKED_asin$TimeP
 do(meth_aov_models = aov(perc.meth~Initial.Treatment, data =  . ))
 #summarize ANOVA data
 allDMR_d135_1way_aov_pH_modelsumm <- glance(allDMR_d135_1way_aov_pH, meth_aov_models)
+#write anova output to file 
+write.csv(allDMR_d135_1way_aov_pH_modelsumm, "allDMR_d135_1way_aov_pH_modelsumm.csv", row.names = FALSE, quote = FALSE)
 ```
 
 plot significant regions

@@ -160,6 +160,8 @@ d10DMR_1way_aov_pH <- d10DMRs_STACKED_asin %>% group_by(ID) %>%
 do(meth_aov_models = aov(perc.meth~Initial.Treatment, data =  . ))
 #summarize ANOVA data
 d10DMR_1way_aov_pH_modelsumm <- glance(d10DMR_1way_aov_pH, meth_aov_models)
+#write ANOVA output to file
+write.csv(d10DMR_1way_aov_pH_modelsumm, "d10DMR_1way_aov_pH_modelsumm.csv", row.names = FALSE, quote = FALSE)
 ```
 
 **Hypotehsis: there is no effect from pH at day135**
@@ -168,6 +170,8 @@ d135DMR_1way_aov_pH <- d135DMRs_STACKED_asin %>% group_by(ID) %>%
 do(meth_aov_models = aov(perc.meth~Initial.Treatment, data =  . ))
 #summarize ANOVA data
 d135DMR_1way_aov_pH_modelsumm <- glance(d135DMR_1way_aov_pH, meth_aov_models)
+#write ANOVA output to file
+write.csv(d135DMR_1way_aov_pH_modelsumm, "d135DMR_1way_aov_pH_modelsumm.csv", row.names = FALSE, quote = FALSE)
 ```
 
 **Hypotehsis: there is no effect from pH at day145**
@@ -176,6 +180,8 @@ d145DMR_1way_aov_pH <- d145DMRs_STACKED_asin %>% group_by(ID) %>%
 do(meth_aov_models = aov(perc.meth~Treatment, data =  . ))
 #summarize ANOVA data
 d145DMR_1way_aov_pH_modelsumm <- glance(d145DMR_1way_aov_pH, meth_aov_models)
+#write ANOVA output to file
+write.csv(d145DMR_1way_aov_pH_modelsumm, "d145DMR_1way_aov_pH_modelsumm.csv", row.names = FALSE, quote = FALSE)
 ```
 
 
@@ -185,6 +191,8 @@ ambDMR_1way_aov_pH <- ambDMRs_STACKED_asin %>% group_by(ID) %>%
 do(meth_aov_models = aov(perc.meth~TimePoint, data =  . ))
 #summarize ANOVA data
 ambDMR_1way_aov_pH_modelsumm <- glance(ambDMR_1way_aov_pH, meth_aov_models)
+#write ANOVA output to file
+write.csv(ambDMR_1way_aov_pH_modelsumm, "ambDMR_1way_aov_pH_modelsumm", row.names = FALSE, quote = FALSE)
 ```
 
 
