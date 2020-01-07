@@ -1,0 +1,61 @@
+---
+title: "Untitled"
+author: "Shelly Trigg"
+date: "1/06/2020"
+output: html_document
+---
+```{r}
+library(ggplot2)
+```
+read in dataa
+```{r}
+CpGs <- read.table("allc_5x_CpG.txt", header = FALSE, sep = "\t",stringsAsFactors = FALSE)
+```
+
+add column names
+```{r}
+colnames(CpGs) <- c("Sample","mCpG_5x", "CpG_5x", "perc_meth" )
+```
+
+add column for lane info
+```{r}
+CpGs$Lane <- gsub(".*_L","L", CpGs$Sample)
+```
+
+remove lane info from sample name
+```{r}
+CpGs$Sample <- gsub("_L.*","", CpGs$Sample)
+```
+
+read in meta data
+```{r}
+meta_data <- read.csv("Sample.Info.csv", stringsAsFactors = FALSE)
+```
+
+create sample.ID column in CpG data frame
+```{r}
+CpGs$Sample.ID <- gsub("EPI-","EPI_", CpGs$Sample)
+CpGs$Sample.ID <- gsub("_S.*", "", CpGs$Sample.ID)
+```
+
+merge meta_data with CpG data
+```{r}
+CpGs <- merge(CpGs, meta_data, by = "Sample.ID")
+
+```
+
+create column with primary and secondary treatment info
+```{r}
+CpGs$Treatment <- paste(CpGs$Initial.Treatment, CpGs$Secondary.Treatment, sep = "_")
+```
+
+plot CpGs for days 0, 10, and 135
+```{r}
+CpGs_d0to135 <- CpGs[which(CpGs$TimePoint!= "Day145"),]
+#plot percent methylation
+jpeg("d0to135_5xCovPercMeth_boxplot.jpg", width = 6, height = 4, units = "in", res = 300)
+ggplot(CpGs_d0to135, aes(x=paste(CpGs_d0to135$TimePoint,CpGs_d0to135$Initial.Treatment),y=CpGs_d0to135$perc_meth))+geom_boxplot()+geom_point(aes(color=Initial.Treatment),position = position_jitter(0.25)) + theme_bw() + theme(axis.text.x = element_text(size = 10, hjust= 1,angle = 60)) + ylab("CpG % methylation") + scale_color_manual(values = c("cyan3", "gray50","gold2", "magenta3"))
+dev.off()
+```
+
+

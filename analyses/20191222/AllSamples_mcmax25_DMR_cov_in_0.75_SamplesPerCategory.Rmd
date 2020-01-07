@@ -1,0 +1,36 @@
+---
+title: "AllSamples_MCmax25DMR_cov_in_0.75_Samples"
+author: "Shelly Trigg"
+date: "01/06/2020"
+output: rmarkdown::github_document
+---
+
+#manually removed the "#" in front the chromosome column name before reading in files
+
+#read in ambient DMR table
+```{r}
+all_DMR <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20191223/all_Samples_DMR250bp_MCmax25_cov5x_rms_results_collapsed.tsv", header = TRUE,sep = "\t",stringsAsFactors = FALSE)
+#loop through table and keep only lines where up to one sample contains NA for % methylation
+
+df <- data.frame() #create empty data frame to bind filtered rows into
+for(i in (1:nrow(amb_DMR))){
+  day0 <- all_DMR[i,19:22] #define columns from the category Day 0
+  day10_a <- all_DMR[i,11:14] #define columns from the category Day 10 ambient
+  day10_l <- all_DMR[i,c(7,8,15,16)] #define columns from the category Day 10 low pH
+  day10_sl <- all_DMR[i,c(9,10,17,18)] #define columns from the category Day 10 super low pH
+  day135_a <- all_DMR[i,23:26] #define columns from the category Day 135 ambient
+  day135_l <- all_DMR[i,31:34] #define columns from the category Day 135 low pH
+  day135_sl <- all_DMR[i,35:38] #define columns from the category Day 135 super low pH
+  day145_aa <- all_DMR[i,27:30] #define columns from the category Day 145 ambient
+  day145_la <- all_DMR[i,c(39,40,43,44)] #define columns from the category Day 145 low pH to amb
+  day145_sa <- all_DMR[i,c(41,42,45,46)] #define columns from the category Day 145 super low pH to amb
+  day145_al <- all_DMR[i,c(47,48,55,56)] #define columns from the category Day 145 amb to low pH
+  day145_ll <- all_DMR[i,c(49,50,57,58)] #define columns from the category Day 145 amb to low pH
+  day145_sl <- all_DMR[i,51:54] #define columns from the category Day 145 superlow pH to low pH
+  if(length(which(is.na(day0))) < 2 & length(which(is.na(day10_a))) < 2 & length(which(is.na(day10_l))) < 2 & length(which(is.na(day10_sl))) < 2 & length(which(is.na(day135_a))) < 2 & length(which(is.na(day135_l))) < 2 & length(which(is.na(day135_sl))) < 2 & length(which(is.na(day145_aa))) < 2 &  length(which(is.na(day145_la))) < 2 & length(which(is.na(day145_sa))) < 2 & length(which(is.na(day145_al))) < 2 & length(which(is.na(day145_ll))) < 2 & length(which(is.na(day145_sl))) < 2){
+  df <- rbind(df,all_DMR[i,]) #conditional statement: if less than 2 sameples/category have NA for % methylation bind the whole row to the new dataframe
+  }
+}
+#write the output
+write.table(df,"all_Samples_DMR250bp_MCmax50_cov5x_rms_results_filtered.tsv", sep = "\t", row.names= FALSE, quote = FALSE)
+```
