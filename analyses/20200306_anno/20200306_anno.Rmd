@@ -1,0 +1,113 @@
+---
+title: "GOseq on 11/02/2019 DMRs"
+author: "STrigg"
+date: "03/06/2020"
+output: html_document
+---
+
+
+
+```{r}
+library(plotrix) 
+library(ggplot2)
+library(gridExtra)
+library(seacarb) 
+library(pheatmap)
+library(dplyr)
+library(tidyverse)
+library(tidyr)
+library(topGO)
+library(goseq)
+library(genefilter)
+library(plyr)
+```
+
+
+read in GO background
+```{r}
+GO_background <- read.table("~/Documents/GitHub/Geoduck_Meth/RAnalysis/Output/MD.ALL.Genes_For_GO_Background.csv",header = TRUE, stringsAsFactors = FALSE, sep = ",")
+```
+
+read in GFF
+```{r}
+gff <- read.csv("/Volumes/web/metacarcinus/Pgenerosa/GENOMES/v074/Panopea-generosa-v1.0.a4.gene.gff3", header=F, sep="\t", na.string="NA", skip=3, stringsAsFactors = F)
+```
+
+read in DMR files
+```{r}
+amb_DMR_genes <- read.table("/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20191102_anno/amb_AllTimes.GO.txt", sep = "\t", quote = "")
+d10_DMR_genes <- read.table("/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20191102_anno/day10_AllpH.GO.txt", sep = "\t", quote = "")
+d135_DMR_genes <- read.table("/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20191102_anno/day135_AllpH.GO.txt", sep = "\t", quote = "")
+d145_DMR_genes <- read.table("/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20191102_anno/day145_AllpH.GO.txt", sep = "\t", quote = "")
+
+```
+
+Create Protein ID and Uniprot ID table
+```{r}
+#Load annotation file
+Annot <- read.csv("~/Documents/GitHub/Geoduck_Meth/RAnalysis/Data/Genome/Panopea-generosa-vv0.74.a4.5d951a9b74287-blast_functional.tab", header=TRUE, sep="\t", na.string="NA", stringsAsFactors = F, skip=12)
+colnames(Annot) <- c("gene","start", "end", "score", "uniprot.id", "Match.ID", "m_start", "m_end", "E.value", "identity", "al")
+Annot$gene <- gsub("21910-","",Annot$gene) #remove extra characters
+Annot$gene  <- gsub(".m.*","",Annot$gene) #remove extra characters
+Uniprots <- Annot[,c(1,5)] #pull out uniprot information
+colnames(Uniprots) <- c("gene", "Entry") #rename columns
+```
+
+Create table with Protein ID and GO IDs
+```{r, eval=FALSE}
+#Merge Protein IDs with GO terms by their Uniprot IDs
+GO.data <- merge(Uniprots, all_gene_GO[,c("Entry", "Gene.ontology.IDs")], by="Entry")
+
+splitted <- strsplit(as.character(GO.data$Gene.ontology.IDs), ";")
+GO.terms <- data.frame(v1 = rep.int(GO.data$gene, sapply(splitted, length)), v2 = unlist(splitted))
+
+```
+
+
+Filter DMR files for gene overlaps only
+```{r}
+amb_DMR_genes <- amb_DMR_genes[which(amb_DMR_genes$V5 == "gene"),]
+d10_DMR_genes <- d10_DMR_genes[which(d10_DMR_genes$V5 == "gene"),]
+d135_DMR_genes <- d135_DMR_genes[which(d135_DMR_genes$V5 == "gene"),]
+d145_DMR_genes <- d145_DMR_genes[which(d145_DMR_genes$V5 == "gene"),]
+```
+
+
+get lengths
+```{r}
+gene_lengths <- data.frame(cbind(substr(gff$V9,4,18),(gff$V5-gff$V4)))
+colnames(gene_lengths) <- c("V6","length")
+```
+
+filter gene lengths for each DMR file
+```{r}
+amb_length <- merge(amb_DMR_genes,gene_lengths, by = "V6")
+d10_length <- merge(d10_DMR_genes,gene_lengths, by = "V6")
+d135_length <- merge(d135_DMR_genes,gene_lengths, by = "V6")
+d145_length <- merge(d145_DMR_genes,gene_lengths, by = "V6")
+```
+
+
+Create input to GOseq
+```{r}
+amb_DMR_genes_v <- amb_DMR_genes$V6
+d10_DMR_genes_v <- d10_DMR_genes$V6
+d135_DMR_genes_v <- d135_DMR_genes$V6
+d145_DMR_genes_v <- d145_DMR_genes$V6
+```
+
+Run GOseq for ambient comparison
+```{r}
+ALL.vector <- GO.data$gene
+DMG.vector <- amb_DMR_genes_v
+ID.vector <- gene_lengths$V6
+LENGTH.vector <-gene_lengths$length
+gene.vector=as.integer(ALL.vector%in%DMG.vector) #Construct new vector with 1 for DEG and 0 for others
+names(gene.vector)=ALL.vector #set names
+DEG.pwf<-nullp(gene.vector, ID.vector, bias.data=LENGTH.vector) #weight vector by length of gene
+
+
+#Find enriched GO terms, 
+GO.wall<-goseq(DEG.pwf, ID.vector, gene2cat=GO.terms, test.cats=c("GO:CC", "GO:BP", "GO:MF"), method="Wallenius", use_genes_without_cat=TRUE)
+```
+
