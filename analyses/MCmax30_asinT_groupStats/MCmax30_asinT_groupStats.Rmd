@@ -14,6 +14,9 @@ library(gplots)
 library(ggplot2)
 library(dplyr)
 library(broom)
+library(tidyr)
+library(plyr)
+library(RColorBrewer)
 
 ```
 
@@ -302,6 +305,63 @@ dev.off()
 
 jpeg("amb_MCmax30DMR_Taov0.1_boxplots.jpg", width = 1000, height = 700)
 ggplot(data = amb_STACKED_asin[which(amb_STACKED_asin$ID %in% pull(amb_aov_modelsumm[which(amb_aov_modelsumm$p.value < 0.1),],ID)),])+ geom_violin(aes(y = perc.meth,x = group, fill = group)) + facet_wrap(~ID, scale = "free") + theme_bw() + theme(axis.text.x = element_text(size = 7,angle = 45, hjust = 1),axis.title=element_text(size=12,face="bold"))
+dev.off()
+```
+
+
+HEATMAP OF GROUP MEANS (added 20200309)
+```{r}
+
+aov_0.1_amb_asin_means <- cbind(apply(aov_0.1_amb_STACKED_asin[,1:4],1,mean, na.rm= TRUE),apply(aov_0.1_amb_STACKED_asin[,5:8],1,mean, na.rm= TRUE),apply(aov_0.1_amb_STACKED_asin[,9:12],1,mean, na.rm= TRUE),apply(aov_0.1_amb_STACKED_asin[,13:16],1,mean, na.rm= TRUE))
+
+colnames(aov_0.1_amb_asin_means) <- c("Day0", "Day10", "Day135", "Day145")
+
+# ALL AMB ANOVA data
+ColSideColors <- cbind(day = c(rep("#969696",1),rep("#737373",1),rep("#525252",1),rep("#252525",1)))
+
+jpeg("amb_MCmax30DMR_Taov0.1_GROUPmean_heatmap2.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.1_amb_asin_means,margins = c(5,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.025,0.025),sepcolor="darkgray",colsep=1:ncol(aov_0.1_amb_asin_means),rowsep=1:nrow(aov_0.1_amb_asin_means))
+dev.off()
+
+jpeg("amb_MCmax30DMR_Taov0.1_GROUPmean_pheatmap.jpg", width = 800, height = 1000)
+pheatmap(aov_0.1_amb_asin_means, clustering_method = "average",clustering_distance_rows="euclidean", show_rownames =FALSE,cluster_cols=FALSE,show_colnames =TRUE, scale = "row") 
+dev.off()
+
+###DAY 10
+aov_0.1_d10_asin_means <- cbind(apply(aov_0.1_d10_STACKED_asin[,1:4],1,mean, na.rm= TRUE),apply(aov_0.1_d10_STACKED_asin[,5:8],1,mean, na.rm= TRUE),apply(aov_0.1_d10_STACKED_asin[,9:12],1,mean, na.rm= TRUE))
+
+colnames(aov_0.1_d10_asin_means) <- c("ambient","low","superlow")
+
+ColSideColors <- cbind(pH = c(rep("cyan",1),rep("plum2",1),rep("magenta",1)))
+
+
+jpeg("d10_MCmax30DMR_Taov0.1_GROUPmean_heatmap2.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.1_d10_asin_means,margins = c(5,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors,  hclustfun = function(x) hclust(x,method = 'average'),distfun = function(x) as.dist(1 - cor(t(x), use = "pa")),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.025,0.025),sepcolor="darkgray",colsep=1:ncol(aov_0.1_d10_asin_means),rowsep=1:nrow(aov_0.1_d10_asin_means))
+dev.off()
+
+
+
+aov_0.1_d135_asin_means <- cbind(apply(aov_0.1_d135_STACKED_asin[,1:4],1,mean, na.rm= TRUE),apply(aov_0.1_d135_STACKED_asin[,5:8],1,mean, na.rm= TRUE),apply(aov_0.1_d135_STACKED_asin[,9:12],1,mean, na.rm= TRUE))
+
+colnames(aov_0.1_d135_asin_means) <- c("ambient", "low", "superlow")
+
+ColSideColors <- cbind(pH = c(rep("cyan",1),rep("plum2",1),rep("magenta",1)))
+
+
+jpeg("d135_MCmax30DMR_Taov0.1_GROUPmean_heatmap2.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.1_d135_asin_means,margins = c(5,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.025,0.025),sepcolor="darkgray",colsep=1:ncol(aov_0.1_d135_asin_means),rowsep=1:nrow(aov_0.1_d135_asin_means))
+dev.off()
+
+
+aov_0.1_d145_asin_means <- cbind(apply(aov_0.1_d145_STACKED_asin[,1:4],1,mean, na.rm= TRUE),apply(aov_0.1_d145_STACKED_asin[,13:16],1,mean, na.rm= TRUE),apply(aov_0.1_d145_STACKED_asin[,5:8],1,mean, na.rm= TRUE),apply(aov_0.1_d145_STACKED_asin[,17:20],1,mean, na.rm= TRUE),apply(aov_0.1_d145_STACKED_asin[,9:12],1,mean, na.rm= TRUE),apply(aov_0.1_d145_STACKED_asin[,21:24],1,mean, na.rm= TRUE))
+colnames(aov_0.1_d145_asin_means) <-c("ambient","amb_low","low_amb","low_low","superlow_amb","superlow_low")
+
+
+ColSideColors <- cbind(pH = c(rep("cyan",1),rep("green1",1),rep("green3",1),rep("mediumpurple1",1),rep("plum2",1),rep("magenta",1)))
+
+
+jpeg("d145_MCmax30DMR_Taov0.1_GROUPmean_heatmap2.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.1_d145_asin_means,margins = c(5,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.025,0.025),sepcolor="darkgray",colsep=1:ncol(aov_0.1_d145_asin_means),rowsep=1:nrow(aov_0.1_d145_asin_means))
 dev.off()
 ```
 

@@ -120,8 +120,7 @@ enriched.GO.05.amb<-GO.wall[which(GO.wall$over_represented_pvalue<.05),]
 
 write.csv(enriched.GO.05.amb[which(enriched.GO.05.amb$ontology =="MF"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/MF_Sig_Enriched_GO.05_TIME_DMRs.csv")
 
-write.csv(enriched.GO.05.amb[which(enriched.GO.05.amb$ontology =="CC"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/CC_Sig_Enriched_GO.05_TIME_DM
-Rs.csv")
+write.csv(enriched.GO.05.amb[which(enriched.GO.05.amb$ontology =="CC"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/CC_Sig_Enriched_GO.05_TIME_DMRs.csv")
 
 write.csv(enriched.GO.05.amb[which(enriched.GO.05.amb$ontology =="BP"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/BP_Sig_Enriched_GO.05_TIME_DMRs.csv")
 ```
@@ -142,12 +141,11 @@ GO.wall<-goseq(DEG.pwf, ID.vector, gene2cat=GO.terms, test.cats=c("GO:CC", "GO:B
 
 enriched.GO.05.d10<-GO.wall[which(GO.wall$over_represented_pvalue<.05),]
 
-write.csv(enriched.GO.05.d10[which(enriched.GO.05.d10$ontology =="MF"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/MF_Sig_Enriched_GO.05_TIME_DMRs.csv")
+write.csv(enriched.GO.05.d10[which(enriched.GO.05.d10$ontology =="MF"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/MF_Sig_Enriched_GO.05_d10_DMRs.csv")
 
-write.csv(enriched.GO.05.d10[which(enriched.GO.05.d10$ontology =="CC"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/CC_Sig_Enriched_GO.05_TIME_DM
-Rs.csv")
+write.csv(enriched.GO.05.d10[which(enriched.GO.05.d10$ontology =="CC"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/CC_Sig_Enriched_GO.05_d10_DMRs.csv")
 
-write.csv(enriched.GO.05.d10[which(enriched.GO.05.d10$ontology =="BP"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/BP_Sig_Enriched_GO.05_TIME_DMRs.csv")
+write.csv(enriched.GO.05.d10[which(enriched.GO.05.d10$ontology =="BP"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/BP_Sig_Enriched_GO.05_d10_DMRs.csv")
 ```
 
 
@@ -167,12 +165,11 @@ GO.wall<-goseq(DEG.pwf, ID.vector, gene2cat=GO.terms, test.cats=c("GO:CC", "GO:B
 
 enriched.GO.05.d135<-GO.wall[which(GO.wall$over_represented_pvalue<.05),]
 
-write.csv(enriched.GO.05.d135[which(enriched.GO.05.d135$ontology =="MF"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/MF_Sig_Enriched_GO.05_TIME_DMRs.csv")
+write.csv(enriched.GO.05.d135[which(enriched.GO.05.d135$ontology =="MF"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/MF_Sig_Enriched_GO.05_d135_DMRs.csv")
 
-write.csv(enriched.GO.05.d135[which(enriched.GO.05.d135$ontology =="CC"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/CC_Sig_Enriched_GO.05_TIME_DM
-Rs.csv")
+write.csv(enriched.GO.05.d135[which(enriched.GO.05.d135$ontology =="CC"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/CC_Sig_Enriched_GO.05_d135_DMRs.csv")
 
-write.csv(enriched.GO.05.d135[which(enriched.GO.05.d135$ontology =="BP"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/BP_Sig_Enriched_GO.05_TIME_DMRs.csv")
+write.csv(enriched.GO.05.d135[which(enriched.GO.05.d135$ontology =="BP"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/BP_Sig_Enriched_GO.05_d135_DMRs.csv")
 ```
 
 Run GOseq for d145 comparison
@@ -191,12 +188,11 @@ GO.wall<-goseq(DEG.pwf, ID.vector, gene2cat=GO.terms, test.cats=c("GO:CC", "GO:B
 
 enriched.GO.05.d145<-GO.wall[which(GO.wall$over_represented_pvalue<.05),]
 
-write.csv(enriched.GO.05.d145[which(enriched.GO.05.d145$ontology =="MF"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/MF_Sig_Enriched_GO.05_TIME_DMRs.csv")
+write.csv(enriched.GO.05.d145[which(enriched.GO.05.d145$ontology =="MF"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/MF_Sig_Enriched_GO.05_d145_DMRs.csv")
 
-write.csv(enriched.GO.05.d145[which(enriched.GO.05.d145$ontology =="CC"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/CC_Sig_Enriched_GO.05_TIME_DM
-Rs.csv")
+write.csv(enriched.GO.05.d145[which(enriched.GO.05.d145$ontology =="CC"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/CC_Sig_Enriched_GO.05_d145_DMRs.csv")
 
-write.csv(enriched.GO.05.d145[which(enriched.GO.05.d145$ontology =="BP"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/BP_Sig_Enriched_GO.05_TIME_DMRs.csv")
+write.csv(enriched.GO.05.d145[which(enriched.GO.05.d145$ontology =="BP"),] , file = "../../../Geoduck_Meth/RAnalysis/Output/BP_Sig_Enriched_GO.05_d145_DMRs.csv")
 ```
 
 
