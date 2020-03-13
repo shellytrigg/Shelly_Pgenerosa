@@ -568,6 +568,39 @@ heatmap.2(aov_0.05pH_ambDMR_mean_m,margins = c(10,20), cexRow = 1.2, cexCol = 1,
 dev.off()
 ```
 
+
+HEATMAP OF GROUP MEANS (added 20200313)
+```{r}
+#plot for ambient group mean comparison
+colnames(aov_0.05pH_ambDMR_mean_m) <- c("Day 0", "Day 10", "Day 135", "Day 145")
+
+jpeg("amb_MCmax25DMR_Taov0.05_GROUPmean_heatmap2.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.05pH_ambDMR_mean_m,margins = c(5,15), cexRow = 1.2, cexCol = 1, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.01,0.01),sepcolor="white",colsep=1:ncol(aov_0.05pH_ambDMR_mean_m))
+dev.off()
+
+
+#plot for day10 group mean comparison
+colnames(aov_0.05pH_d10DMR_mean_m) <- c("pH 8.0", "pH 7.4", "pH 7.0")
+
+jpeg("d10_MCmax25DMR_Taov0.05_GROUPmean_heatmap2.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.05pH_d10DMR_mean_m,margins = c(5,15), cexRow = 1.2, cexCol = 1, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.01,0.01),sepcolor="white",colsep=1:ncol(aov_0.05pH_d10DMR_mean_m))
+dev.off()
+
+#plot for day135 group mean comparison
+colnames(aov_0.05pH_d135DMR_mean_m) <- c("pH 8.0", "pH 7.4", "pH 7.0")
+
+jpeg("d135_MCmax25DMR_Taov0.05_GROUPmean_heatmap2.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.05pH_d135DMR_mean_m,margins = c(5,15), cexRow = 1.2, cexCol = 1, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.01,0.01),sepcolor="white",colsep=1:ncol(aov_0.05pH_d135DMR_mean_m))
+dev.off()
+
+#plot for day145 group mean comparison
+colnames(aov_0.05pH_d145DMR_mean_m) <- c("pH 8.0 -> pH 8.0", "pH 8.0 -> pH 7.4","pH 7.4 -> pH 8.0","pH 7.4 -> pH 7.4", "pH 7.0 -> pH 8.0", "pH 7.0 -> pH 7.4")
+
+jpeg("d145_MCmax25DMR_Taov0.05_GROUPmean_heatmap2.jpg", width = 800, height = 1000)
+heatmap.2(aov_0.05pH_d145DMR_mean_m,margins = c(8,15), cexRow = 1.2, cexCol = 1, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.01,0.01),sepcolor="white",colsep=1:ncol(aov_0.05pH_d145DMR_mean_m))
+dev.off()
+```
+
 Write out bedfiles
 ```{r}
 #write out d10 DMR bed file
