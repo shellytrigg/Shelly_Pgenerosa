@@ -170,14 +170,20 @@ ambDMR_glm_pvals_modelsumm <- ambDMR_glm_pvals_modelsumm[which(ambDMR_glm_pvals_
 FDR correct glm data
 ```{r}
 ambDMR_glm_pvals_modelsumm$p.adj <- p.adjust(ambDMR_glm_pvals_modelsumm$p.value, method = "BH")
+```
 
+Write out glm results
+```{r}
+write.csv(ambDMR_glm_pvals_modelsumm, "ambDMR_glm_results.csv", quote = FALSE, row.names = FALSE)
+
+write.csv(ambDMR_glm_pvals_modelsumm[which(ambDMR_glm_pvals_modelsumm$p.adj < 0.05),], "ambDMR_glm_results_0.05.csv", quote = FALSE, row.names = FALSE)
 
 ```
 
 
 What is the distribution of the count data?
 ```{r}
-ggplot(amb_DMR_mC_tC_counts_SUM_stacked[which(amb_DMR_mC_tC_counts_SUM_stacked$mC <1000),]) + geom_histogram(aes(mC, group = TimePoint, color = TimePoint,fill = TimePoint), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+ggplot(amb_DMR_mC_tC_counts_SUM_stacked) + geom_histogram(aes(mC, group = TimePoint, color = TimePoint,fill = TimePoint), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
 
 #plot the data excluding DMRs with coverage over 1000 reads
 ggplot(amb_DMR_mC_tC_counts_SUM_stacked[which(amb_DMR_mC_tC_counts_SUM_stacked$mC <1000),]) + geom_histogram(aes(mC, group = TimePoint, color = TimePoint,fill = TimePoint), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
