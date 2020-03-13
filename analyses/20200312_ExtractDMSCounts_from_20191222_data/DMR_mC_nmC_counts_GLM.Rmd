@@ -1,0 +1,249 @@
+---
+title: "Untitled"
+author: "Shelly Trigg"
+date: "3/12/2020"
+output: html_document
+---
+
+
+load libraries
+```{r}
+library(tidyr)
+library(dplyr)
+library(broom)
+library(ggplot2)
+library(arm)
+
+
+```
+
+read in data
+```{r}
+#table with summed mCs and tCs for DMRs
+amb_DMR_mC_tC_counts_SUM <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20200311/extractDMS/amb_AllTimes_DMR250bp_MCmax25_cov5x_DMR_SUMMED_mC_tC.tsv", header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+
+#table with mC and tC counts for each DMR
+amb_DMR_mC_tC_counts <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20200311/extractDMS/amb_AllTimes_DMR250bp_MCmax25_cov5x_DMR_and_DMS_mC_tC.tsv", header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+
+
+#header info
+amb_DMR_mC_tC_counts_header <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20200311/extractDMS/amb_AllTimes_DMR250bp_MCmax25_cov5x_rms_results.HEADER.tsv", header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+
+#meta data
+meta_data <- read.csv("~/Documents/GitHub/Shelly_Pgenerosa/analyses/20191222/Sample.Info.csv", stringsAsFactors = FALSE)
+```
+
+Remove empty column in SUM data frame
+```{r}
+amb_DMR_mC_tC_counts_SUM[,37] <- NULL
+```
+
+Remove duplicate columns in count data frame
+```{r}
+amb_DMR_mC_tC_counts <- amb_DMR_mC_tC_counts[,-c(11:15)]
+```
+
+
+
+Add colnames
+```{r}
+colnames(amb_DMR_mC_tC_counts_SUM) <- c("chr","start", "end", "numDMS", amb_DMR_mC_tC_counts_header[1,6:37])
+
+
+colnames(amb_DMR_mC_tC_counts) <- c("DMRchr","DMRstart", "DMRend", "numDMS","DMSchr","DMSstart", "DMSend","context","rmsPval","BedclosestDist", amb_DMR_mC_tC_counts_header[1,6:37])
+```
+
+
+Rearrange table
+```{r}
+#add sample name to column and mC to column
+amb_DMR_mC_tC_counts_SUM_mC_stacked <- gather(amb_DMR_mC_tC_counts_SUM[,1:20], "Sample.ID", "mC",5:20)
+#remove mc from sample column
+amb_DMR_mC_tC_counts_SUM_mC_stacked$Sample.ID <- gsub("mc_","",amb_DMR_mC_tC_counts_SUM_mC_stacked$Sample.ID )
+
+#add sample name to column and tC to column
+amb_DMR_mC_tC_counts_SUM_tC_stacked <- gather(amb_DMR_mC_tC_counts_SUM[,-c(5:20)], "Sample.ID", "tC",5:20)
+
+amb_DMR_mC_tC_counts_SUM_tC_stacked$Sample.ID <- gsub("h_","",amb_DMR_mC_tC_counts_SUM_tC_stacked$Sample.ID )
+
+#merge data
+amb_DMR_mC_tC_counts_SUM_stacked <- merge(amb_DMR_mC_tC_counts_SUM_mC_stacked,amb_DMR_mC_tC_counts_SUM_tC_stacked, by = c("chr", "start", "end", "numDMS", "Sample.ID"))
+
+#convert sample ID column hyphen to underscore
+amb_DMR_mC_tC_counts_SUM_stacked$Sample.ID <- gsub("-","_", amb_DMR_mC_tC_counts_SUM_stacked$Sample.ID)
+
+
+######
+#Do the same for count data
+######
+#add sample name to column and mC to column
+amb_DMR_mC_tC_counts_mC_stacked <- gather(amb_DMR_mC_tC_counts[,1:26], "Sample.ID", "mC",11:26)
+#remove mc from sample column
+amb_DMR_mC_tC_counts_mC_stacked$Sample.ID <- gsub("mc_","",amb_DMR_mC_tC_counts_mC_stacked$Sample.ID )
+
+#add sample name to column and tC to column
+amb_DMR_mC_tC_counts_tC_stacked <- gather(amb_DMR_mC_tC_counts[,-c(11:26)], "Sample.ID", "tC",11:26)
+
+amb_DMR_mC_tC_counts_tC_stacked$Sample.ID <- gsub("h_","",amb_DMR_mC_tC_counts_tC_stacked$Sample.ID )
+
+#merge data
+amb_DMR_mC_tC_counts_stacked <- merge(amb_DMR_mC_tC_counts_mC_stacked,amb_DMR_mC_tC_counts_tC_stacked, by = c("DMRchr","DMRstart", "DMRend", "numDMS","DMSchr","DMSstart", "DMSend","context","rmsPval","BedclosestDist", "Sample.ID"))
+
+#convert sample ID column hyphen to underscore
+amb_DMR_mC_tC_counts_stacked$Sample.ID <- gsub("-","_", amb_DMR_mC_tC_counts_stacked$Sample.ID)
+
+
+```
+
+Convert mC and tC values between 0 and 1 to NA; these values mean there was no coverage for any DMS within the DMR
+```{r}
+#convert -1 in counts data to NA
+amb_DMR_mC_tC_counts_stacked[amb_DMR_mC_tC_counts_stacked == -1] <- NA
+
+
+#convert zeros to something unique
+amb_DMR_mC_tC_counts_SUM_stacked[amb_DMR_mC_tC_counts_SUM_stacked == 0] <- 50000000
+
+#round down to get integers and convert the integers without coverage (where counts are < 1 and > 0) to zero
+amb_DMR_mC_tC_counts_SUM_stacked$mC <- floor(amb_DMR_mC_tC_counts_SUM_stacked$mC)
+amb_DMR_mC_tC_counts_SUM_stacked$tC <- floor(amb_DMR_mC_tC_counts_SUM_stacked$tC)
+#convert zeros to NA since these had no coverage
+amb_DMR_mC_tC_counts_SUM_stacked[amb_DMR_mC_tC_counts_SUM_stacked == 0] <- NA
+#convert original zeros back to zero
+amb_DMR_mC_tC_counts_SUM_stacked[amb_DMR_mC_tC_counts_SUM_stacked == 50000000] <- 0
+
+#NAs should only exist when there was no coverage of any DMS within DMRs; both mC and tC were initially between 0 and 1. There are now instances where mC has NA and tC does not. This is because for the DMR, some DMS had coverage and some did not AND for the DMS that had coverage none were methylated. The code below fixes these NAs.
+for (i in 1:nrow(amb_DMR_mC_tC_counts_SUM_stacked)){
+  if(is.na(amb_DMR_mC_tC_counts_SUM_stacked$mC[i])& !(is.na(amb_DMR_mC_tC_counts_SUM_stacked$tC[i]))){
+    amb_DMR_mC_tC_counts_SUM_stacked$mC[i] <- 0
+  }
+}
+```
+
+Create a column with number of non-methylated Cs
+```{r}
+amb_DMR_mC_tC_counts_SUM_stacked$nmC <- (amb_DMR_mC_tC_counts_SUM_stacked$tC - amb_DMR_mC_tC_counts_SUM_stacked$mC)
+
+
+amb_DMR_mC_tC_counts_stacked$nmC <- (amb_DMR_mC_tC_counts_stacked$tC - amb_DMR_mC_tC_counts_stacked$mC)
+```
+
+Merge counts data with meta data
+```{r}
+amb_DMR_mC_tC_counts_SUM_stacked <- merge(meta_data, amb_DMR_mC_tC_counts_SUM_stacked, by = "Sample.ID")
+
+amb_DMR_mC_tC_counts_stacked <- merge(meta_data, amb_DMR_mC_tC_counts_stacked, by = "Sample.ID")
+```
+
+
+Create a column for DMR ID
+```{r}
+amb_DMR_mC_tC_counts_SUM_stacked$DMR.ID <- paste(amb_DMR_mC_tC_counts_SUM_stacked$chr,amb_DMR_mC_tC_counts_SUM_stacked$start, amb_DMR_mC_tC_counts_SUM_stacked$end, sep = "_")
+
+
+amb_DMR_mC_tC_counts_stacked$DMR.ID <- paste(amb_DMR_mC_tC_counts_stacked$DMRchr,amb_DMR_mC_tC_counts_stacked$DMRstart, amb_DMR_mC_tC_counts_stacked$DMRend, sep = "_")
+```
+
+Create a column for unique DMS position in counts data
+```{r}
+amb_DMR_mC_tC_counts_stacked$DMS.position <- paste(amb_DMR_mC_tC_counts_stacked$DMSchr,amb_DMR_mC_tC_counts_stacked$DMSstart, sep = "_")
+```
+
+Run the glm
+
+```{r}
+ambDMR_glm <- amb_DMR_mC_tC_counts_SUM_stacked %>% group_by(DMR.ID) %>%
+do(meth_glms = glm(matrix(c(mC,nmC), ncol =2) ~ TimePoint, data =  . , family= binomial))
+
+ambDMR_glm_pvals <- amb_DMR_mC_tC_counts_SUM_stacked %>% group_by(DMR.ID) %>%
+do(meth_glm_pvals = anova(glm(matrix(c(mC,nmC), ncol =2) ~ TimePoint, data =  . , family= binomial), test = "Chisq"))
+
+```
+
+Summarize glm data
+```{r}
+ambDMR_glm_pvals_modelsumm <- tidy(ambDMR_glm_pvals,meth_glm_pvals)
+ambDMR_glm_pvals_modelsumm <- ambDMR_glm_pvals_modelsumm[which(ambDMR_glm_pvals_modelsumm$term != "NULL"),]
+
+```
+
+FDR correct glm data
+```{r}
+ambDMR_glm_pvals_modelsumm$p.adj <- p.adjust(ambDMR_glm_pvals_modelsumm$p.value, method = "BH")
+
+
+```
+
+
+What is the distribution of the count data?
+```{r}
+ggplot(amb_DMR_mC_tC_counts_SUM_stacked[which(amb_DMR_mC_tC_counts_SUM_stacked$mC <1000),]) + geom_histogram(aes(mC, group = TimePoint, color = TimePoint,fill = TimePoint), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+
+#plot the data excluding DMRs with coverage over 1000 reads
+ggplot(amb_DMR_mC_tC_counts_SUM_stacked[which(amb_DMR_mC_tC_counts_SUM_stacked$mC <1000),]) + geom_histogram(aes(mC, group = TimePoint, color = TimePoint,fill = TimePoint), bins = 10, position = "identity", alpha = 0.5) + theme_bw()
+
+```
+
+The data are definately poisson distributed suggesting a poisson glm should be run
+```{r}
+ambDMR_pois_glm <- amb_DMR_mC_tC_counts_SUM_stacked %>% group_by(DMR.ID) %>%
+do(meth_pois_glms = glm(mC ~ TimePoint, data =  . , family= poisson))
+
+ambDMR_pois_glm_pvals <- amb_DMR_mC_tC_counts_SUM_stacked %>% group_by(DMR.ID) %>%
+do(meth_pois_glm_pvals = anova(glm(mC ~ TimePoint, data =  . , family= poisson), test = "Chisq"))
+
+
+ambDMR_pois_glm_pvals_modelsumm <- tidy(ambDMR_pois_glm_pvals,meth_pois_glm_pvals)
+ambDMR_pois_glm_pvals_modelsumm <- ambDMR_pois_glm_pvals_modelsumm[which(ambDMR_pois_glm_pvals_modelsumm$term != "NULL"),]
+
+
+ambDMR_pois_glm_pvals_modelsumm$p.adj <- p.adjust(ambDMR_pois_glm_pvals_modelsumm$p.value, method = "BH")
+
+```
+
+
+Run the glm including position 
+
+```{r}
+ambDMR_glm <- amb_DMR_mC_tC_counts_stacked %>% group_by(DMR.ID) %>%
+do(meth_glms = glm(matrix(c(mC,nmC), ncol =2) ~ TimePoint * DMS.position, data =  . , family= binomial))
+
+ambDMR_glm_pvals <- amb_DMR_mC_tC_counts_stacked %>% group_by(DMR.ID) %>%
+do(meth_glm_pvals = anova(glm(matrix(c(mC,nmC), ncol =2) ~ TimePoint * DMS.position, data =  . , family= binomial), test = "Chisq"))
+
+```
+
+Summarize glm including position data
+```{r}
+ambDMR_glm_pvals_modelsumm <- tidy(ambDMR_glm_pvals,meth_glm_pvals)
+ambDMR_glm_pvals_modelsumm <- ambDMR_glm_pvals_modelsumm[which(ambDMR_glm_pvals_modelsumm$term != "NULL"),]
+
+```
+
+FDR correct glm data
+```{r}
+ambDMR_glm_pvals_modelsumm$p.adj <- p.adjust(ambDMR_glm_pvals_modelsumm$p.value, method = "BH")
+```
+
+Still getting pvalues that don't make sense (everything is significant)
+I'm going to try bayesglm as suggested here https://discuss.analyticsvidhya.com/t/glm-fit-fitted-probabilities-numerically-0-or-1-occurred-warning-message-when-i-run-logistic-regression/10390/3
+```{r}
+ambDMR_bayesglm <- amb_DMR_mC_tC_counts_stacked %>% group_by(DMR.ID) %>%
+do(meth_bayesglms = bayesglm(matrix(c(mC,nmC), ncol =2) ~ TimePoint * DMS.position, data =  . , family= "binomial"))
+
+ambDMR_bayesglm_pvals <- amb_DMR_mC_tC_counts_stacked %>% group_by(DMR.ID) %>%
+do(meth_bayesglm_pvals = anova(bayesglm(matrix(c(mC,nmC), ncol =2) ~ TimePoint * DMS.position, data =  . , family= "binomial"), test = "Chisq"))
+```
+
+Summarize bayesglm data
+```{r}
+ambDMR_bayesglm_pvals_modelsumm <- tidy(ambDMR_bayesglm_pvals,meth_bayesglm_pvals)
+ambDMR_bayesglm_pvals_modelsumm <- ambDMR_bayesglm_pvals_modelsumm[which(ambDMR_bayesglm_pvals_modelsumm$term != "NULL"),]
+
+```
+
+FDR correct glm data
+```{r}
+ambDMR_bayesglm_pvals_modelsumm$p.adj <- p.adjust(ambDMR_bayesglm_pvals_modelsumm$p.value, method = "BH")
+
+```

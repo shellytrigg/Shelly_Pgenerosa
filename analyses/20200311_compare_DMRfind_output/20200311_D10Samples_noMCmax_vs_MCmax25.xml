@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Session genome="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/GENOMES/Panopea-generosa-v1.0.fa" hasGeneTrack="false" hasSequenceTrack="true" locus="Scaffold_02:44737837-44855706" path="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200311_compare_DMRfind_output/20200311_D10Samples_noMCmax_vs_MCmax25.xml" version="8">
+    <Resources>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-104_S28_L005_5xmerg_allc.tsv.bw"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-145_S38_L005_5xmerg_allc.tsv.bw"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-143_S37_L005_5xmerg_allc.tsv.bw"/>
+        <Resource path="https://raw.githubusercontent.com/shellytrigg/Shelly_Pgenerosa/master/analyses/20200311_compare_DMRfind_output/Mar11_day10_AllpH_DMR250bp_cov5x_rms_results_collapsed.tsv.DMR.bed"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-135_S35_L005_5xmerg_allc.tsv.bw"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-127_S33_L005_5xmerg_allc.tsv.bw"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-119_S31_L005_5xmerg_allc.tsv.bw"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-113_S30_L005_5xmerg_allc.tsv.bw"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20191222/day10_AllpH_DMR250bp_MCmax25_cov5x_rms_results_collapsed.tsv.DMR.bed"/>
+        <Resource path="https://raw.githubusercontent.com/shellytrigg/Shelly_Pgenerosa/master/analyses/20200311_compare_DMRfind_output/Mar11_day10_AllpH_DMR250bp_cov5x_rms_results_collapsed.tsv.DMS.bed"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-128_S34_L005_5xmerg_allc.tsv.bw"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-120_S32_L005_5xmerg_allc.tsv.bw"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-136_S36_L005_5xmerg_allc.tsv.bw"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-111_S29_L005_5xmerg_allc.tsv.bw"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20191222/day10_AllpH_DMR250bp_MCmax25_cov5x_rms_results_collapsed.tsv.DMS.bed"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-103_S27_L005_5xmerg_allc.tsv.bw"/>
+    </Resources>
+    <Panel height="737" name="DataPanel" width="1425">
+        <Track clazz="org.broad.igv.track.SequenceTrack" fontSize="10" id="Reference sequence" name="Reference sequence" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;4.0;255,255,255;0,0,178" fontSize="10" id="https://raw.githubusercontent.com/shellytrigg/Shelly_Pgenerosa/master/analyses/20200311_compare_DMRfind_output/Mar11_day10_AllpH_DMR250bp_cov5x_rms_results_collapsed.tsv.DMR.bed" name="Mar11_day10_AllpH_DMR250bp_cov5x_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;125.0;255,255,255;0,0,178" fontSize="10" id="https://raw.githubusercontent.com/shellytrigg/Shelly_Pgenerosa/master/analyses/20200311_compare_DMRfind_output/Mar11_day10_AllpH_DMR250bp_cov5x_rms_results_collapsed.tsv.DMS.bed" name="Mar11_day10_AllpH_DMR250bp_cov5x_rms_results_collapsed.tsv.DMS.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;7.0;255,255,255;0,0,178" fontSize="10" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20191222/day10_AllpH_DMR250bp_MCmax25_cov5x_rms_results_collapsed.tsv.DMR.bed" name="day10_AllpH_DMR250bp_MCmax25_cov5x_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;348.0;255,255,255;0,0,178" fontSize="10" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20191222/day10_AllpH_DMR250bp_MCmax25_cov5x_rms_results_collapsed.tsv.DMS.bed" name="day10_AllpH_DMR250bp_MCmax25_cov5x_rms_results_collapsed.tsv.DMS.bed" visible="true"/>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" colorScale="ContinuousColorScale;0.0;0.0;0.0;0.7288702726364136;255,255,255;255,255,255;255,102,0" fontSize="10" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-103_S27_L005_5xmerg_allc.tsv.bw" name="EPI-103_S27_L005_5xmerg_allc.tsv.bw" renderer="HEATMAP" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="0.7288703" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" colorScale="ContinuousColorScale;0.0;0.0;0.0;0.7288702726364136;255,255,255;255,255,255;255,102,0" fontSize="10" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-104_S28_L005_5xmerg_allc.tsv.bw" name="EPI-104_S28_L005_5xmerg_allc.tsv.bw" renderer="HEATMAP" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="0.82111835" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" colorScale="ContinuousColorScale;0.0;0.0;0.0;0.7288702726364136;255,255,255;255,255,255;255,102,0" fontSize="10" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-111_S29_L005_5xmerg_allc.tsv.bw" name="EPI-111_S29_L005_5xmerg_allc.tsv.bw" renderer="HEATMAP" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="0.84331965" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" colorScale="ContinuousColorScale;0.0;0.0;0.0;0.7288702726364136;255,255,255;255,255,255;255,102,0" fontSize="10" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-113_S30_L005_5xmerg_allc.tsv.bw" name="EPI-113_S30_L005_5xmerg_allc.tsv.bw" renderer="HEATMAP" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="0.8907665" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" colorScale="ContinuousColorScale;0.0;0.7969220876693726;255,255,255;0,0,178" fontSize="10" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-119_S31_L005_5xmerg_allc.tsv.bw" name="EPI-119_S31_L005_5xmerg_allc.tsv.bw" renderer="HEATMAP" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="0.7969221" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" colorScale="ContinuousColorScale;0.0;0.8531209230422974;255,255,255;0,0,178" fontSize="10" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-120_S32_L005_5xmerg_allc.tsv.bw" name="EPI-120_S32_L005_5xmerg_allc.tsv.bw" renderer="HEATMAP" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="0.8531209" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" colorScale="ContinuousColorScale;0.0;0.8637933135032654;255,255,255;0,0,178" fontSize="10" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-135_S35_L005_5xmerg_allc.tsv.bw" name="EPI-135_S35_L005_5xmerg_allc.tsv.bw" renderer="HEATMAP" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="0.8637933" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" colorScale="ContinuousColorScale;0.0;0.888116717338562;255,255,255;0,0,178" fontSize="10" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-136_S36_L005_5xmerg_allc.tsv.bw" name="EPI-136_S36_L005_5xmerg_allc.tsv.bw" renderer="HEATMAP" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="0.8881167" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track altColor="204,0,0" autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" color="204,0,0" colorScale="ContinuousColorScale;0.0;0.0;0.0;0.7398752570152283;255,255,255;255,255,255;204,0,0" fontSize="10" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-127_S33_L005_5xmerg_allc.tsv.bw" name="EPI-127_S33_L005_5xmerg_allc.tsv.bw" renderer="HEATMAP" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="0.73987526" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track altColor="204,0,0" autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" color="204,0,0" colorScale="ContinuousColorScale;0.0;0.0;0.0;0.7398752570152283;255,255,255;255,255,255;204,0,0" fontSize="10" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-128_S34_L005_5xmerg_allc.tsv.bw" name="EPI-128_S34_L005_5xmerg_allc.tsv.bw" renderer="HEATMAP" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="0.8888101" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track altColor="204,0,0" autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" color="204,0,0" colorScale="ContinuousColorScale;0.0;0.0;0.0;0.7398752570152283;255,255,255;255,255,255;204,0,0" fontSize="10" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-143_S37_L005_5xmerg_allc.tsv.bw" name="EPI-143_S37_L005_5xmerg_allc.tsv.bw" renderer="HEATMAP" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="0.7212119" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track altColor="204,0,0" autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" color="204,0,0" colorScale="ContinuousColorScale;0.0;0.0;0.0;0.7398752570152283;255,255,255;255,255,255;204,0,0" fontSize="10" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200311/EPI-145_S38_L005_5xmerg_allc.tsv.bw" name="EPI-145_S38_L005_5xmerg_allc.tsv.bw" renderer="HEATMAP" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="0.86592746" minimum="0.0" type="LINEAR"/>
+        </Track>
+    </Panel>
+    <HiddenAttributes>
+        <Attribute name="DATA FILE"/>
+        <Attribute name="DATA TYPE"/>
+        <Attribute name="NAME"/>
+    </HiddenAttributes>
+</Session>
