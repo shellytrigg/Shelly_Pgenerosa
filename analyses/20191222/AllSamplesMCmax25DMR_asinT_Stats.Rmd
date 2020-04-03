@@ -296,3 +296,32 @@ jpeg("allDMR_MCmax25DMR_Taov0.05_d10and135mean_heatmap.jpg", width = 800, height
 heatmap.2(aov_0.05pH_allDMR_d10and135_mean_m[,c(2,5,3,6,4,7)],margins = c(10,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), distfun = function(x) as.dist(1-cor(t(x))), hclustfun = function(x) hclust(x, method="average"),na.color = "black", density.info = "none", trace = "none", scale = "row",sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(aov_0.05pH_allDMR_d10and135_mean_m),rowsep=1:nrow(aov_0.05pH_allDMR_d10and135_mean_m))
 dev.off()
 ```
+
+
+Create data frame with ANOVA results filtered for DMRs with p < 0.05
+```{r}
+allDMR_d10_1way_aov_pH_modelsumm_0.05 <- allDMR_d10_1way_aov_pH_modelsumm[which(allDMR_d10_1way_aov_pH_modelsumm$p.value < 0.05),]
+allDMR_d10_1way_aov_pH_modelsumm_0.05$TimePoint <- 10
+
+allDMR_d135_1way_aov_pH_modelsumm_0.05 <- allDMR_d135_1way_aov_pH_modelsumm[which(allDMR_d135_1way_aov_pH_modelsumm$p.value < 0.05),]
+allDMR_d135_1way_aov_pH_modelsumm_0.05$TimePoint <- 135
+
+#combine sig. DMRs from d10 and d135 comparisons
+allDMR_d10andd135_1way_aov_pH_modelsumm_0.05 <- rbind(allDMR_d10_1way_aov_pH_modelsumm_0.05,allDMR_d135_1way_aov_pH_modelsumm_0.05)
+
+#write out sig DMRs from d10 and d135
+write.csv(allDMR_d10andd135_1way_aov_pH_modelsumm_0.05, "allDMR_d10andd135_1way_aov_pH_modelsumm_0.05.csv", row.names = FALSE, quote = FALSE )
+
+#create column for scaffold , start, stop, p.value, and time point
+allDMR_d10andd135_1way_aov_pH_modelsumm_0.05$scaffold <- gsub(":.*","",allDMR_d10andd135_1way_aov_pH_modelsumm_0.05$ID)
+
+allDMR_d10andd135_1way_aov_pH_modelsumm_0.05$start <- gsub(".*:","",allDMR_d10andd135_1way_aov_pH_modelsumm_0.05$ID)
+
+allDMR_d10andd135_1way_aov_pH_modelsumm_0.05$start <- gsub("-.*","",allDMR_d10andd135_1way_aov_pH_modelsumm_0.05$start)
+
+allDMR_d10andd135_1way_aov_pH_modelsumm_0.05$end <- gsub(".*-","",allDMR_d10andd135_1way_aov_pH_modelsumm_0.05$ID)
+
+#write out bed file of sid. DMRs from d10 and d135
+write.table(allDMR_d10andd135_1way_aov_pH_modelsumm_0.05[,c("scaffold", "start","end","p.value", "TimePoint")],"allDMR_d10andd135_1way_aov_pH_modelsumm_0.05.bed" ,row.names = FALSE, col.names = FALSE,quote = FALSE, sep = "\t")
+
+```

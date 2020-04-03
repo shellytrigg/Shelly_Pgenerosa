@@ -1,0 +1,206 @@
+---
+title: "Untitled"
+author: "Shelly Trigg"
+date: "1/9/2020"
+output: html_document
+---
+
+run ANOVA on time, pH, and their interaction
+```{r}
+allDMR_2way_aov_pHxtime <- allDMRs_STACKED_asin[which(allDMRs_STACKED_asin$TimePoint!="Day145" & allDMRs_STACKED_asin$TimePoint!="Day0" & allDMRs_STACKED_asin$Initial.Treatment != "Super.Low"),] %>% group_by(ID) %>%
+do(meth_aov_models = aov(perc.meth~Initial.Treatment*TimePoint, data =  . ))
+#summarize ANOVA data
+allDMR_2way_aov_pHxtime_modelsumm <- glance(allDMR_2way_aov_pHxtime, meth_aov_models)
+View(tidy(allDMR_2way_aov_pHxtime, meth_aov_models))
+
+allDMR_2way_tuk_pHxtime <- allDMRs_STACKED_asin[which(allDMRs_STACKED_asin$TimePoint!="Day145" & allDMRs_STACKED_asin$TimePoint!="Day0" & allDMRs_STACKED_asin$Initial.Treatment != "Super.Low"),] %>% group_by(ID) %>%
+do(meth_tuk_models = TukeyHSD(aov(perc.meth~Initial.Treatment*TimePoint, data =  . )))
+allDMR_2way_tuk_pHxtime_modelsumm <- tidy(allDMR_2way_tuk_pHxtime, meth_tuk_models)
+
+allDMR_2way_tuk_pH_sig0.05 <- (allDMR_2way_tuk_pHxtime_modelsumm[which(allDMR_2way_tuk_pHxtime_modelsumm$comparison=="Low-Ambient" & allDMR_2way_tuk_pHxtime_modelsumm$adj.p.value < 0.045),])
+
+allDMR_2way_tuk_pH_sig0.05$scaffold <- gsub(":.*","",allDMR_2way_tuk_pH_sig0.05$ID)
+
+allDMR_2way_tuk_pH_sig0.05$start <- gsub(".*:","",allDMR_2way_tuk_pH_sig0.05$ID)
+
+allDMR_2way_tuk_pH_sig0.05$start <- gsub("-.*","",allDMR_2way_tuk_pH_sig0.05$start)
+
+allDMR_2way_tuk_pH_sig0.05$end <- gsub(".*-","",allDMR_2way_tuk_pH_sig0.05$ID)
+
+#write out bed file of ttest sig. DMRs from d10 
+write.table(allDMR_2way_tuk_pH_sig0.05[,c("scaffold", "start","end","adj.p.value")],"allDMR_2way_tuk_pH_sig0.05.bed" ,row.names = FALSE, col.names = FALSE,quote = FALSE, sep = "\t")
+
+```
+
+look at heatmap of these significant DMRs
+```{r}
+ttest_0.05pH_allDMR_d10d135_m <- tidyr::spread(allDMRs_STACKED[which(allDMRs_STACKED$ID %in% allDMR_2way_tuk_pH_sig0.05$ID & allDMRs_STACKED$TimePoint != "Day0" & allDMRs_STACKED$TimePoint != "Day145" & allDMRs_STACKED_asin$Initial.Treatment!= "Super.Low"),1:3],"Sample.ID","perc.meth")
+
+rownames(ttest_0.05pH_allDMR_d10d135_m) <- ttest_0.05pH_allDMR_d10d135_m[,1]
+
+ttest_0.05pH_allDMR_d10d135_m <- ttest_0.05pH_allDMR_d10d135_m[,-1]
+
+#reorder columns
+ttest_0.05pH_allDMR_d10d135_m <- ttest_0.05pH_allDMR_d10d135_m[,c("EPI_119","EPI_120","EPI_135","EPI_136","EPI_151","EPI_152","EPI_153","EPI_154","EPI_103","EPI_104","EPI_127","EPI_128","EPI_159","EPI_160","EPI_161","EPI_162")]
+
+
+ttest_0.05pH_allDMR_d10d135_m <- data.matrix(ttest_0.05pH_allDMR_d10d135_m)
+
+ColSideColors <- cbind(pH = c(rep("cyan1",4),rep("cyan2",4),rep("gold1",4),rep("gold2",4)))
+
+heatmap.2(ttest_0.05pH_allDMR_d10d135_m,margins = c(10,20), cexRow = 1.2, cexCol = 1, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)),ColSideColors = ColSideColors,na.color = "black", density.info = "none", trace = "none", scale = "row", sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(ttest_0.05pH_allDMR_d10d135_m),rowsep=1:nrow(ttest_0.05pH_allDMR_d10d135_m))
+
+###Visualize group means
+#calculate group means
+Mean_allDMR_D10pHamb_ttest <- rowMeans(ttest_0.05pH_allDMR_d10d135_m[,grep("119|120|135|136", colnames(ttest_0.05pH_allDMR_d10d135_m))], na.rm = TRUE)
+
+Mean_allDMR_D10pHlow_ttest <- rowMeans(ttest_0.05pH_allDMR_d10d135_m[,grep("103|104|127|128", colnames(ttest_0.05pH_allDMR_d10d135_m))], na.rm = TRUE)
+
+Mean_allDMR_D135pHamb_ttest <- rowMeans(ttest_0.05pH_allDMR_d10d135_m[,grep("151|152|153|154", colnames(ttest_0.05pH_allDMR_d10d135_m))], na.rm = TRUE)
+
+Mean_allDMR_D135pHlow_ttest <- rowMeans(ttest_0.05pH_allDMR_d10d135_m[,grep("159|160|161|162", colnames(ttest_0.05pH_allDMR_d10d135_m))], na.rm = TRUE)
+
+###VISUALISING DMRs with pH effect after initial exposure for day10 and day 135 samples 
+#bind all group means together
+tuk_0.05_pH_allDMR_d10d135_mean_m <- data.matrix(data.frame(cbind(Mean_allDMR_D10pHamb_ttest,Mean_allDMR_D135pHamb_ttest,Mean_allDMR_D10pHlow_ttest,Mean_allDMR_D135pHlow_ttest)))
+#define color bar for group means
+ColSideColors <- cbind(pH = c(rep("cyan2",1),rep("cyan3",1),rep("gold2",1),rep("gold3",1)))
+
+jpeg("allDMR_MCmax25DMR_subtuk0.05_d10d135_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(tuk_0.05_pH_allDMR_d10d135_mean_m,margins = c(10,20), cexRow = 2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), distfun = function(x) as.dist(1-cor(t(x))), hclustfun = function(x) hclust(x, method="average"),na.color = "black", density.info = "none", trace = "none", scale = "row",sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(tuk_0.05_pH_allDMR_d10d135_mean_m),rowsep=1:nrow(tuk_0.05_pH_allDMR_d10d135_mean_m))
+dev.off()
+
+rownames(tuk_0.05_pH_allDMR_d10d135_mean_m) <- paste0("DMR_",seq(1,17))
+
+jpeg("allDMR_MCmax25DMR_subtuk0.05_d10d135_simpName_heatmap.jpg", width = 800, height = 1000)
+heatmap.2(tuk_0.05_pH_allDMR_d10d135_mean_m,margins = c(10,20), cexRow = 2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), distfun = function(x) as.dist(1-cor(t(x))), hclustfun = function(x) hclust(x, method="average"),na.color = "black", density.info = "none", trace = "none", scale = "row",sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(tuk_0.05_pH_allDMR_d10d135_mean_m),rowsep=1:nrow(tuk_0.05_pH_allDMR_d10d135_mean_m))
+dev.off()
+
+```
+
+run ANOVA on time, pH, and their interaction INCLUDING d145
+```{r}
+allDMR_2way_aov_pHxtime_d10d145 <- allDMRs_STACKED_asin[which(allDMRs_STACKED_asin$TimePoint!="Day0" & allDMRs_STACKED_asin$Initial.Treatment != "Super.Low"),] %>% group_by(ID) %>%
+do(meth_aov_models = aov(perc.meth~Initial.Treatment*TimePoint, data =  . ))
+#summarize ANOVA data
+allDMR_2way_aov_pHxtime_d10d145_modelsumm <- glance(allDMR_2way_aov_pHxtime_d10d145, meth_aov_models)
+
+allDMR_2way_tuk_pHxtime_d10d145 <- allDMRs_STACKED_asin[which( allDMRs_STACKED_asin$TimePoint!="Day0" & allDMRs_STACKED_asin$Initial.Treatment != "Super.Low"),] %>% group_by(ID) %>%
+do(meth_tuk_models = TukeyHSD(aov(perc.meth~Initial.Treatment*TimePoint, data =  . )))
+allDMR_2way_tuk_pHxtime_d10d145_modelsumm <- tidy(allDMR_2way_tuk_pHxtime_d10d145, meth_tuk_models)
+
+allDMR_2way_tuk_pH_sig0.05_d10d145 <- (allDMR_2way_tuk_pHxtime_d10d145_modelsumm[which(allDMR_2way_tuk_pHxtime_d10d145_modelsumm$comparison=="Low-Ambient" & allDMR_2way_tuk_pHxtime_d10d145_modelsumm$adj.p.value < 0.045),])
+```
+
+visualize as allDMR_2way_tuk_pH_sig0.05_d10d145 as heatmap
+```{r}
+tuk_0.05pH_allDMR_d10d145_m <- tidyr::spread(allDMRs_STACKED[which(allDMRs_STACKED$ID %in% allDMR_2way_tuk_pH_sig0.05_d10d145$ID & allDMRs_STACKED$TimePoint != "Day0" & allDMRs_STACKED_asin$Initial.Treatment!= "Super.Low"),1:3],"Sample.ID","perc.meth")
+
+rownames(tuk_0.05pH_allDMR_d10d145_m) <- tuk_0.05pH_allDMR_d10d145_m[,1]
+
+tuk_0.05pH_allDMR_d10d145_m <- tuk_0.05pH_allDMR_d10d145_m[,-1]
+
+#reorder columns
+tuk_0.05pH_allDMR_d10d145_m <- tuk_0.05pH_allDMR_d10d145_m[,c("EPI_119","EPI_120","EPI_135","EPI_136","EPI_151","EPI_152","EPI_153","EPI_154","EPI_181","EPI_182","EPI_184","EPI_185","EPI_205","EPI_206","EPI_226","EPI_227","EPI_103","EPI_104","EPI_127","EPI_128","EPI_159","EPI_160","EPI_161","EPI_162","EPI_175","EPI_176","EPI_193","EPI_194","EPI_208","EPI_209","EPI_229","EPI_230")]
+
+tuk_0.05pH_allDMR_d10d145_m <- data.matrix(tuk_0.05pH_allDMR_d10d145_m)
+#change rownames to simplified numbered DMRs
+#define color bar corresponding to treatment
+ColSideColors <- cbind(pH = c(rep("cyan1",4),rep("cyan2",4),rep("cyan3",4),rep("cyan4",4),rep("gold1",4),rep("gold2",4),rep("gold3",4),rep("gold4",4)))
+
+
+heatmap.2(tuk_0.05pH_allDMR_d10d145_m,margins = c(10,20), cexRow = 1.2, cexCol = 1, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)),ColSideColors = ColSideColors,na.color = "black", density.info = "none", trace = "none", scale = "row", sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(tuk_0.05pH_allDMR_d10d145_m),rowsep=1:nrow(tuk_0.05pH_allDMR_d10d145_m))
+
+###Visualize group means
+#calculate group means
+Mean_allDMR_D10pHamb_ttest <- rowMeans(tuk_0.05pH_allDMR_d10d145_m[,grep("119|120|135|136", colnames(tuk_0.05pH_allDMR_d10d145_m))], na.rm = TRUE)
+
+Mean_allDMR_D10pHlow_ttest <- rowMeans(tuk_0.05pH_allDMR_d10d145_m[,grep("103|104|127|128", colnames(tuk_0.05pH_allDMR_d10d145_m))], na.rm = TRUE)
+
+Mean_allDMR_D135pHamb_ttest <- rowMeans(tuk_0.05pH_allDMR_d10d145_m[,grep("151|152|153|154", colnames(tuk_0.05pH_allDMR_d10d145_m))], na.rm = TRUE)
+
+Mean_allDMR_D135pHlow_ttest <- rowMeans(tuk_0.05pH_allDMR_d10d145_m[,grep("159|160|161|162", colnames(tuk_0.05pH_allDMR_d10d145_m))], na.rm = TRUE)
+
+Mean_allDMR_D145pHaa_ttest <- rowMeans(tuk_0.05pH_allDMR_d10d145_m[,grep("181|182|184|185", colnames(tuk_0.05pH_allDMR_d10d145_m))], na.rm = TRUE)
+
+Mean_allDMR_D145pHal_ttest <- rowMeans(tuk_0.05pH_allDMR_d10d145_m[,grep("205|206|226|227", colnames(tuk_0.05pH_allDMR_d10d145_m))], na.rm = TRUE)
+
+Mean_allDMR_D145pHla_ttest <- rowMeans(tuk_0.05pH_allDMR_d10d145_m[,grep("175|176|193|194", colnames(tuk_0.05pH_allDMR_d10d145_m))], na.rm = TRUE)
+
+Mean_allDMR_D145pHll_ttest <- rowMeans(tuk_0.05pH_allDMR_d10d145_m[,grep("208|209|229|230", colnames(tuk_0.05pH_allDMR_d10d145_m))], na.rm = TRUE)
+
+
+###VISUALISING DMRs with pH effect after initial exposure for day10, day 135, and day 145 samples 
+#bind all group means together
+tuk_0.05_pH_allDMR_d10d145_mean_m <- data.matrix(data.frame(cbind(Mean_allDMR_D10pHamb_ttest,Mean_allDMR_D135pHamb_ttest,Mean_allDMR_D145pHaa_ttest,Mean_allDMR_D145pHal_ttest,Mean_allDMR_D10pHlow_ttest,Mean_allDMR_D135pHlow_ttest,Mean_allDMR_D145pHla_ttest,Mean_allDMR_D145pHll_ttest)))
+#define color bar for group means
+ColSideColors <- cbind(pH = c(rep("cyan1",1),rep("cyan2",1),rep("cyan3",1),rep("cyan4",1),rep("gold1",1),rep("gold2",1),rep("gold3",1),rep("gold4",1)))
+
+heatmap.2(tuk_0.05_pH_allDMR_d10d145_mean_m,margins = c(10,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), distfun = function(x) as.dist(1-cor(t(x))), hclustfun = function(x) hclust(x, method="average"),na.color = "black", density.info = "none", trace = "none", scale = "row",sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(tuk_0.05_pH_allDMR_d10d145_mean_m),rowsep=1:nrow(tuk_0.05_pH_allDMR_d10d145_mean_m))
+
+```
+
+
+try looking for interaction effect of initial treatment and secondary treatment on perc. methylation that isn't time affected
+
+run ANOVA on time, pH, and their interaction INCLUDING d145
+```{r}
+allDMR_2way_aov_pHxtime_d10d145 <- allDMRs_STACKED_asin[which(allDMRs_STACKED_asin$TimePoint=="Day145" & allDMRs_STACKED_asin$Initial.Treatment != "Super.Low"),] %>% group_by(ID) %>%
+do(meth_aov_models = aov(perc.meth~Initial.Treatment*Secondary.Treatment, data =  . ))
+#summarize ANOVA data
+allDMR_2way_aov_pHxtime_d10d145_modelsumm <- glance(allDMR_2way_aov_pHxtime_d10d145, meth_aov_models)
+
+allDMR_2way_tuk_pHxtime_d10d145 <- allDMRs_STACKED_asin[which( allDMRs_STACKED_asin$TimePoint=="Day145" & allDMRs_STACKED_asin$Initial.Treatment != "Super.Low"),] %>% group_by(ID) %>%
+do(meth_tuk_models = TukeyHSD(aov(perc.meth~Initial.Treatment*Secondary.Treatment, data =  . )))
+allDMR_2way_tuk_pHxtime_d10d145_modelsumm <- tidy(allDMR_2way_tuk_pHxtime_d10d145, meth_tuk_models)
+
+allDMR_2way_tuk_pH_sig0.05_d10d145 <- (allDMR_2way_tuk_pHxtime_d10d145_modelsumm[which(allDMR_2way_tuk_pHxtime_d10d145_modelsumm$comparison=="Low-Ambient" & allDMR_2way_tuk_pHxtime_d10d145_modelsumm$adj.p.value < 0.045),])
+```
+
+visualize as allDMR_2way_tuk_pH_sig0.05_d10d145 as heatmap
+```{r}
+tuk_0.05pH_allDMR_d10d145_m <- tidyr::spread(allDMRs_STACKED[which(allDMRs_STACKED$ID %in% allDMR_2way_tuk_pH_sig0.05_d10d145$ID & allDMRs_STACKED$TimePoint != "Day0" & allDMRs_STACKED_asin$Initial.Treatment!= "Super.Low"),1:3],"Sample.ID","perc.meth")
+
+rownames(tuk_0.05pH_allDMR_d10d145_m) <- tuk_0.05pH_allDMR_d10d145_m[,1]
+
+tuk_0.05pH_allDMR_d10d145_m <- tuk_0.05pH_allDMR_d10d145_m[,-1]
+
+#reorder columns
+tuk_0.05pH_allDMR_d10d145_m <- tuk_0.05pH_allDMR_d10d145_m[,c("EPI_119","EPI_120","EPI_135","EPI_136","EPI_151","EPI_152","EPI_153","EPI_154","EPI_181","EPI_182","EPI_184","EPI_185","EPI_205","EPI_206","EPI_226","EPI_227","EPI_103","EPI_104","EPI_127","EPI_128","EPI_159","EPI_160","EPI_161","EPI_162","EPI_175","EPI_176","EPI_193","EPI_194","EPI_208","EPI_209","EPI_229","EPI_230")]
+
+tuk_0.05pH_allDMR_d10d145_m <- data.matrix(tuk_0.05pH_allDMR_d10d145_m)
+#change rownames to simplified numbered DMRs
+#define color bar corresponding to treatment
+ColSideColors <- cbind(pH = c(rep("cyan1",4),rep("cyan2",4),rep("cyan3",4),rep("cyan4",4),rep("gold1",4),rep("gold2",4),rep("gold3",4),rep("gold4",4)))
+
+
+heatmap.2(tuk_0.05pH_allDMR_d10d145_m,margins = c(10,20), cexRow = 1.2, cexCol = 1, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)),ColSideColors = ColSideColors,na.color = "black", density.info = "none", trace = "none", scale = "row", sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(tuk_0.05pH_allDMR_d10d145_m),rowsep=1:nrow(tuk_0.05pH_allDMR_d10d145_m))
+
+###Visualize group means
+#calculate group means
+Mean_allDMR_D10pHamb_ttest <- rowMeans(tuk_0.05pH_allDMR_d10d145_m[,grep("119|120|135|136", colnames(tuk_0.05pH_allDMR_d10d145_m))], na.rm = TRUE)
+
+Mean_allDMR_D10pHlow_ttest <- rowMeans(tuk_0.05pH_allDMR_d10d145_m[,grep("103|104|127|128", colnames(tuk_0.05pH_allDMR_d10d145_m))], na.rm = TRUE)
+
+Mean_allDMR_D135pHamb_ttest <- rowMeans(tuk_0.05pH_allDMR_d10d145_m[,grep("151|152|153|154", colnames(tuk_0.05pH_allDMR_d10d145_m))], na.rm = TRUE)
+
+Mean_allDMR_D135pHlow_ttest <- rowMeans(tuk_0.05pH_allDMR_d10d145_m[,grep("159|160|161|162", colnames(tuk_0.05pH_allDMR_d10d145_m))], na.rm = TRUE)
+
+Mean_allDMR_D145pHaa_ttest <- rowMeans(tuk_0.05pH_allDMR_d10d145_m[,grep("181|182|184|185", colnames(tuk_0.05pH_allDMR_d10d145_m))], na.rm = TRUE)
+
+Mean_allDMR_D145pHal_ttest <- rowMeans(tuk_0.05pH_allDMR_d10d145_m[,grep("205|206|226|227", colnames(tuk_0.05pH_allDMR_d10d145_m))], na.rm = TRUE)
+
+Mean_allDMR_D145pHla_ttest <- rowMeans(tuk_0.05pH_allDMR_d10d145_m[,grep("175|176|193|194", colnames(tuk_0.05pH_allDMR_d10d145_m))], na.rm = TRUE)
+
+Mean_allDMR_D145pHll_ttest <- rowMeans(tuk_0.05pH_allDMR_d10d145_m[,grep("208|209|229|230", colnames(tuk_0.05pH_allDMR_d10d145_m))], na.rm = TRUE)
+
+
+###VISUALISING DMRs with pH effect after initial exposure for day10, day 135, and day 145 samples 
+#bind all group means together
+tuk_0.05_pH_allDMR_d10d145_mean_m <- data.matrix(data.frame(cbind(Mean_allDMR_D10pHamb_ttest,Mean_allDMR_D135pHamb_ttest,Mean_allDMR_D145pHaa_ttest,Mean_allDMR_D145pHal_ttest,Mean_allDMR_D10pHlow_ttest,Mean_allDMR_D135pHlow_ttest,Mean_allDMR_D145pHla_ttest,Mean_allDMR_D145pHll_ttest)))
+#define color bar for group means
+ColSideColors <- cbind(pH = c(rep("cyan1",1),rep("cyan2",1),rep("cyan3",1),rep("cyan4",1),rep("gold1",1),rep("gold2",1),rep("gold3",1),rep("gold4",1)))
+
+heatmap.2(tuk_0.05_pH_allDMR_d10d145_mean_m,margins = c(10,20), cexRow = 1.2, cexCol = 1,ColSideColors = ColSideColors, Colv=NA, col = rev(RColorBrewer::brewer.pal(name = "RdBu", n = 10)), distfun = function(x) as.dist(1-cor(t(x))), hclustfun = function(x) hclust(x, method="average"),na.color = "black", density.info = "none", trace = "none", scale = "row",sepwidth=c(0.025,0.025), sepcolor="darkgray",colsep=1:ncol(tuk_0.05_pH_allDMR_d10d145_mean_m),rowsep=1:nrow(tuk_0.05_pH_allDMR_d10d145_mean_m))
+
+```
