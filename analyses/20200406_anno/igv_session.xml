@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Session genome="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/GENOMES/Panopea-generosa-v1.0.fa" hasGeneTrack="false" hasSequenceTrack="true" locus="Scaffold_01:1-1358" path="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200406_anno/igv_session.xml" version="8">
+    <Resources>
+        <Resource path="/Users/Shelly/Downloads/feature_tracks/Panopea-generosa-v1.0.a4.1stexon.gff3"/>
+        <Resource path="/Users/Shelly/Downloads/feature_tracks/Panopea-generosa-v1.0.a4.putprom.gff3"/>
+        <Resource path="/Users/Shelly/Downloads/feature_tracks/Panopea-generosa-v1.0.a4.gene.gff3"/>
+        <Resource path="/Users/Shelly/Downloads/feature_tracks/Panopea-generosa-v1.0.a4.1stintron.gff3"/>
+        <Resource path="/Users/Shelly/Downloads/feature_tracks/Panopea-generosa-v1.0.a4.CDS.gff3"/>
+    </Resources>
+    <Panel height="554" name="DataPanel" width="1133">
+        <Track clazz="org.broad.igv.track.SequenceTrack" fontSize="10" id="Reference sequence" name="Reference sequence" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;44.0;255,255,255;0,0,178" fontSize="10" id="/Users/Shelly/Downloads/feature_tracks/Panopea-generosa-v1.0.a4.1stintron.gff3" name="Panopea-generosa-v1.0.a4.1stintron.gff3" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;65.0;255,255,255;0,0,178" fontSize="10" id="/Users/Shelly/Downloads/feature_tracks/Panopea-generosa-v1.0.a4.1stexon.gff3" name="Panopea-generosa-v1.0.a4.1stexon.gff3" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;63.0;255,255,255;0,0,178" fontSize="10" id="/Users/Shelly/Downloads/feature_tracks/Panopea-generosa-v1.0.a4.putprom.gff3" name="Panopea-generosa-v1.0.a4.putprom.gff3" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;63.0;255,255,255;0,0,178" fontSize="10" id="/Users/Shelly/Downloads/feature_tracks/Panopea-generosa-v1.0.a4.gene.gff3" name="Panopea-generosa-v1.0.a4.gene.gff3" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;766.0;255,255,255;0,0,178" fontSize="10" id="/Users/Shelly/Downloads/feature_tracks/Panopea-generosa-v1.0.a4.CDS.gff3" name="Panopea-generosa-v1.0.a4.CDS.gff3" visible="true"/>
+    </Panel>
+    <HiddenAttributes>
+        <Attribute name="DATA FILE"/>
+        <Attribute name="DATA TYPE"/>
+        <Attribute name="NAME"/>
+    </HiddenAttributes>
+</Session>

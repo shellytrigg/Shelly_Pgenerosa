@@ -1,0 +1,172 @@
+---
+title: "Untitled"
+author: "Shelly Trigg"
+date: "4/6/2020"
+output: html_document
+---
+
+load libraries
+```{r}
+library(ggplot2)
+library(RColorBrewer)
+```
+
+read in data
+```{r}
+# read in features that DMRs overlap with
+amb_DMR_feat <- read.table("../20200403_anno/aov_0.05pH_amb_0403.txt", sep = "\t", stringsAsFactors = FALSE)
+
+d10_DMR_feat <- read.table("../20200403_anno/aov_0.05pH_d10_0403.txt", sep = "\t", stringsAsFactors = FALSE)
+
+d135_DMR_feat <- read.table("../20200403_anno/aov_0.05pH_d135_0403.txt", sep = "\t", stringsAsFactors = FALSE)
+
+d145_DMR_feat <- read.table("../20200403_anno/aov_0.05pH_d145_0403.txt", sep = "\t", stringsAsFactors = FALSE)
+
+# read in features that covered regions (background) overlap with
+amb_feat <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20200406/amb_features.3CpG.txt", sep = "\t", stringsAsFactors = FALSE)
+
+d10_feat <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20200406/day10_features.3CpG.txt", sep = "\t", stringsAsFactors = FALSE)
+
+d135_feat <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20200406/day135_features.3CpG.txt", sep = "\t", stringsAsFactors = FALSE)
+
+d145_feat <- read.table("/Volumes/web/metacarcinus/Pgenerosa/analyses/20200406/day145_features.3CpG.txt", sep = "\t", stringsAsFactors = FALSE)
+```
+
+
+format data for plotting
+```{r}
+# ambient data 
+
+amb_DMR_feat <- amb_DMR_feat[,-c(1:3)]
+d10_DMR_feat <- d10_DMR_feat[,-c(1:3)]
+d135_DMR_feat <- d135_DMR_feat[,-c(1:3)]
+d145_DMR_feat <- d145_DMR_feat[,-c(1:3)]
+
+DMR_feat <- rbind(amb_DMR_feat,d10_DMR_feat,d135_DMR_feat,d145_DMR_feat)
+
+colnames(DMR_feat) <- c("comparison", "scaffold", "start", "end", "feature")
+
+amb_feat$comparison <- "amb"
+d10_feat$comparison <- "d10"
+d135_feat$comparison <- "d135"
+d145_feat$comparison <- "d145"
+
+feat <- rbind(amb_feat,d10_feat, d135_feat, d145_feat)
+
+colnames(feat) <- c("scaffold", "start", "end", "feature","comparison")
+
+feat <- feat[,c(5,1:4)]
+  
+DMR_feat$region <- "DMR"
+feat$region <- "all_cov_regions"
+
+#combine all features and DMRs
+feat_combined <- rbind(DMR_feat, feat)
+
+#plot a two series bar plot
+jpeg("2Col_barplot_feats.jpg", width = 11, height = 6, units = "in", res =300)
+ggplot(feat_combined, aes(feature, group = region)) + geom_bar(aes(y = ..prop.., fill = factor(region)), stat="count", position="dodge") + scale_y_continuous(labels=scales::percent) + xlab("feature") + ylab("% of total regions") + facet_wrap(~comparison,ncol = 4) + theme_bw() + theme(axis.text.x = element_text(size = 7, angle = 60, hjust = 1), axis.title = element_text(size = 12, face = "bold"))
+dev.off()
+
+jpeg("stacked_feats.jpg", width = 11, height = 8, units = "in", res =300)
+ggplot(feat_combined,aes(x = region, y = ..count.., fill = factor(feature))) + geom_bar(position = "fill", color = "black") + scale_y_continuous(labels=scales::percent) + ylab("% of total regions") + facet_wrap(~comparison,ncol = 4) + theme_bw() + theme(axis.text.x = element_text(size = 7, angle = 60, hjust = 1), axis.title = element_text(size = 12, face = "bold")) + scale_fill_manual("Feature",values = RColorBrewer::brewer.pal(9,"BuGn"))
+dev.off()
+
+
+aes(y = ..count../sum(..count..)*100, x = factor(region), group = region, fill = feature)
+
+ggplot(data, aes(fill=condition, y=value, x=specie)) + 
+    geom_bar(position="fill", stat="identity")
+
+
+categories  <- aggregate(region~feature,feat_combined,function(x)length(unique(x)))  # number of sub-category for each category
+category.palettes  <- c("RdPu","Reds","Oranges","YlGn","Greens","Blues","BuPu","Purples","Greys")
+colors <- unlist(lapply(1:nrow(categories),function(i){colorRampPalette(brewer.pal(9,category.palettes[i])[3:7])(categories[i,2])}))
+features <- sort(unique(feat_combined$feature))
+
+#plot a two series bar plot
+ggplot(feat_combined) + geom_bar(aes(x =  feature, y = ..prop.., group = region, fill = interaction(factor(region),factor(feature))), stat="count", position="dodge") + scale_y_continuous(labels=scales::percent) + ylab("% of total regions") + theme_bw() + facet_wrap(~comparison,ncol = 4) + scale_fill_manual(values=colors)
+
+
+#plot a two series bar plot
+ggplot(feat_combined, aes(feature, group = region)) + geom_bar(aes(y = ..prop.., fill = interaction(region,feature)), stat="count", position="dodge") + scale_y_continuous(labels=scales::percent) + xlab("feature") + ylab("% of total regions") + facet_wrap(~comparison,ncol = 4) + theme_bw() + theme(axis.text.x = element_text(size = 7, angle = 60, hjust = 1), axis.title = element_text(size = 12, face = "bold")) + scale_fill_manual(values=c(colors, "white"))
+
+
+g <- ggplot(example, aes(x=Name, y=Mean,fill=interaction(Dose,Name) ))
+g <- g + geom_bar(stat="identity", position="dodge") 
+g <- g + geom_errorbar(aes(ymax=Mean+Upper.SEM, ymin=Mean-Lower.SEM), position=position_dodge(0.9), width=0.5)
+g <- g+ scale_fill_manual( values=colors, breaks=paste0("1.",names),labels=names)
+g
+```
+
+
+
+
+```{r}
+amb_DMR_feat_summary <- data.frame(table(amb_DMR_feat$V8))
+
+colnames(amb_DMR_feat_summary) <- c("feature", "numDMR")
+
+amb_feat_summary <- data.frame(table(amb_feat$V4))
+
+colnames(amb_feat_summary) <- c("feature", "numRegion")
+
+amb_feat_summ <- merge(amb_DMR_feat_summary, amb_feat_summary, by = "feature")
+
+amb_feat_DMR_total <- sum(amb_feat_summ$numDMR)
+amb_feat_region_total <- sum(amb_feat_summ$numRegion)
+
+
+
+#create contingency tables
+x <- c(amb_feat_summ$numDMR[1],amb_feat_DMR_total,amb_feat_summ$numRegion[1],amb_feat_region_total)
+
+M <- as.matrix(amb_feat_summ[,-1])
+dimnames(M) <- list(feature = amb_feat_summ$feature, region = colnames(M))
+
+(Xsq <- chisq.test(M))
+
+
+
+survivors <- matrix(c(1781,1443,135,47), ncol=2)
+colnames(survivors) <- c('survived','died')
+rownames(survivors) <- c('no seat belt','seat belt')
+survivors
+      survived died
+no seat belt   1781 135
+seat belt    1443  47
+    
+    CDS notCDS
+Region
+DMR
+
+cds <- matrix(c(5844,32,72800,250), ncol = 2)
+colnames(cds) <- c("CDS","NotCDS")
+rownames(cds) <- c("Region", "DMR")
+prop.test(cds, correct = FALSE)
+
+
+gene <- matrix(c(14461,48,64183,234), ncol = 2)
+colnames(gene) <- c("gene","Notgene")
+rownames(gene) <- c("Region", "DMR")
+prop.test(gene, correct = FALSE)
+
+intron <- matrix(c(9222,25,(amb_feat_region_total-9222),(amb_feat_DMR_total-25)), ncol = 2)
+colnames(intron) <- c("gene","Notgene")
+rownames(intron) <- c("Region", "DMR")
+prop.test(intron, correct = FALSE)
+
+
+
+mRNA <- matrix(c(15805,49,(amb_feat_region_total-15805),(amb_feat_DMR_total-49)), ncol = 2)
+colnames(mRNA) <- c("gene","Notgene")
+rownames(mRNA) <- c("Region", "DMR")
+prop.test(mRNA, correct = FALSE)
+
+
+
+
+
+
+
+```
