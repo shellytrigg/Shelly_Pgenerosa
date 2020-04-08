@@ -107,7 +107,7 @@ for(i in 1:nrow(amb_feat_summ)){ #loop through each feature
   totDMR <- (amb_feat_DMR_total - numDMRreg) # variable for total number background regions in all features minus the number of background regions for specific feature
   totBKGD <- (amb_feat_region_total - numBKGDReg)  # variable for total number DMRs in all features minus the number of DMRs for specific feature
   ct <- matrix(c(numBKGDReg,numDMRreg,totBKGD,totDMR), ncol = 2) # create contingency table
-  colnames(ct) <- c(amb_feat_summ$feature[i],paste0("Not",amb_feat_summ$feature[i])) #label columns of contingency table
+  colnames(ct) <- c(as.character(amb_feat_summ$feature[i]),paste0("Not",amb_feat_summ$feature[i])) #label columns of contingency table
   rownames(ct) <- c("Region", "DMR") #lab rows of contingency table
   print(ct)
   x <-  data.frame(broom::tidy(prop.test(ct, correct = FALSE))) # create data frame storing the Chi sq stats results
@@ -117,4 +117,162 @@ for(i in 1:nrow(amb_feat_summ)){ #loop through each feature
 
 #adjust chi pvalues
 chi_table$p.adj <- p.adjust(chi_table$p.value, method = "fdr")
+
+#merge chi table with region counts
+chi_table <- merge(amb_feat_summ,chi_table, by = "feature")
+
+amb_chi_table <- chi_table
+amb_chi_table$comparison <- "amb"
+```
+
+day 10
+```{r}
+# create table with feature totals for DMRs
+d10_DMR_feat_summary <- data.frame(table(d10_DMR_feat$V8))
+#rename columns
+colnames(d10_DMR_feat_summary) <- c("feature", "numDMR")
+ 
+# create table with feature totals for background regions
+d10_feat_summary <- data.frame(table(d10_feat$V4))
+#rename columns
+colnames(d10_feat_summary) <- c("feature", "numRegion")
+
+#merge background and DMR feature totals 
+d10_feat_summ <- merge(d10_DMR_feat_summary, d10_feat_summary, by = "feature", all = TRUE)
+
+#replace NAs with 0
+d10_feat_summ[is.na(d10_feat_summ)] <- 0
+
+#create variables for the sum of all DMR and background features
+d10_feat_DMR_total <- sum(d10_feat_summ$numDMR)
+d10_feat_region_total <- sum(d10_feat_summ$numRegion)
+
+#create a table with Chi stats for each feature
+chi_table <- data.frame() #create empty df
+for(i in 1:nrow(d10_feat_summ)){ #loop through each feature
+  numBKGDReg <-d10_feat_summ$numRegion[i] # variable for number of background regions for specific feature
+  numDMRreg <- d10_feat_summ$numDMR[i] # variable for number of DMRs for specific feature
+  totDMR <- (d10_feat_DMR_total - numDMRreg) # variable for total number background regions in all features minus the number of background regions for specific feature
+  totBKGD <- (d10_feat_region_total - numBKGDReg)  # variable for total number DMRs in all features minus the number of DMRs for specific feature
+  ct <- matrix(c(numBKGDReg,numDMRreg,totBKGD,totDMR), ncol = 2) # create contingency table
+  colnames(ct) <- c(as.character(d10_feat_summ$feature[i]),paste0("Not",d10_feat_summ$feature[i])) #label columns of contingency table
+  rownames(ct) <- c("Region", "DMR") #lab rows of contingency table
+  print(ct)
+  x <-  data.frame(broom::tidy(prop.test(ct, correct = FALSE))) # create data frame storing the Chi sq stats results
+  x$feature <- as.character(d10_feat_summ$feature[i]) # add feature name to chi sq df
+  chi_table <- rbind(chi_table,x) #add chi sq stats to master table
+}
+
+#adjust chi pvalues
+chi_table$p.adj <- p.adjust(chi_table$p.value, method = "fdr")
+
+#merge chi table with region counts
+chi_table <- merge(d10_feat_summ,chi_table, by = "feature")
+
+d10_chi_table <- chi_table
+d10_chi_table$comparison <- "d10"
+```
+
+day 135
+```{r}
+# create table with feature totals for DMRs
+d135_DMR_feat_summary <- data.frame(table(d135_DMR_feat$V8))
+#rename columns
+colnames(d135_DMR_feat_summary) <- c("feature", "numDMR")
+ 
+# create table with feature totals for background regions
+d135_feat_summary <- data.frame(table(d135_feat$V4))
+#rename columns
+colnames(d135_feat_summary) <- c("feature", "numRegion")
+
+#merge background and DMR feature totals 
+d135_feat_summ <- merge(d135_DMR_feat_summary, d135_feat_summary, by = "feature", all = TRUE)
+
+#replace NAs with 0
+d135_feat_summ[is.na(d135_feat_summ)] <- 0
+
+#create variables for the sum of all DMR and background features
+d135_feat_DMR_total <- sum(d135_feat_summ$numDMR)
+d135_feat_region_total <- sum(d135_feat_summ$numRegion)
+
+#create a table with Chi stats for each feature
+chi_table <- data.frame() #create empty df
+for(i in 1:nrow(d135_feat_summ)){ #loop through each feature
+  numBKGDReg <-d135_feat_summ$numRegion[i] # variable for number of background regions for specific feature
+  numDMRreg <- d135_feat_summ$numDMR[i] # variable for number of DMRs for specific feature
+  totDMR <- (d135_feat_DMR_total - numDMRreg) # variable for total number background regions in all features minus the number of background regions for specific feature
+  totBKGD <- (d135_feat_region_total - numBKGDReg)  # variable for total number DMRs in all features minus the number of DMRs for specific feature
+  ct <- matrix(c(numBKGDReg,numDMRreg,totBKGD,totDMR), ncol = 2) # create contingency table
+  colnames(ct) <- c(as.character(d135_feat_summ$feature[i]),paste0("Not",d135_feat_summ$feature[i])) #label columns of contingency table
+  rownames(ct) <- c("Region", "DMR") #lab rows of contingency table
+  print(ct)
+  x <-  data.frame(broom::tidy(prop.test(ct, correct = FALSE))) # create data frame storing the Chi sq stats results
+  x$feature <- as.character(d135_feat_summ$feature[i]) # add feature name to chi sq df
+  chi_table <- rbind(chi_table,x) #add chi sq stats to master table
+}
+
+#adjust chi pvalues
+chi_table$p.adj <- p.adjust(chi_table$p.value, method = "fdr")
+
+#merge chi table with region counts
+chi_table <- merge(d135_feat_summ,chi_table, by = "feature")
+
+d135_chi_table <- chi_table
+d135_chi_table$comparison <- "d135"
+```
+
+day 145
+```{r}
+# create table with feature totals for DMRs
+d145_DMR_feat_summary <- data.frame(table(d145_DMR_feat$V8))
+#rename columns
+colnames(d145_DMR_feat_summary) <- c("feature", "numDMR")
+ 
+# create table with feature totals for background regions
+d145_feat_summary <- data.frame(table(d145_feat$V4))
+#rename columns
+colnames(d145_feat_summary) <- c("feature", "numRegion")
+
+#merge background and DMR feature totals 
+d145_feat_summ <- merge(d145_DMR_feat_summary, d145_feat_summary, by = "feature", all = TRUE)
+
+#replace NAs with 0
+d145_feat_summ[is.na(d145_feat_summ)] <- 0
+
+#create variables for the sum of all DMR and background features
+d145_feat_DMR_total <- sum(d145_feat_summ$numDMR)
+d145_feat_region_total <- sum(d145_feat_summ$numRegion)
+
+#create a table with Chi stats for each feature
+chi_table <- data.frame() #create empty df
+for(i in 1:nrow(d145_feat_summ)){ #loop through each feature
+  numBKGDReg <-d145_feat_summ$numRegion[i] # variable for number of background regions for specific feature
+  numDMRreg <- d145_feat_summ$numDMR[i] # variable for number of DMRs for specific feature
+  totDMR <- (d145_feat_DMR_total - numDMRreg) # variable for total number background regions in all features minus the number of background regions for specific feature
+  totBKGD <- (d145_feat_region_total - numBKGDReg)  # variable for total number DMRs in all features minus the number of DMRs for specific feature
+  ct <- matrix(c(numBKGDReg,numDMRreg,totBKGD,totDMR), ncol = 2) # create contingency table
+  colnames(ct) <- c(as.character(d145_feat_summ$feature[i]),paste0("Not",d145_feat_summ$feature[i])) #label columns of contingency table
+  rownames(ct) <- c("Region", "DMR") #lab rows of contingency table
+  print(ct)
+  x <-  data.frame(broom::tidy(prop.test(ct, correct = FALSE))) # create data frame storing the Chi sq stats results
+  x$feature <- as.character(d145_feat_summ$feature[i]) # add feature name to chi sq df
+  chi_table <- rbind(chi_table,x) #add chi sq stats to master table
+}
+
+#adjust chi pvalues
+chi_table$p.adj <- p.adjust(chi_table$p.value, method = "fdr")
+
+#merge chi table with region counts
+chi_table <- merge(d145_feat_summ,chi_table, by = "feature")
+
+d145_chi_table <- chi_table
+d145_chi_table$comparison <- "d145"
+```
+
+combine all chi sq comparisons together
+```{r}
+all_chi <- rbind(amb_chi_table,d10_chi_table,d135_chi_table,d145_chi_table)
+
+write.csv(all_chi,"chi_table.csv", row.names = FALSE, quote = FALSE)
+
 ```
