@@ -73,100 +73,48 @@ ggplot(feat_combined,aes(x = region, y = ..count.., fill = factor(feature))) + g
 dev.off()
 
 
-aes(y = ..count../sum(..count..)*100, x = factor(region), group = region, fill = feature)
-
-ggplot(data, aes(fill=condition, y=value, x=specie)) + 
-    geom_bar(position="fill", stat="identity")
-
-
-categories  <- aggregate(region~feature,feat_combined,function(x)length(unique(x)))  # number of sub-category for each category
-category.palettes  <- c("RdPu","Reds","Oranges","YlGn","Greens","Blues","BuPu","Purples","Greys")
-colors <- unlist(lapply(1:nrow(categories),function(i){colorRampPalette(brewer.pal(9,category.palettes[i])[3:7])(categories[i,2])}))
-features <- sort(unique(feat_combined$feature))
-
-#plot a two series bar plot
-ggplot(feat_combined) + geom_bar(aes(x =  feature, y = ..prop.., group = region, fill = interaction(factor(region),factor(feature))), stat="count", position="dodge") + scale_y_continuous(labels=scales::percent) + ylab("% of total regions") + theme_bw() + facet_wrap(~comparison,ncol = 4) + scale_fill_manual(values=colors)
-
-
-#plot a two series bar plot
-ggplot(feat_combined, aes(feature, group = region)) + geom_bar(aes(y = ..prop.., fill = interaction(region,feature)), stat="count", position="dodge") + scale_y_continuous(labels=scales::percent) + xlab("feature") + ylab("% of total regions") + facet_wrap(~comparison,ncol = 4) + theme_bw() + theme(axis.text.x = element_text(size = 7, angle = 60, hjust = 1), axis.title = element_text(size = 12, face = "bold")) + scale_fill_manual(values=c(colors, "white"))
-
-
-g <- ggplot(example, aes(x=Name, y=Mean,fill=interaction(Dose,Name) ))
-g <- g + geom_bar(stat="identity", position="dodge") 
-g <- g + geom_errorbar(aes(ymax=Mean+Upper.SEM, ymin=Mean-Lower.SEM), position=position_dodge(0.9), width=0.5)
-g <- g+ scale_fill_manual( values=colors, breaks=paste0("1.",names),labels=names)
-g
 ```
 
 
 
 
 ```{r}
+# create table with feature totals for DMRs
 amb_DMR_feat_summary <- data.frame(table(amb_DMR_feat$V8))
-
+#rename columns
 colnames(amb_DMR_feat_summary) <- c("feature", "numDMR")
-
+ 
+# create table with feature totals for background regions
 amb_feat_summary <- data.frame(table(amb_feat$V4))
-
+#rename columns
 colnames(amb_feat_summary) <- c("feature", "numRegion")
 
-amb_feat_summ <- merge(amb_DMR_feat_summary, amb_feat_summary, by = "feature")
+#merge background and DMR feature totals 
+amb_feat_summ <- merge(amb_DMR_feat_summary, amb_feat_summary, by = "feature", all = TRUE)
 
+#replace NAs with 0
+amb_feat_summ[is.na(amb_feat_summ)] <- 0
+
+#create variables for the sum of all DMR and background features
 amb_feat_DMR_total <- sum(amb_feat_summ$numDMR)
 amb_feat_region_total <- sum(amb_feat_summ$numRegion)
 
+#create a table with Chi stats for each feature
+chi_table <- data.frame() #create empty df
+for(i in 1:nrow(amb_feat_summ)){ #loop through each feature
+  numBKGDReg <-amb_feat_summ$numRegion[i] # variable for number of background regions for specific feature
+  numDMRreg <- amb_feat_summ$numDMR[i] # variable for number of DMRs for specific feature
+  totDMR <- (amb_feat_DMR_total - numDMRreg) # variable for total number background regions in all features minus the number of background regions for specific feature
+  totBKGD <- (amb_feat_region_total - numBKGDReg)  # variable for total number DMRs in all features minus the number of DMRs for specific feature
+  ct <- matrix(c(numBKGDReg,numDMRreg,totBKGD,totDMR), ncol = 2) # create contingency table
+  colnames(ct) <- c(amb_feat_summ$feature[i],paste0("Not",amb_feat_summ$feature[i])) #label columns of contingency table
+  rownames(ct) <- c("Region", "DMR") #lab rows of contingency table
+  print(ct)
+  x <-  data.frame(broom::tidy(prop.test(ct, correct = FALSE))) # create data frame storing the Chi sq stats results
+  x$feature <- as.character(amb_feat_summ$feature[i]) # add feature name to chi sq df
+  chi_table <- rbind(chi_table,x) #add chi sq stats to master table
+}
 
-
-#create contingency tables
-x <- c(amb_feat_summ$numDMR[1],amb_feat_DMR_total,amb_feat_summ$numRegion[1],amb_feat_region_total)
-
-M <- as.matrix(amb_feat_summ[,-1])
-dimnames(M) <- list(feature = amb_feat_summ$feature, region = colnames(M))
-
-(Xsq <- chisq.test(M))
-
-
-
-survivors <- matrix(c(1781,1443,135,47), ncol=2)
-colnames(survivors) <- c('survived','died')
-rownames(survivors) <- c('no seat belt','seat belt')
-survivors
-      survived died
-no seat belt   1781 135
-seat belt    1443  47
-    
-    CDS notCDS
-Region
-DMR
-
-cds <- matrix(c(5844,32,72800,250), ncol = 2)
-colnames(cds) <- c("CDS","NotCDS")
-rownames(cds) <- c("Region", "DMR")
-prop.test(cds, correct = FALSE)
-
-
-gene <- matrix(c(14461,48,64183,234), ncol = 2)
-colnames(gene) <- c("gene","Notgene")
-rownames(gene) <- c("Region", "DMR")
-prop.test(gene, correct = FALSE)
-
-intron <- matrix(c(9222,25,(amb_feat_region_total-9222),(amb_feat_DMR_total-25)), ncol = 2)
-colnames(intron) <- c("gene","Notgene")
-rownames(intron) <- c("Region", "DMR")
-prop.test(intron, correct = FALSE)
-
-
-
-mRNA <- matrix(c(15805,49,(amb_feat_region_total-15805),(amb_feat_DMR_total-49)), ncol = 2)
-colnames(mRNA) <- c("gene","Notgene")
-rownames(mRNA) <- c("Region", "DMR")
-prop.test(mRNA, correct = FALSE)
-
-
-
-
-
-
-
+#adjust chi pvalues
+chi_table$p.adj <- p.adjust(chi_table$p.value, method = "fdr")
 ```
