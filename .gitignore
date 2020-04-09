@@ -9,3 +9,6 @@
 .Rproj.user
 *.RData
 *.Rhistory
+*allc.tsv
+*checkpoint.ipynb
+*.bedgraph
