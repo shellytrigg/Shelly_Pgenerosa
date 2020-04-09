@@ -236,6 +236,16 @@ do(meth_aov_models = aov(perc.meth~Initial.Treatment, data =  . ))
 d10DMR_1way_aov_pH_modelsumm <- glance(d10DMR_1way_aov_pH, meth_aov_models)
 #write ANOVA output to file
 write.csv(d10DMR_1way_aov_pH_modelsumm, "d10DMR_1way_aov_pH_modelsumm.csv", row.names = FALSE, quote = FALSE)
+
+#run Tukey posthoc
+d10DMR_1way_tuk <- d10DMRs_STACKED_asin %>% group_by(ID) %>%
+do(meth_tuk_models = TukeyHSD(aov(perc.meth~Initial.Treatment, data =  . )))
+#summarize Tukey results
+d10DMR_1way_tuk_modelsumm <- tidy(d10DMR_1way_tuk, meth_tuk_models)
+#reformat table to spread
+d10DMR_1way_tuk_modelsumm <- tidyr::spread(d10DMR_1way_tuk_modelsumm[,c(1,2,3,7)],"comparison","adj.p.value")
+
+
 ```
 
 **Hypotehsis: there is no effect from pH at day135**
