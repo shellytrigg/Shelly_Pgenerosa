@@ -478,28 +478,28 @@ HEATMAP OF GROUP MEANS (like Hollie's)
 colnames(aov_0.05pH_ambDMR_mean_m) <- c("Day 0", "Day 10", "Day 135", "Day 145")
 
 jpeg("amb_MCmax25DMR_Taov0.05_GROUPmean_heatmap2.jpg", width = 700, height = 1000)
-heatmap.2(aov_0.05pH_ambDMR_mean_m,margins = c(10,20), cexCol = 2, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.01,0.01),sepcolor="white",colsep=1:ncol(aov_0.05pH_ambDMR_mean_m),rowsep=1:nrow(aov_0.05pH_ambDMR_mean_m))
+heatmap.2(aov_0.05pH_ambDMR_mean_m,margins = c(10,20), cexCol = 2, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.01,0.01),sepcolor="white",colsep=1:ncol(aov_0.05pH_ambDMR_mean_m),rowsep=1:nrow(aov_0.05pH_ambDMR_mean_m),keysize=0.5, key.par = list(cex=1),lhei=c(1.5,4,1), lwid = c(1.5,4),lmat = rbind(c(0,3),c(2,1),c(4,0)))
 dev.off()
 
 #plot for day10 group mean comparison
 colnames(aov_0.05pH_d10DMR_mean_m) <- c("pH 8.0", "pH 7.4", "pH 7.0")
 
 jpeg("d10_MCmax25DMR_Taov0.05_GROUPmean_heatmap2.jpg", width = 600, height = 1000)
-heatmap.2(aov_0.05pH_d10DMR_mean_m,margins = c(10,20), cexCol = 2, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.01,0.01),sepcolor="white",colsep=1:ncol(aov_0.05pH_d10DMR_mean_m),rowsep=1:nrow(aov_0.05pH_ambDMR_mean_m))
+heatmap.2(aov_0.05pH_d10DMR_mean_m,margins = c(10,20), cexCol = 2, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.01,0.01),sepcolor="white",colsep=1:ncol(aov_0.05pH_d10DMR_mean_m),rowsep=1:nrow(aov_0.05pH_d10DMR_mean_m),keysize=0.5, key.par = list(cex=1),lhei=c(1.5,4,1), lwid = c(1.5,4),lmat = rbind(c(0,3),c(2,1),c(4,0)))
 dev.off()
 
 #plot for day135 group mean comparison
 colnames(aov_0.05pH_d135DMR_mean_m) <- c("pH 8.0", "pH 7.4", "pH 7.0")
 
 jpeg("d135_MCmax25DMR_Taov0.05_GROUPmean_heatmap2.jpg", width = 600, height = 1000)
-heatmap.2(aov_0.05pH_d135DMR_mean_m,margins = c(10,20), cexCol = 2, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.01,0.01),sepcolor="white",colsep=1:ncol(aov_0.05pH_d135DMR_mean_m),rowsep=1:nrow(aov_0.05pH_ambDMR_mean_m))
+heatmap.2(aov_0.05pH_d135DMR_mean_m,margins = c(10,20), cexCol = 2, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.01,0.01),sepcolor="white",colsep=1:ncol(aov_0.05pH_d135DMR_mean_m),rowsep=1:nrow(aov_0.05pH_d135DMR_mean_m),keysize=0.5, key.par = list(cex=1),lhei=c(1.5,4,1), lwid = c(1.5,4),lmat = rbind(c(0,3),c(2,1),c(4,0)))
 dev.off()
 
 #plot for day145 group mean comparison
 colnames(aov_0.05pH_d145DMR_mean_m) <- c("pH 8.0 -> pH 8.0", "pH 8.0 -> pH 7.4","pH 7.4 -> pH 8.0","pH 7.4 -> pH 7.4", "pH 7.0 -> pH 8.0", "pH 7.0 -> pH 7.4")
 
 jpeg("d145_MCmax25DMR_Taov0.05_GROUPmean_heatmap2.jpg", width = 800, height = 1000)
-heatmap.2(aov_0.05pH_d145DMR_mean_m,margins = c(12,15), cexCol = 1.5, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.01,0.01),sepcolor="white",colsep=1:ncol(aov_0.05pH_d145DMR_mean_m),rowsep=1:nrow(aov_0.05pH_ambDMR_mean_m))
+heatmap.2(aov_0.05pH_d145DMR_mean_m,margins = c(12,15), cexCol = 1.5, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), lmat = rbind(c(0,3),c(2,1),c(4,0)),na.color = "black", density.info = "none", trace = "none", scale = "row", keysize=1, key.par = list(cex=1),labRow = FALSE,sepwidth=c(0.1,0.01), lhei=c(1.5,4,1),lwid= c(1.0, 5), sepcolor="white",colsep=seq(2,ncol(aov_0.05pH_d145DMR_mean_m),2),rowsep=1:nrow(aov_0.05pH_ambDMR_mean_m))
 dev.off()
 ```
 
@@ -548,3 +548,29 @@ aov_0.05pH_ambDMR_bed <- aov_0.05pH_ambDMR_bed[,c((ncol(aov_0.05pH_ambDMR_bed)-3
 write.table(aov_0.05pH_ambDMR_bed,"aov_0.05pH_ambDMR.bed", row.names = FALSE,col.names = FALSE, quote = FALSE,sep = "\t")
 ```
 
+#determine color breaks
+```{r}
+#broadest scale is the day 145 comparison
+# make a heatmap object
+h <- heatmap.2(aov_0.05pH_d145DMR_mean_m,margins = c(12,15), cexCol = 1.5, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256)), na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.1,0.01),lwid= c(1.0, 5), sepcolor="white",colsep=seq(2,ncol(aov_0.05pH_d145DMR_mean_m),2),rowsep=1:nrow(aov_0.05pH_ambDMR_mean_m))
+
+#View color table
+h$colorTable
+
+max <- 2.05
+min <- -2.05
+
+colbreak <- c(seq(-2.05,2.05,length=257))
+mycolors <- rev(colorRampPalette(brewer.pal(10, "RdYlBu"))(256))
+
+heatmap.2(aov_0.05pH_d145DMR_mean_m,margins = c(12,15), cexCol = 1.5, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), hclustfun = function(x) hclust(x,method = 'average'),Colv=NA, col= mycolors, breaks = colbreak, na.color = "black", density.info = "none", trace = "none", scale = "row", labRow = FALSE,sepwidth=c(0.1,0.01),lwid= c(1.0, 5), sepcolor="white",colsep=seq(2,ncol(aov_0.05pH_d145DMR_mean_m),2),rowsep=1:nrow(aov_0.05pH_ambDMR_mean_m))
+
+#got warning: 
+Warning messages:
+1: In heatmap.2(aov_0.05pH_d145DMR_mean_m, margins = c(12, 15), cexCol = 1.5,  :
+  Using scale="row" or scale="column" when breaks arespecified can produce unpredictable results.Please consider using only one or the other.
+2: In heatmap.2(aov_0.05pH_d145DMR_mean_m, margins = c(12, 15), cexCol = 1.5,  :
+  Discrepancy: Colv is FALSE, while dendrogram is `both'. Omitting column dendogram.
+
+Just keep row = scale and don't force breaks
+```
