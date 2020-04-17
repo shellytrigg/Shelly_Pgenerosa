@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Session genome="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/GENOMES/Panopea-generosa-v1.0.fa" hasGeneTrack="false" hasSequenceTrack="true" locus="Scaffold_02:36479864-36489433" path="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/IGV/igv_session.xml" version="8">
+    <Resources>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR50bp_cov5x_rms_results_collapsed.tsv.DMR.bed"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR500bp_cov5x_rms_results_collapsed.tsv.DMR.bed"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR100bp_cov5x_rms_results_collapsed.tsv.DMR.bed"/>
+        <Resource path="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_200_sigDMR.bed"/>
+        <Resource path="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_250_sigDMR.bed"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR150bp_cov5x_rms_results_collapsed.tsv.DMR.bed"/>
+        <Resource path="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_150_sigDMR.bed"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200327/day10_AllpH_DMR250bp_cov5x_rms_results_collapsed.tsv.DMR.bed"/>
+        <Resource path="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_50_sigDMR.bed"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR300bp_cov5x_rms_results_collapsed.tsv.DMR.bed"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR1000bp_cov5x_rms_results_collapsed.tsv.DMR.bed"/>
+        <Resource path="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_500_sigDMR.bed"/>
+        <Resource path="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_100_sigDMR.bed"/>
+        <Resource path="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_1000_sigDMR.bed"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR200bp_cov5x_rms_results_collapsed.tsv.DMR.bed"/>
+        <Resource path="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR25bp_cov5x_rms_results_collapsed.tsv.DMR.bed"/>
+        <Resource path="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_25_sigDMR.bed"/>
+        <Resource path="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_300_sigDMR.bed"/>
+    </Resources>
+    <Panel height="720" name="DataPanel" width="1049">
+        <Track clazz="org.broad.igv.track.SequenceTrack" fontSize="10" height="27" id="Reference sequence" name="Reference sequence" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;1.0;255,255,255;0,0,178" fontSize="10" height="27" id="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_25_sigDMR.bed" name="Prox_25_sigDMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;2.0;255,255,255;0,0,178" fontSize="10" height="28" id="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_50_sigDMR.bed" name="Prox_50_sigDMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;3.0;255,255,255;0,0,178" fontSize="10" height="27" id="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_100_sigDMR.bed" name="Prox_100_sigDMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;2.0;255,255,255;0,0,178" fontSize="10" height="28" id="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_150_sigDMR.bed" name="Prox_150_sigDMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;2.0;255,255,255;0,0,178" fontSize="10" height="27" id="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_200_sigDMR.bed" name="Prox_200_sigDMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;4.0;255,255,255;0,0,178" fontSize="10" height="27" id="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_250_sigDMR.bed" name="Prox_250_sigDMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;4.0;255,255,255;0,0,178" fontSize="10" height="28" id="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_300_sigDMR.bed" name="Prox_300_sigDMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;4.0;255,255,255;0,0,178" fontSize="10" height="27" id="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_500_sigDMR.bed" name="Prox_500_sigDMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;2.0;255,255,255;0,0,178" fontSize="10" height="28" id="/Users/Shelly/Documents/GitHub/Shelly_Pgenerosa/analyses/20200415/Prox_1000_sigDMR.bed" name="Prox_1000_sigDMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;13.0;255,255,255;0,0,178" fontSize="10" height="27" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR25bp_cov5x_rms_results_collapsed.tsv.DMR.bed" name="day10_AllpH_DMR25bp_cov5x_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;11.0;255,255,255;0,0,178" fontSize="10" height="28" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR50bp_cov5x_rms_results_collapsed.tsv.DMR.bed" name="day10_AllpH_DMR50bp_cov5x_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;13.0;255,255,255;0,0,178" fontSize="10" height="27" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR100bp_cov5x_rms_results_collapsed.tsv.DMR.bed" name="day10_AllpH_DMR100bp_cov5x_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;0,0,178" fontSize="10" height="27" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR150bp_cov5x_rms_results_collapsed.tsv.DMR.bed" name="day10_AllpH_DMR150bp_cov5x_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;11.0;255,255,255;0,0,178" fontSize="10" height="28" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR200bp_cov5x_rms_results_collapsed.tsv.DMR.bed" name="day10_AllpH_DMR200bp_cov5x_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;0,0,178" fontSize="10" height="27" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200327/day10_AllpH_DMR250bp_cov5x_rms_results_collapsed.tsv.DMR.bed" name="day10_AllpH_DMR250bp_cov5x_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;0,0,178" fontSize="10" height="28" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR300bp_cov5x_rms_results_collapsed.tsv.DMR.bed" name="day10_AllpH_DMR300bp_cov5x_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;11.0;255,255,255;0,0,178" fontSize="10" height="27" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR500bp_cov5x_rms_results_collapsed.tsv.DMR.bed" name="day10_AllpH_DMR500bp_cov5x_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+        <Track clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;10.0;255,255,255;0,0,178" fontSize="10" height="28" id="https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR1000bp_cov5x_rms_results_collapsed.tsv.DMR.bed" name="day10_AllpH_DMR1000bp_cov5x_rms_results_collapsed.tsv.DMR.bed" visible="true"/>
+    </Panel>
+    <HiddenAttributes>
+        <Attribute name="DATA FILE"/>
+        <Attribute name="DATA TYPE"/>
+        <Attribute name="NAME"/>
+    </HiddenAttributes>
+</Session>
