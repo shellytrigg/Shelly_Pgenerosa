@@ -1,0 +1,317 @@
+---
+title: "Untitled"
+author: "Shelly Trigg"
+date: "4/15/2020"
+output: html_document
+---
+
+load libraries
+```{r}
+library(data.table)
+library(ggplot2)
+library(dplyr)
+library(broom)
+library(tidyr)
+library(gplots)
+```
+
+
+read in files
+```{r}
+Prox_25 <- fread("https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR25bp_cov5x_rms_results_collapsed.tsv", header = TRUE, sep ="\t", stringsAsFactors = FALSE)
+
+Prox_50 <- fread("https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR50bp_cov5x_rms_results_collapsed.tsv", header = TRUE, sep ="\t", stringsAsFactors = FALSE)
+
+Prox_100 <- fread("https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR100bp_cov5x_rms_results_collapsed.tsv", header = TRUE, sep ="\t", stringsAsFactors = FALSE)
+
+Prox_150 <- fread("https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR150bp_cov5x_rms_results_collapsed.tsv", header = TRUE, sep ="\t", stringsAsFactors = FALSE)
+
+Prox_200 <- fread("https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR200bp_cov5x_rms_results_collapsed.tsv", header = TRUE, sep ="\t", stringsAsFactors = FALSE)
+
+Prox_250 <- fread("https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200327/day10_AllpH_DMR250bp_cov5x_rms_results_collapsed.tsv", header = TRUE, sep ="\t", stringsAsFactors = FALSE)
+
+Prox_300 <- fread("https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR300bp_cov5x_rms_results_collapsed.tsv", header = TRUE, sep ="\t", stringsAsFactors = FALSE)
+
+Prox_500 <- fread("https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR500bp_cov5x_rms_results_collapsed.tsv", header = TRUE, sep ="\t", stringsAsFactors = FALSE)
+
+Prox_1000 <- fread("https://gannet.fish.washington.edu/metacarcinus/Pgenerosa/analyses/20200415/day10_AllpH_DMR1000bp_cov5x_rms_results_collapsed.tsv", header = TRUE, sep ="\t", stringsAsFactors = FALSE)
+
+meta_data <- read.csv("../20200320_anno/Sample.Info.csv", stringsAsFactors = FALSE)
+
+```
+
+
+# Part 1:  Filter methylated regions for regions that have coverage in 75% of samples per group
+
+```{r}
+day10_DMR <- Prox_25
+df <- data.frame() #create empty data frame to bind filtered rows into
+for(i in (1:nrow(day10_DMR))){
+  LowpH <- day10_DMR[i,c(7,8,15,16)] #define columns from the category low pH
+  SuperLowpH <- day10_DMR[i,c(9,10,17,18)] #define columns from the category super low pH
+  amb <- day10_DMR[i,c(11:14)] #define columns from the category ambient
+  if(length(which(is.na(LowpH))) < 2 & length(which(is.na(SuperLowpH))) < 2 & length(which(is.na(amb))) < 2){
+    df <- rbind(df,day10_DMR[i,]) #conditional statement: if less than 2 sameples/category have NA for % methylation bind the whole row to the new dataframe
+  }
+}
+
+Prox_25_DMR <- df
+
+#50 bp
+day10_DMR <- Prox_50
+df <- data.frame() #create empty data frame to bind filtered rows into
+for(i in (1:nrow(day10_DMR))){
+  LowpH <- day10_DMR[i,c(7,8,15,16)] #define columns from the category low pH
+  SuperLowpH <- day10_DMR[i,c(9,10,17,18)] #define columns from the category super low pH
+  amb <- day10_DMR[i,c(11:14)] #define columns from the category ambient
+  if(length(which(is.na(LowpH))) < 2 & length(which(is.na(SuperLowpH))) < 2 & length(which(is.na(amb))) < 2){
+    df <- rbind(df,day10_DMR[i,]) #conditional statement: if less than 2 sameples/category have NA for % methylation bind the whole row to the new dataframe
+  }
+}
+
+Prox_50_DMR <- df
+
+
+#100 bp
+day10_DMR <- Prox_100
+df <- data.frame() #create empty data frame to bind filtered rows into
+for(i in (1:nrow(day10_DMR))){
+  LowpH <- day10_DMR[i,c(7,8,15,16)] #define columns from the category low pH
+  SuperLowpH <- day10_DMR[i,c(9,10,17,18)] #define columns from the category super low pH
+  amb <- day10_DMR[i,c(11:14)] #define columns from the category ambient
+  if(length(which(is.na(LowpH))) < 2 & length(which(is.na(SuperLowpH))) < 2 & length(which(is.na(amb))) < 2){
+    df <- rbind(df,day10_DMR[i,]) #conditional statement: if less than 2 sameples/category have NA for % methylation bind the whole row to the new dataframe
+  }
+}
+
+Prox_100_DMR <- df
+
+#150 bp
+day10_DMR <- Prox_150
+df <- data.frame() #create empty data frame to bind filtered rows into
+for(i in (1:nrow(day10_DMR))){
+  LowpH <- day10_DMR[i,c(7,8,15,16)] #define columns from the category low pH
+  SuperLowpH <- day10_DMR[i,c(9,10,17,18)] #define columns from the category super low pH
+  amb <- day10_DMR[i,c(11:14)] #define columns from the category ambient
+  if(length(which(is.na(LowpH))) < 2 & length(which(is.na(SuperLowpH))) < 2 & length(which(is.na(amb))) < 2){
+    df <- rbind(df,day10_DMR[i,]) #conditional statement: if less than 2 sameples/category have NA for % methylation bind the whole row to the new dataframe
+  }
+}
+
+Prox_150_DMR <- df
+
+
+#200 bp
+day10_DMR <- Prox_200
+df <- data.frame() #create empty data frame to bind filtered rows into
+for(i in (1:nrow(day10_DMR))){
+  LowpH <- day10_DMR[i,c(7,8,15,16)] #define columns from the category low pH
+  SuperLowpH <- day10_DMR[i,c(9,10,17,18)] #define columns from the category super low pH
+  amb <- day10_DMR[i,c(11:14)] #define columns from the category ambient
+  if(length(which(is.na(LowpH))) < 2 & length(which(is.na(SuperLowpH))) < 2 & length(which(is.na(amb))) < 2){
+    df <- rbind(df,day10_DMR[i,]) #conditional statement: if less than 2 sameples/category have NA for % methylation bind the whole row to the new dataframe
+  }
+}
+
+Prox_200_DMR <- df
+
+#250 bp
+day10_DMR <- Prox_250
+df <- data.frame() #create empty data frame to bind filtered rows into
+for(i in (1:nrow(day10_DMR))){
+  LowpH <- day10_DMR[i,c(7,8,15,16)] #define columns from the category low pH
+  SuperLowpH <- day10_DMR[i,c(9,10,17,18)] #define columns from the category super low pH
+  amb <- day10_DMR[i,c(11:14)] #define columns from the category ambient
+  if(length(which(is.na(LowpH))) < 2 & length(which(is.na(SuperLowpH))) < 2 & length(which(is.na(amb))) < 2){
+    df <- rbind(df,day10_DMR[i,]) #conditional statement: if less than 2 sameples/category have NA for % methylation bind the whole row to the new dataframe
+  }
+}
+
+Prox_250_DMR <- df
+
+#300 bp
+day10_DMR <- Prox_300
+df <- data.frame() #create empty data frame to bind filtered rows into
+for(i in (1:nrow(day10_DMR))){
+  LowpH <- day10_DMR[i,c(7,8,15,16)] #define columns from the category low pH
+  SuperLowpH <- day10_DMR[i,c(9,10,17,18)] #define columns from the category super low pH
+  amb <- day10_DMR[i,c(11:14)] #define columns from the category ambient
+  if(length(which(is.na(LowpH))) < 2 & length(which(is.na(SuperLowpH))) < 2 & length(which(is.na(amb))) < 2){
+    df <- rbind(df,day10_DMR[i,]) #conditional statement: if less than 2 sameples/category have NA for % methylation bind the whole row to the new dataframe
+  }
+}
+
+Prox_300_DMR <- df
+
+#500 bp
+day10_DMR <- Prox_500
+df <- data.frame() #create empty data frame to bind filtered rows into
+for(i in (1:nrow(day10_DMR))){
+  LowpH <- day10_DMR[i,c(7,8,15,16)] #define columns from the category low pH
+  SuperLowpH <- day10_DMR[i,c(9,10,17,18)] #define columns from the category super low pH
+  amb <- day10_DMR[i,c(11:14)] #define columns from the category ambient
+  if(length(which(is.na(LowpH))) < 2 & length(which(is.na(SuperLowpH))) < 2 & length(which(is.na(amb))) < 2){
+    df <- rbind(df,day10_DMR[i,]) #conditional statement: if less than 2 sameples/category have NA for % methylation bind the whole row to the new dataframe
+  }
+}
+
+Prox_500_DMR <- df
+
+#1000 bp
+day10_DMR <- Prox_1000
+df <- data.frame() #create empty data frame to bind filtered rows into
+for(i in (1:nrow(day10_DMR))){
+  LowpH <- day10_DMR[i,c(7,8,15,16)] #define columns from the category low pH
+  SuperLowpH <- day10_DMR[i,c(9,10,17,18)] #define columns from the category super low pH
+  amb <- day10_DMR[i,c(11:14)] #define columns from the category ambient
+  if(length(which(is.na(LowpH))) < 2 & length(which(is.na(SuperLowpH))) < 2 & length(which(is.na(amb))) < 2){
+    df <- rbind(df,day10_DMR[i,]) #conditional statement: if less than 2 sameples/category have NA for % methylation bind the whole row to the new dataframe
+  }
+}
+
+Prox_1000_DMR <- df
+
+#add proximity column to each df
+Prox_25_DMR$Proximity <- 25
+Prox_50_DMR$Proximity <- 50
+Prox_100_DMR$Proximity <- 100
+Prox_150_DMR$Proximity <- 150
+Prox_200_DMR$Proximity <- 200
+Prox_250_DMR$Proximity <- 250
+Prox_300_DMR$Proximity <- 300
+Prox_500_DMR$Proximity <- 500
+Prox_1000_DMR$Proximity <- 1000
+
+#fix first column name
+colnames(Prox_25_DMR)[1] <- "chr"
+colnames(Prox_50_DMR)[1] <- "chr"
+colnames(Prox_100_DMR)[1] <- "chr"
+colnames(Prox_150_DMR)[1] <- "chr"
+colnames(Prox_200_DMR)[1] <- "chr"
+colnames(Prox_250_DMR)[1] <- "chr"
+colnames(Prox_300_DMR)[1] <- "chr"
+colnames(Prox_500_DMR)[1] <- "chr"
+colnames(Prox_1000_DMR)[1] <- "chr"
+
+#combine all prox dfs
+prox_DMR <- rbind(Prox_25_DMR, Prox_50_DMR, Prox_100_DMR, Prox_150_DMR, Prox_200_DMR, Prox_250_DMR, Prox_300_DMR, Prox_500_DMR, Prox_1000_DMR)
+
+#create uniq DMR ID column
+prox_DMR$ID <- paste(prox_DMR$chr,":",prox_DMR$start,"-",prox_DMR$end, sep = "")
+
+#reformat all to long format
+prox_DMR_STACKED <- tidyr::gather(prox_DMR[,7:ncol(prox_DMR)], "Sample.ID", "perc.meth",1:12)
+
+#simplify sample ID column
+prox_DMR_STACKED$Sample.ID <- gsub("methylation_level_","", prox_DMR_STACKED$Sample.ID)
+prox_DMR_STACKED$Sample.ID <- gsub("-","_", prox_DMR_STACKED$Sample.ID)
+
+#merge with meta data
+prox_DMR_STACKED <- merge(prox_DMR_STACKED, meta_data, by = "Sample.ID")
+
+
+#arc sin sqrt transform the data
+#arcsin sqrt transformation function
+asinTransform <- function(p) { asin(sqrt(p))}
+
+#arcsin transform data 
+#day 10
+prox_DMR_STACKED_asin <- prox_DMR_STACKED
+prox_DMR_STACKED_asin$perc.meth <- asinTransform(prox_DMR_STACKED_asin$perc.meth)
+
+#run aov
+d10DMR_1way_aov_pH <- prox_DMR_STACKED_asin %>% group_by(Proximity,ID) %>%
+do(meth_aov_models = aov(perc.meth~Initial.Treatment, data =  . ))
+#summarize ANOVA data
+d10DMR_1way_aov_pH_modelsumm <- glance(d10DMR_1way_aov_pH, meth_aov_models)
+
+#subset sig. DMRs at p < 0.05
+d10DMR_1way_aov_pH_modelsumm_0.05 <- d10DMR_1way_aov_pH_modelsumm[which(d10DMR_1way_aov_pH_modelsumm$p.value < 0.05),]
+
+```
+
+plot num DMRs x proximity
+```{r}
+#Create table with proximity and num DMRs identified
+numDMRs <- data.frame(cbind(proximity = c(25,50,100,150,200,250,300,500,1000), numDMRs = c(nrow(Prox_25), nrow(Prox_50), nrow(Prox_100), nrow(Prox_150), nrow(Prox_200), nrow(Prox_250), nrow(Prox_300), nrow(Prox_500), nrow(Prox_1000))))
+
+#create table with numFilteredDMRs
+numFiltDMRs <- data.frame(table(prox_DMR$Proximity))
+colnames(numFiltDMRs) <- c("proximity", "Filt_DMRs")
+
+#create table with numSigDMRs
+numSigDMRs <- data.frame(table(d10DMR_1way_aov_pH_modelsumm_0.05$Proximity))
+colnames(numSigDMRs) <- c("proximity", "Sig_DMRs")
+
+#merge filtered DMRs with total DMRs
+numDMRs <- merge(numDMRs, numFiltDMRs, by = "proximity")
+numDMRs <- merge(numDMRs, numSigDMRs, by = "proximity")
+
+#plot
+ggplot(tidyr::gather(numDMRs,"DMRtype", "number", 2:4),aes(proximity, number, color = DMRtype)) + geom_point() + ylab("number of DMRs") + xlab("proximity of DMS (bp)") 
+
+jpeg("DMR_x_CpGprox_scatterplot.jpg", width = 6, height = 7, units = "in", res = 300)
+ggplot(numSigDMRs, aes(proximity, Sig_DMRs)) + geom_point()
+dev.off()
+```
+
+Create bed files with sig DMRs
+```{r}
+d10DMR_1way_aov_pH_modelsumm_0.05$chr <- gsub(":.*","",d10DMR_1way_aov_pH_modelsumm_0.05$ID)
+
+d10DMR_1way_aov_pH_modelsumm_0.05$start <- gsub(".*:","",d10DMR_1way_aov_pH_modelsumm_0.05$ID)
+
+d10DMR_1way_aov_pH_modelsumm_0.05$start <- gsub("-.*","",d10DMR_1way_aov_pH_modelsumm_0.05$start)
+
+d10DMR_1way_aov_pH_modelsumm_0.05$end <- gsub(".*-","",d10DMR_1way_aov_pH_modelsumm_0.05$ID)
+
+DMR_bed <- d10DMR_1way_aov_pH_modelsumm_0.05[,c("Proximity","chr", "start", "end", "p.value")]
+
+for(i in 1:length(unique(DMR_bed$Proximity))){
+  write.table(DMR_bed[which(DMR_bed$Proximity==unique(DMR_bed$Proximity)[i]),c(2:4,1)], paste("Prox",unique(DMR_bed$Proximity)[i],"sigDMR.bed", sep = "_"), sep = "\t",quote = FALSE, row.names = FALSE, col.names = FALSE)
+}
+
+```
+
+plot DMR lengths
+```{r}
+d10DMR_1way_aov_pH_modelsumm_0.05$length <- (as.numeric(d10DMR_1way_aov_pH_modelsumm_0.05$end)-as.numeric(d10DMR_1way_aov_pH_modelsumm_0.05$start))
+
+jpeg("CpGprox_x_DMRlength_boxplots.jpg", width = 5, height = 4, units = "in", res = 300)
+ggplot(d10DMR_1way_aov_pH_modelsumm_0.05, aes(x = as.factor(Proximity), y = length)) + geom_boxplot(aes(fill = as.factor(Proximity))) + xlab("DMS proximity (bp)") + ylab("DMR length") + theme_bw() + theme(legend.position="none")
+dev.off()
+```
+
+
+# Check for DMR overlap among DMRs ID'd from different proxim.
+```{r}
+#plot DMR frequencies 
+DMR_freq <- data.frame(table(d10DMR_1way_aov_pH_modelsumm_0.05$ID))
+
+#jpeg("DMR_exact_overlap_histogram.jpg", width = 6, height = 5, units = "in", res = 300)
+ggplot(DMR_freq) + geom_histogram(aes(Freq), stat = "count")
+dev.off()
+
+# this shows most DMRs do not exactly overlap
+
+#but do they intersect?
+
+#made overlap matrix bedtools intersect overlap of all DMR bed files from jupyter notebook in ../analyses/20200416_ProxTest_feat.ipynb
+
+DMR_overlap <- read.csv("DMR_overlap_matrix.csv", header = TRUE, sep = ",", quote = "")
+
+DMR_overlap_m <- as.matrix(DMR_overlap[,2:ncol(DMR_overlap)])
+colnames(DMR_overlap_m) <- gsub("X","", colnames(DMR_overlap_m))
+rownames(DMR_overlap_m) <- DMR_overlap$X
+
+jpeg("DMR_interesect_heatmap.jpg", width = 7, height = 6, units = "in", res = 300)
+heatmap.2(DMR_overlap_m, col= rev(colorRampPalette(RColorBrewer::brewer.pal(10, "RdYlBu"))(256)),Rowv = NA, Colv = NA, density.info = "none", trace = "none", scale = "none")
+dev.off()
+
+#try normalized as fraction of DMRs that overlap
+DMR_norm_overlap <- DMR_overlap_m/numSigDMRs[order(numSigDMRs$proximity, decreasing = TRUE),"Sig_DMRs"]
+
+jpeg("DMR_norm_intersect_heatmap.jpg", width = 7, height = 6, units = "in", res = 300)
+heatmap.2(DMR_norm_overlap, col= rev(colorRampPalette(RColorBrewer::brewer.pal(10, "RdYlBu"))(256)),Rowv = NA,Colv = NA, density.info = "none", trace = "none", scale = "none")
+dev.off()
+```
