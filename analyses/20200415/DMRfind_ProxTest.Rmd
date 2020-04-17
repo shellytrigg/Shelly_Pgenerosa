@@ -248,13 +248,13 @@ numDMRs <- merge(numDMRs, numFiltDMRs, by = "proximity")
 numDMRs <- merge(numDMRs, numSigDMRs, by = "proximity")
 
 #plot
-jpeg("DMR_x_CpGprox_scatterplot.jpg", width = 6, height = 7, units = "in", res = 300)
-ggplot(tidyr::gather(numDMRs,"DMRtype", "number", 2:4),aes(proximity, number, color = DMRtype)) + geom_point() + ylab("number of DMRs") + xlab("proximity of DMS (bp)") 
+jpeg("DMR_x_CpGprox_scatterplot.jpg", width = 4, height = 3, units = "in", res = 300)
+ggplot(tidyr::gather(numDMRs,"DMRtype", "number", 2:4),aes(proximity, number, color = DMRtype)) + geom_point() + ylab("number of DMRs") + xlab("proximity of DMS (bp)") + theme_bw()
 dev.off()
 
 #plot just significant DMRs
-jpeg("sigDMR_x_CpGprox_scatterplot.jpg", width = 6, height = 7, units = "in", res = 300)
-ggplot(numSigDMRs, aes(proximity, Sig_DMRs)) + geom_point()
+jpeg("sigDMR_x_CpGprox_scatterplot.jpg", width = 4, height = 3, units = "in", res = 300)
+ggplot(numSigDMRs, aes(proximity, Sig_DMRs)) + geom_point() +theme_bw()
 dev.off()
 ```
 
@@ -280,7 +280,7 @@ plot DMR lengths
 ```{r}
 d10DMR_1way_aov_pH_modelsumm_0.05$length <- (as.numeric(d10DMR_1way_aov_pH_modelsumm_0.05$end)-as.numeric(d10DMR_1way_aov_pH_modelsumm_0.05$start))
 
-jpeg("CpGprox_x_DMRlength_boxplots.jpg", width = 5, height = 4, units = "in", res = 300)
+jpeg("CpGprox_x_DMRlength_boxplots.jpg", width = 4, height = 3, units = "in", res = 300)
 ggplot(d10DMR_1way_aov_pH_modelsumm_0.05, aes(x = as.factor(Proximity), y = length)) + geom_boxplot(aes(fill = as.factor(Proximity))) + xlab("DMS proximity (bp)") + ylab("DMR length") + theme_bw() + theme(legend.position="none")
 dev.off()
 ```
