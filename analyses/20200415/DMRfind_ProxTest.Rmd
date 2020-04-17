@@ -248,9 +248,12 @@ numDMRs <- merge(numDMRs, numFiltDMRs, by = "proximity")
 numDMRs <- merge(numDMRs, numSigDMRs, by = "proximity")
 
 #plot
-ggplot(tidyr::gather(numDMRs,"DMRtype", "number", 2:4),aes(proximity, number, color = DMRtype)) + geom_point() + ylab("number of DMRs") + xlab("proximity of DMS (bp)") 
-
 jpeg("DMR_x_CpGprox_scatterplot.jpg", width = 6, height = 7, units = "in", res = 300)
+ggplot(tidyr::gather(numDMRs,"DMRtype", "number", 2:4),aes(proximity, number, color = DMRtype)) + geom_point() + ylab("number of DMRs") + xlab("proximity of DMS (bp)") 
+dev.off()
+
+#plot just significant DMRs
+jpeg("sigDMR_x_CpGprox_scatterplot.jpg", width = 6, height = 7, units = "in", res = 300)
 ggplot(numSigDMRs, aes(proximity, Sig_DMRs)) + geom_point()
 dev.off()
 ```
